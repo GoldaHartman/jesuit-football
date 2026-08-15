@@ -68,6 +68,16 @@ function esc(text) {
 
 const el = (id) => document.getElementById(id);
 
+/* Which build this page is running, read off our own script tag — the build
+   stamps it with a content hash. Shown in Info so a parent stuck on an old
+   copy can tell you which one they actually have.
+   Declared up here because renderInfo() uses it during the first render. */
+const BUILD = (() => {
+  const tag = document.querySelector('script[src*="app.js"]');
+  const match = tag && tag.getAttribute('src').match(/v=([a-f0-9]+)/);
+  return match ? match[1] : 'dev';
+})();
+
 // ---------------------------------------------------------------- lookups
 
 const CAL_BY_DATE = Object.fromEntries(CALENDAR.days.map((d) => [d.date, d]));
@@ -1194,7 +1204,8 @@ function renderInfo() {
     </div>`).join('');
   html += '</div>';
 
-  html += `<div class="footnote">Built from the coach's 2026/27 calendar and the parent welcome letter.<br>Player names and family contact details are deliberately not in this app.</div>`;
+  html += `<div class="footnote">Built from the coach's 2026/27 calendar and the parent welcome letter.<br>Player names and family contact details are deliberately not in this app.<br><br>
+    <span class="muted">Version ${esc(BUILD)}</span> · <button type="button" class="linkish" id="force-refresh">Force refresh</button></div>`;
 
   el('view-info').innerHTML = html;
 }
@@ -1263,6 +1274,19 @@ document.body.addEventListener('click', (event) => {
   const sheet = event.target.closest('#daysheet');
   if (sheet && !event.target.closest('.sheet-panel')) { closeSheet(); return; }
 
+  // escape hatch: wipe every cache and re-fetch, for when a phone is stuck
+  if (event.target.closest('#force-refresh')) {
+    event.target.textContent = 'Refreshing…';
+    Promise.resolve()
+      .then(() => 'serviceWorker' in navigator
+        ? navigator.serviceWorker.getRegistrations().then((rs) => Promise.all(rs.map((r) => r.unregister())))
+        : null)
+      .then(() => (window.caches ? caches.keys().then((ks) => Promise.all(ks.map((k) => caches.delete(k)))) : null))
+      .catch(() => {})
+      .then(() => location.reload());
+    return;
+  }
+
   const dayRow = event.target.closest('[data-day]');
   if (dayRow) { openDay(dayRow.dataset.day); return; }
 
@@ -1307,6 +1331,34 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden && todayISO() !== renderedOn) { renderedOn = todayISO(); renderAll(); }
 });
 
+/*
+ * Keep installed home-screen copies from getting stuck on an old version.
+ *
+ * index.html carries the hashed asset URLs, but nothing busts index.html
+ * itself — so a phone can cache it and keep loading last week's app forever.
+ * The service worker fetches network-first, so when it picks up a new build it
+ * takes over; that fires controllerchange, and we reload once to pick it up.
+ */
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+  const hadController = Boolean(navigator.serviceWorker.controller);
+  let reloading = false;
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    // on a first-ever visit there was no old worker, so nothing is stale
+    if (!hadController || reloading) return;
+    reloading = true;
+    location.reload();
+  });
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then((reg) => {
+        reg.update();
+        // check again when the app is reopened from the home screen
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden) reg.update();
+        });
+      })
+      .catch(() => {});
+  });
 }
