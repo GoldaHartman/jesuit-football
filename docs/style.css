@@ -379,6 +379,14 @@ ul.bullets li:last-child { margin-bottom: 0; }
   color: #fff;
 }
 
+/* a picker with no heading above it is just a mystery row of chips */
+.picker-label {
+  font-size: 13.5px;
+  font-weight: 650;
+  color: var(--text);
+  margin: 4px 0 8px;
+}
+
 /* team picker — four chips, always one row even on a small phone */
 .picker.four button {
   flex: 1 1 0;

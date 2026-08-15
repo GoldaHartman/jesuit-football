@@ -129,6 +129,19 @@ function currentGrade() {
   return saved && GRADE_BY_NAME[saved] ? GRADE_BY_NAME[saved] : null;
 }
 
+/* The pickers say "12th" but the welcome letter says "Senior", and mixing the
+   two reads like they're different things. Everything user-facing goes through
+   these, so the app speaks one language. */
+function gradeShort(name) {
+  const g = GRADE_BY_NAME[name];
+  return g ? `${g.shortLabel} grade` : name;
+}
+
+function gradeLong(name) {
+  const g = GRADE_BY_NAME[name];
+  return g ? `${g.shortLabel} grade (${g.name})` : name;
+}
+
 function setGrade(name) {
   localStorage.setItem(SAVED_GRADE, name);
   renderAll();
@@ -469,10 +482,13 @@ function renderToday() {
     html += `<div class="card"><div class="rest-day">No more ${esc(TEAM_FULL[team])} games on the calendar. Go Jays!</div></div>`;
   }
 
-  // --- team switcher, so you can flip without leaving Today
-  html += `<div class="picker four" style="margin-top:-2px">
-    ${TEAMS.map((t) => `<button data-team="${esc(t)}" class="${t === team ? 'on' : ''}">${esc(TEAM_LABEL[t])}</button>`).join('')}
-  </div>`;
+  // --- team switcher. Labelled, because the grade picker below uses chips that
+  //     look identical and two of the labels ("8th", "9th") are the same word.
+  html += `<div class="picker-label">Which team is your son on?</div>
+    <div class="picker four">
+      ${TEAMS.map((t) => `<button data-team="${esc(t)}" class="${t === team ? 'on' : ''}">${esc(TEAM_LABEL[t])}</button>`).join('')}
+    </div>
+    <div class="footnote" style="margin:-4px 0 4px">That sets the countdown above and the Games tab.</div>`;
 
   // --- deadlines creeping up (ad deadlines, Senior Night) — easy to miss
   const soon = (SEASON.keyDates || [])
@@ -499,10 +515,10 @@ function renderToday() {
     const out = daysBetween(iso, nextVarsity.date);
     const tasks = tasksFor(grade, nextVarsity);
     if (tasks.length) {
-      html += `<h2 class="section">Game-time notes · ${esc(grade.name)} class${out <= 7 ? '' : ' · next game week'}</h2>`;
+      html += `<h2 class="section">Game-time notes · ${esc(gradeShort(grade.name))}${out <= 7 ? '' : ' · next game week'}</h2>`;
       html += '<div class="card">';
       if (grade.name === nextVarsity.mealGrade) {
-        html += `<div class="task-flag"><strong>Your grade has the pre-game meal</strong> for ${esc(nextVarsity.opponent)} on ${esc(shortDate(nextVarsity.date))}.</div>`;
+        html += `<div class="task-flag"><strong>Your class has the pre-game meal</strong> for ${esc(nextVarsity.opponent)} on ${esc(shortDate(nextVarsity.date))}.</div>`;
       }
       html += tasks.map((t) => `
         <div class="task${t.yours ? ' yours' : ''}">
@@ -518,7 +534,7 @@ function renderToday() {
     html += `
       <div class="card">
         <div class="eyebrow">Set this once</div>
-        <div style="font-size:15px;margin-bottom:11px">Pick your son's grade for game-time notes for your class.</div>
+        <div style="font-size:15px;margin-bottom:11px">Which grade is your son in? This is his school year, not his team — it sets the game-time notes for your class.</div>
         <div class="picker">
           ${SEASON.grades.map((g) => `<button data-grade="${esc(g.name)}">${esc(g.shortLabel)}</button>`).join('')}
         </div>
@@ -559,7 +575,7 @@ function renderGameView() {
   const prefix = g.type === 'preseason' ? '' : (g.isHome ? 'vs ' : 'at ');
   const badges = g.type === 'team'
     ? `<span class="badge ${g.isHome ? 'home' : 'away'}">${g.isHome ? 'Home' : 'Away'}</span>${g.isDistrict ? '<span class="badge district">District</span>' : ''}`
-    : badgesFor(g.raw) + (g.mealGrade ? `<span class="badge">${esc(g.mealGrade)} meal</span>` : '');
+    : badgesFor(g.raw) + (g.mealGrade ? `<span class="badge">${esc(GRADE_BY_NAME[g.mealGrade] ? GRADE_BY_NAME[g.mealGrade].shortLabel : g.mealGrade)} meal</span>` : '');
 
   let html = `<button class="linkish" data-goto="schedule" style="padding-left:0;margin-bottom:6px">‹ All ${esc(TEAM_FULL[team])} games</button>`;
 
@@ -601,7 +617,7 @@ function renderGameView() {
   if (grade && g.raw && g.type !== 'team') {
     const tasks = tasksFor(grade, g.raw);
     if (tasks.length) {
-      html += `<h2 class="section">${esc(grade.name)} class — for this game</h2><div class="card">`;
+      html += `<h2 class="section">${esc(gradeShort(grade.name))} — for this game</h2><div class="card">`;
       html += tasks.map((t) => `
         <div class="task${t.yours ? ' yours' : ''}">
           <div class="icon">${t.icon}</div>
@@ -634,7 +650,7 @@ function gameDetail(g) {
   html += `<a class="big-action secondary" style="margin-top:11px" href="${esc(mapsUrl(venue.address || venue.name))}" target="_blank" rel="noopener">Open in Maps</a>`;
 
   if (g.mealGrade) {
-    html += `<div class="rule"><div class="lbl">Pre-game meal</div><div class="txt">${esc(g.mealGrade)} class</div></div>`;
+    html += `<div class="rule"><div class="lbl">Pre-game meal</div><div class="txt">${esc(gradeLong(g.mealGrade))}</div></div>`;
   }
   if (g.notes) {
     html += `<div class="rule"><div class="lbl">Note</div><div class="txt">${esc(g.notes)}</div></div>`;
@@ -719,7 +735,7 @@ function renderSchedule() {
     const prefix = g.type === 'preseason' ? '' : (g.isHome ? 'vs ' : 'at ');
     const badges = g.type === 'team'
       ? `<span class="badge ${g.isHome ? 'home' : 'away'}">${g.isHome ? 'Home' : 'Away'}</span>${g.isDistrict ? '<span class="badge district">District</span>' : ''}`
-      : badgesFor(g.raw) + (g.mealGrade ? `<span class="badge">${esc(g.mealGrade)} meal</span>` : '');
+      : badgesFor(g.raw) + (g.mealGrade ? `<span class="badge">${esc(GRADE_BY_NAME[g.mealGrade] ? GRADE_BY_NAME[g.mealGrade].shortLabel : g.mealGrade)} meal</span>` : '');
 
     const result = resultFor(g);
 
@@ -1101,7 +1117,7 @@ function renderGrade() {
 
   html += `
     <div class="card">
-      <div class="eyebrow">${esc(grade.shortLabel)} grade · ${esc(grade.classYear)}</div>
+      <div class="eyebrow">${esc(gradeLong(grade.name))} · ${esc(grade.classYear)}</div>
       <div class="row"><span class="k">Usually plays</span><span class="v">${esc(grade.teamBlurb)}</span></div>
       <div class="row"><span class="k">Your grade mom</span><span class="v">${esc(grade.gradeMom)}</span></div>
       <div class="row"><span class="k">Grade dues</span><span class="v">${grade.dues ? '$' + grade.dues : 'Baseline only'}</span></div>
@@ -1302,7 +1318,7 @@ function renderInfo() {
   html += '<h2 class="section">Grade moms</h2><div class="card">';
   html += SEASON.gradeMoms.map((m) => `
     <div class="row">
-      <span class="k">${esc(m.grade)}</span>
+      <span class="k">${esc(gradeShort(m.grade))}</span>
       <span class="v"><a class="link" href="mailto:${esc(m.email)}">${esc(m.name)}</a></span>
     </div>`).join('');
   html += '</div>';
