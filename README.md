@@ -14,8 +14,8 @@ Built for the Class of 2027 season by the grade moms.
 | Tab | What it does |
 | --- | --- |
 | **Today** | Today's practice and times straight off the coach's calendar, a countdown to your team's next game, and your class's game-time notes for that week |
-| **Games** | Switch between **8th · 9th · JV · Varsity** and see that team's full schedule |
-| **Calendar** | Every practice, workout, and event, Aug 2026 through Jul 2027. Opens on today, with a sticky month dropdown to jump anywhere in the season |
+| **Games** | Switch between **8th · 9th · JV · Varsity**. Tap a game for kickoff, address, Maps link, bag policy, parking, and tickets |
+| **Calendar** | Football and Jesuit's school calendar together. Tap any day for the full picture, football highlighted. Sticky month dropdown |
 | **My Grade** | Pick your son's grade once. Dues, Venmo handle, tailgate category, what your class takes on, your pre-game meal weeks, and your grade mom's contact |
 | **Info** | Bag policy and parking for all 8 venues, traditions, grade moms, photographers, vacation dates |
 
@@ -94,6 +94,7 @@ run `build_web_data.py`, redeploy.
 | --- | --- |
 | `data/calendar.json` | Generated from the coach's *2026 FOOTBALL CALENDAR* PDF — 277 days |
 | `data/season.json` | Hand-built from the *2026 Football Welcome Letter* and the official varsity schedule |
+| `data/school_calendar.json` | Jesuit's official *2026-27 Important Dates* PDF, transcribed. Cross-checks the football calendar: Registration Day, 1st Quarter, and exam weeks all agree |
 | `teamGames` in `docs/data.js` | Derived at build time — the 8th/9th/JV games the coach buried inside day cells like `"JH vs Shaw 6:30"` |
 
 Sub-varsity times are printed **exactly as the coach wrote them**, with no AM/PM

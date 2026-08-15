@@ -99,6 +99,14 @@ def stamp_build_version():
     return build
 
 
+def load_school():
+    """Jesuit's official Important Dates, keyed by day."""
+    path = DATA / "school_calendar.json"
+    if not path.exists():
+        return {"days": {}}
+    return json.loads(path.read_text())
+
+
 def load_this_week():
     """The coach's posted week, if sunday_update.py has fetched one."""
     path = DATA / "this_week.json"
@@ -121,6 +129,7 @@ def main():
     season["teamGames"] = extract_team_games(calendar)
     photos = load_photos()
     this_week = load_this_week()
+    school = load_school()
 
     # the album link lives in season.json so it can be edited without
     # re-running the photo pipeline
@@ -134,7 +143,8 @@ def main():
         f"const SEASON = {json.dumps(season, indent=2)};\n\n"
         f"const CALENDAR = {json.dumps(calendar, indent=2)};\n\n"
         f"const PHOTOS = {json.dumps(photos, indent=2)};\n\n"
-        f"const THIS_WEEK = {json.dumps(this_week, indent=2)};\n"
+        f"const THIS_WEEK = {json.dumps(this_week, indent=2)};\n\n"
+        f"const SCHOOL = {json.dumps(school, indent=2)};\n"
     )
 
     days = len(calendar["days"])
@@ -157,6 +167,7 @@ def main():
     print(f"  build {build} stamped into index.html and sw.js — no manual cache bump needed")
     print("  this week: " + (f"{len(this_week['days'])} days from the coach, posted {this_week['postedOn']}"
                             if this_week else "none yet — run tools/sunday_update.py"))
+    print(f"  school calendar: {len(school['days'])} dated days")
     print("  calendar feeds: " + ", ".join(f"{n.replace('jesuit-', '').replace('.ics', '')} {c}"
                                            for n, c in feeds.items()))
 

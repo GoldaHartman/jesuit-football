@@ -3079,3 +3079,587 @@ const PHOTOS = {
 };
 
 const THIS_WEEK = null;
+
+const SCHOOL = {
+  "source": "Jesuit High School \u2014 2026-27 Important Dates",
+  "url": "https://cdn.jesuitnola.org/wp-content/uploads/2026/01/2026-27-Important-Dates-2.pdf",
+  "days": {
+    "2026-08-03": [
+      {
+        "title": "Archdiocesan Day of Reflection",
+        "detail": "",
+        "audience": "faculty"
+      }
+    ],
+    "2026-08-06": [
+      {
+        "title": "Faculty Inservice",
+        "detail": "",
+        "audience": "faculty"
+      }
+    ],
+    "2026-08-07": [
+      {
+        "title": "Faculty Inservice",
+        "detail": "",
+        "audience": "faculty"
+      }
+    ],
+    "2026-08-10": [
+      {
+        "title": "Faculty Inservice",
+        "detail": "",
+        "audience": "faculty"
+      }
+    ],
+    "2026-08-11": [
+      {
+        "title": "Registration Day",
+        "detail": "",
+        "audience": "all"
+      }
+    ],
+    "2026-08-12": [
+      {
+        "title": "New Students' Orientation",
+        "detail": "",
+        "audience": "all"
+      }
+    ],
+    "2026-08-13": [
+      {
+        "title": "1st Quarter Begins",
+        "detail": "All classes meet",
+        "audience": "all"
+      }
+    ],
+    "2026-08-19": [
+      {
+        "title": "New Parents' Orientation",
+        "detail": "6 p.m.",
+        "audience": "all"
+      },
+      {
+        "title": "Mini-Schedule (8th & 9th)",
+        "detail": "7 p.m.",
+        "audience": "all"
+      }
+    ],
+    "2026-08-26": [
+      {
+        "title": "Mini-Schedule (10th \u2013 12th)",
+        "detail": "6 p.m.",
+        "audience": "all"
+      }
+    ],
+    "2026-09-04": [
+      {
+        "title": "Mass of the Holy Spirit",
+        "detail": "9th \u2013 12th dismissed after Mass",
+        "audience": "all"
+      },
+      {
+        "title": "Pre-Freshman Retreat",
+        "detail": "7:45 a.m. \u2013 2 p.m.",
+        "audience": "all"
+      }
+    ],
+    "2026-09-07": [
+      {
+        "title": "Labor Day Holiday",
+        "detail": "",
+        "audience": "holiday"
+      }
+    ],
+    "2026-09-12": [
+      {
+        "title": "Senior Ring Mass",
+        "detail": "4:00 p.m.",
+        "audience": "all"
+      }
+    ],
+    "2026-09-14": [
+      {
+        "title": "Senior Ring Holiday",
+        "detail": "",
+        "audience": "holiday"
+      }
+    ],
+    "2026-10-12": [
+      {
+        "title": "1st Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2026-10-12..2026-10-16"
+      }
+    ],
+    "2026-10-13": [
+      {
+        "title": "1st Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2026-10-12..2026-10-16"
+      }
+    ],
+    "2026-10-14": [
+      {
+        "title": "1st Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2026-10-12..2026-10-16"
+      }
+    ],
+    "2026-10-15": [
+      {
+        "title": "1st Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2026-10-12..2026-10-16"
+      }
+    ],
+    "2026-10-16": [
+      {
+        "title": "1st Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2026-10-12..2026-10-16"
+      },
+      {
+        "title": "Freshman Retreat",
+        "detail": "9:00 a.m.",
+        "audience": "all"
+      }
+    ],
+    "2026-10-19": [
+      {
+        "title": "PSAT for 10th & 11th",
+        "detail": "",
+        "audience": "all"
+      }
+    ],
+    "2026-11-04": [
+      {
+        "title": "Open House",
+        "detail": "Dismissal at 1:04 p.m.",
+        "audience": "all"
+      }
+    ],
+    "2026-11-05": [
+      {
+        "title": "Holiday for Students, Faculty, and Staff",
+        "detail": "",
+        "audience": "holiday"
+      }
+    ],
+    "2026-11-25": [
+      {
+        "title": "Delivery of Thanksgiving Baskets",
+        "detail": "School offices close at noon",
+        "audience": "all"
+      }
+    ],
+    "2026-11-26": [
+      {
+        "title": "Thanksgiving Holidays",
+        "detail": "",
+        "audience": "holiday",
+        "partOf": "2026-11-26..2026-11-27"
+      }
+    ],
+    "2026-11-27": [
+      {
+        "title": "Thanksgiving Holidays",
+        "detail": "",
+        "audience": "holiday",
+        "partOf": "2026-11-26..2026-11-27"
+      }
+    ],
+    "2026-12-14": [
+      {
+        "title": "2nd Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2026-12-14..2026-12-18"
+      }
+    ],
+    "2026-12-15": [
+      {
+        "title": "2nd Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2026-12-14..2026-12-18"
+      }
+    ],
+    "2026-12-16": [
+      {
+        "title": "2nd Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2026-12-14..2026-12-18"
+      }
+    ],
+    "2026-12-17": [
+      {
+        "title": "2nd Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2026-12-14..2026-12-18"
+      }
+    ],
+    "2026-12-18": [
+      {
+        "title": "2nd Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2026-12-14..2026-12-18"
+      }
+    ],
+    "2026-12-21": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2026-12-22": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2026-12-23": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2026-12-24": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2026-12-25": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2026-12-26": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2026-12-27": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2026-12-28": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2026-12-29": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2026-12-30": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2026-12-31": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2027-01-01": [
+      {
+        "title": "Christmas Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2026-12-21..2027-01-01"
+      }
+    ],
+    "2027-01-04": [
+      {
+        "title": "Faculty Retreat",
+        "detail": "Holidays for students",
+        "audience": "holiday",
+        "partOf": "2027-01-04..2027-01-05"
+      }
+    ],
+    "2027-01-05": [
+      {
+        "title": "Faculty Retreat",
+        "detail": "Holidays for students",
+        "audience": "holiday",
+        "partOf": "2027-01-04..2027-01-05"
+      }
+    ],
+    "2027-01-06": [
+      {
+        "title": "Classes Resume",
+        "detail": "",
+        "audience": "all"
+      }
+    ],
+    "2027-01-18": [
+      {
+        "title": "Martin Luther King, Jr. Day",
+        "detail": "Holiday for students, faculty, and staff",
+        "audience": "holiday"
+      }
+    ],
+    "2027-02-08": [
+      {
+        "title": "Mardi Gras Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2027-02-08..2027-02-12"
+      }
+    ],
+    "2027-02-09": [
+      {
+        "title": "Mardi Gras Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2027-02-08..2027-02-12"
+      }
+    ],
+    "2027-02-10": [
+      {
+        "title": "Mardi Gras Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2027-02-08..2027-02-12"
+      }
+    ],
+    "2027-02-11": [
+      {
+        "title": "Mardi Gras Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2027-02-08..2027-02-12"
+      }
+    ],
+    "2027-02-12": [
+      {
+        "title": "Mardi Gras Holidays",
+        "detail": "Students & faculty",
+        "audience": "holiday",
+        "partOf": "2027-02-08..2027-02-12"
+      }
+    ],
+    "2027-03-08": [
+      {
+        "title": "3rd Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-03-08..2027-03-12"
+      }
+    ],
+    "2027-03-09": [
+      {
+        "title": "3rd Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-03-08..2027-03-12"
+      }
+    ],
+    "2027-03-10": [
+      {
+        "title": "3rd Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-03-08..2027-03-12"
+      }
+    ],
+    "2027-03-11": [
+      {
+        "title": "3rd Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-03-08..2027-03-12"
+      }
+    ],
+    "2027-03-12": [
+      {
+        "title": "3rd Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-03-08..2027-03-12"
+      },
+      {
+        "title": "PSAT for 8th & 9th",
+        "detail": "",
+        "audience": "all"
+      }
+    ],
+    "2027-03-25": [
+      {
+        "title": "Easter Holidays",
+        "detail": "",
+        "audience": "holiday",
+        "partOf": "2027-03-25..2027-03-29"
+      }
+    ],
+    "2027-03-26": [
+      {
+        "title": "Easter Holidays",
+        "detail": "",
+        "audience": "holiday",
+        "partOf": "2027-03-25..2027-03-29"
+      }
+    ],
+    "2027-03-27": [
+      {
+        "title": "Easter Holidays",
+        "detail": "",
+        "audience": "holiday",
+        "partOf": "2027-03-25..2027-03-29"
+      }
+    ],
+    "2027-03-28": [
+      {
+        "title": "Easter Holidays",
+        "detail": "",
+        "audience": "holiday",
+        "partOf": "2027-03-25..2027-03-29"
+      }
+    ],
+    "2027-03-29": [
+      {
+        "title": "Easter Holidays",
+        "detail": "",
+        "audience": "holiday",
+        "partOf": "2027-03-25..2027-03-29"
+      }
+    ],
+    "2027-05-03": [
+      {
+        "title": "Senior Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-05-03..2027-05-06"
+      }
+    ],
+    "2027-05-04": [
+      {
+        "title": "Senior Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-05-03..2027-05-06"
+      }
+    ],
+    "2027-05-05": [
+      {
+        "title": "Senior Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-05-03..2027-05-06"
+      }
+    ],
+    "2027-05-06": [
+      {
+        "title": "Senior Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-05-03..2027-05-06"
+      }
+    ],
+    "2027-05-15": [
+      {
+        "title": "Baccalaureate Mass",
+        "detail": "5 p.m.",
+        "audience": "all"
+      }
+    ],
+    "2027-05-17": [
+      {
+        "title": "4th Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-05-17..2027-05-21"
+      }
+    ],
+    "2027-05-18": [
+      {
+        "title": "4th Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-05-17..2027-05-21"
+      }
+    ],
+    "2027-05-19": [
+      {
+        "title": "4th Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-05-17..2027-05-21"
+      }
+    ],
+    "2027-05-20": [
+      {
+        "title": "4th Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-05-17..2027-05-21"
+      },
+      {
+        "title": "Commencement Rehearsal",
+        "detail": "9 a.m.",
+        "audience": "all"
+      },
+      {
+        "title": "Commencement Exercises",
+        "detail": "8 p.m.",
+        "audience": "all"
+      }
+    ],
+    "2027-05-21": [
+      {
+        "title": "4th Quarter Exams",
+        "detail": "",
+        "audience": "all",
+        "partOf": "2027-05-17..2027-05-21"
+      }
+    ],
+    "2027-05-24": [
+      {
+        "title": "Class of 2029 Interviews",
+        "detail": "8 \u2013 10:30 a.m.",
+        "audience": "all"
+      }
+    ]
+  }
+};

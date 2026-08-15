@@ -557,6 +557,100 @@ nav.tabs button.on { color: var(--jay); }
   cursor: pointer;
 }
 
+/* ---------- day sheet ---------- */
+
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(4, 10, 22, .55);
+  display: flex;
+  align-items: flex-end;
+}
+.sheet[hidden] { display: none; }
+
+.sheet-panel {
+  position: relative;
+  width: 100%;
+  max-height: 86vh;
+  overflow-y: auto;
+  background: var(--bg);
+  border-radius: 18px 18px 0 0;
+  padding: 20px var(--pad) calc(26px + var(--safe-bottom));
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, .3);
+  animation: rise .2s ease;
+}
+
+@keyframes rise { from { transform: translateY(14px); } to { transform: none; } }
+
+.sheet-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--line);
+  color: var(--text);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.sheet h3 {
+  margin: 0 40px 3px 0;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.sheet .sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.block {
+  border-radius: var(--radius);
+  padding: 13px 14px;
+  margin-bottom: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+/* football is the reason anyone opened this app — make it unmistakable */
+.block.football {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  border-left-width: 4px;
+}
+
+.block .lbl {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .9px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+.block.football .lbl { color: var(--gold); }
+
+.block .line { font-size: 15px; margin-bottom: 5px; }
+.block .line:last-child { margin-bottom: 0; }
+.block .line .why { color: var(--muted); font-size: 13.5px; }
+
+/* ---------- expandable game rows ---------- */
+
+.game-detail {
+  padding: 0 var(--pad) 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--jay-light);
+}
+.game-detail .rule { margin-top: 11px; }
+
+.game .chev {
+  font-size: 12px;
+  color: var(--muted);
+  margin-left: 6px;
+}
+
 /* ---------- misc ---------- */
 
 .footnote {

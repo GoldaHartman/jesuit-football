@@ -492,6 +492,52 @@ function renderToday() {
   el('view-today').innerHTML = html;
 }
 
+/** Which game row is expanded on the Games tab. Not persisted. */
+let openGame = null;
+
+const mapsUrl = (query) => `https://maps.google.com/?q=${encodeURIComponent(query)}`;
+
+/** Everything you need on the way to a game: when, where, and what gets you turned away at the gate. */
+function gameDetail(g) {
+  const venue = g.venueId ? VENUE_BY_ID[g.venueId] : null;
+
+  let html = '<div class="game-detail">';
+
+  html += `<div class="rule"><div class="lbl">Kickoff</div><div class="txt">${esc(g.time)}${g.type === 'team' ? ' — as printed on the coach\'s calendar; confirm with your son' : ''}</div></div>`;
+
+  if (!venue) {
+    html += `<div class="rule"><div class="lbl">Where</div><div class="txt">The coach's calendar doesn't list a venue for sub-varsity games. Check with your grade mom.</div></div>`;
+    html += '</div>';
+    return html;
+  }
+
+  html += `<div class="rule"><div class="lbl">Where</div><div class="txt">${esc(venue.name)}<br>${esc(venue.address)}</div></div>`;
+  html += `<a class="big-action secondary" style="margin-top:11px" href="${esc(mapsUrl(venue.address || venue.name))}" target="_blank" rel="noopener">Open in Maps</a>`;
+
+  if (g.mealGrade) {
+    html += `<div class="rule"><div class="lbl">Pre-game meal</div><div class="txt">${esc(g.mealGrade)} class</div></div>`;
+  }
+  if (g.notes) {
+    html += `<div class="rule"><div class="lbl">Note</div><div class="txt">${esc(g.notes)}</div></div>`;
+  }
+
+  html += `<div class="rule"><div class="lbl">Bags</div><div class="txt">${esc(venue.bagPolicy)}</div></div>`;
+  html += `<div class="rule"><div class="lbl">Not allowed</div><div class="txt">${esc(venue.prohibited)}</div></div>`;
+  html += `<div class="rule"><div class="lbl">Parking</div><div class="txt">${esc(venue.parking)}</div></div>`;
+  if (venue.driveNote) {
+    html += `<div class="rule warn"><div class="lbl">Heads up</div><div class="txt">${esc(venue.driveNote)}</div></div>`;
+  }
+  if (venue.tickets) {
+    html += `<a class="big-action secondary" style="margin-top:11px" href="${esc(venue.tickets)}" target="_blank" rel="noopener">Tickets</a>`;
+    if (venue.ticketNote) html += `<div class="footnote" style="margin:-4px 0 0">${esc(venue.ticketNote)}</div>`;
+  } else if (venue.ticketNote) {
+    html += `<div class="rule"><div class="lbl">Tickets</div><div class="txt">${esc(venue.ticketNote)}</div></div>`;
+  }
+
+  html += '</div>';
+  return html;
+}
+
 function renderSchedule() {
   const iso = todayISO();
   const team = currentTeam();
@@ -555,16 +601,20 @@ function renderSchedule() {
       ? `<span class="badge ${g.isHome ? 'home' : 'away'}">${g.isHome ? 'Home' : 'Away'}</span>${g.isDistrict ? '<span class="badge district">District</span>' : ''}`
       : badgesFor(g.raw) + (g.mealGrade ? `<span class="badge">${esc(g.mealGrade)} meal</span>` : '');
 
+    const key = `${g.date}-${g.opponent}`.replace(/[^a-z0-9-]/gi, '');
+    const open = openGame === key;
+
     return `
-      <button class="game${past ? ' past' : ''}${isNext ? ' next' : ''}"${g.venueId ? ` data-venue="${esc(g.venueId)}"` : ''}>
+      <button class="game${past ? ' past' : ''}${isNext ? ' next' : ''}" data-game="${esc(key)}">
         <div class="row1">
           <span class="wk">${esc(g.label)}</span>
           <span class="date">${esc(shortDate(g.date))}</span>
         </div>
-        <div class="opp">${prefix}${esc(g.opponent)}</div>
+        <div class="opp">${prefix}${esc(g.opponent)}<span class="chev">${open ? '▲' : '▼'}</span></div>
         <div class="where">${esc(g.time)}${g.venueName ? ' · ' + esc(g.venueName) : ''}</div>
         <div class="badges">${badges}</div>
-      </button>`;
+      </button>
+      ${open ? gameDetail(g) : ''}`;
   }).join('');
   html += '</div>';
 
@@ -589,7 +639,18 @@ let showPastMonths = false;
 
 function allCalendarMonths() {
   const months = [];
-  CALENDAR.days.forEach((day) => {
+
+  // union of both calendars — a school-only day like MLK has no football
+  // entry, but you should still be able to tap it and see why there's no school
+  const dates = new Set(CALENDAR.days.map((d) => d.date));
+  Object.keys(SCHOOL_BY_DATE).forEach((d) => dates.add(d));
+
+  const merged = [...dates].sort().map((iso) => ({
+    date: iso,
+    items: (CAL_BY_DATE[iso] || {}).items || [],
+  }));
+
+  merged.forEach((day) => {
     const d = dateOf(day.date);
     const key = `${d.getFullYear()}-${d.getMonth()}`;
     let group = months[months.length - 1];
@@ -665,6 +726,81 @@ function subscribeCard() {
     </div>`;
 }
 
+// ---------------------------------------------------------------- day sheet
+
+const SCHOOL_BY_DATE = (typeof SCHOOL !== 'undefined' && SCHOOL && SCHOOL.days) ? SCHOOL.days : {};
+
+const AUDIENCE_LABEL = {
+  faculty: 'Faculty only',
+  holiday: 'No school',
+};
+
+function schoolFor(iso) {
+  return SCHOOL_BY_DATE[iso] || [];
+}
+
+/** Everything known about one day: school on top, football highlighted. */
+function openDay(iso) {
+  const football = itemsFor(iso);
+  const school = schoolFor(iso);
+  const game = gameOn(iso);
+  const teamToday = (SEASON.teamGames || []).filter((g) => g.date === iso);
+
+  let html = `<h3>${esc(longDate(iso))}</h3>`;
+  const year = dateOf(iso).getFullYear();
+  html += `<div class="sub">${year}${football.fromCoach ? ' · times posted by Coach this week' : ''}</div>`;
+
+  // --- football
+  if (football.items.length || game || teamToday.length) {
+    html += '<div class="block football"><div class="lbl">🏈 Football</div>';
+
+    if (game) {
+      const venue = venueOf(game);
+      const kickoff = prettyTime(game.kickoff) || game.kickoffNote || 'Time TBA';
+      const prefix = game.type === 'preseason' ? '' : (game.isHome ? 'vs ' : 'at ');
+      html += `<div class="line"><strong>${game.week ? `Week ${game.week} — ` : ''}${prefix}${esc(game.opponent)}</strong></div>`;
+      html += `<div class="line why">${esc(kickoff)}${venue ? ' · ' + esc(venue.name) : ''}</div>`;
+    }
+
+    teamToday.forEach((g) => {
+      html += `<div class="line">${esc(TEAM_FULL[g.team])} ${g.isHome ? 'vs' : 'at'} ${esc(g.opponent)}${g.kickoff ? ' — ' + esc(g.kickoff) : ''}</div>`;
+    });
+
+    football.items.forEach((item) => {
+      html += `<div class="line">${esc(item)}</div>`;
+    });
+
+    html += '</div>';
+  }
+
+  // --- school
+  if (school.length) {
+    html += '<div class="block"><div class="lbl">🎓 Jesuit</div>';
+    school.forEach((entry) => {
+      const tag = AUDIENCE_LABEL[entry.audience];
+      html += `<div class="line"><strong>${esc(entry.title)}</strong>${tag ? ` <span class="why">· ${esc(tag)}</span>` : ''}</div>`;
+      if (entry.detail) html += `<div class="line why">${esc(entry.detail)}</div>`;
+    });
+    html += '</div>';
+  }
+
+  if (!football.items.length && !school.length && !game && !teamToday.length) {
+    html += '<div class="block"><div class="line why">Nothing on either calendar for this day.</div></div>';
+  }
+
+  html += `<div class="footnote" style="margin-bottom:0">School dates from Jesuit's official 2026-27 Important Dates.<br>Football from Coach Manale's calendar.</div>`;
+
+  const sheet = el('daysheet');
+  sheet.querySelector('.sheet-body').innerHTML = html;
+  sheet.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSheet() {
+  el('daysheet').hidden = true;
+  document.body.style.overflow = '';
+}
+
 function calendarMonths() {
   const all = allCalendarMonths();
   if (showPastMonths) return { months: all, hidden: 0 };
@@ -709,13 +845,21 @@ function renderCalendar() {
         (d.getDay() === 0 || d.getDay() === 6) ? 'weekend' : '',
       ].filter(Boolean).join(' ');
 
+      const school = schoolFor(day.date);
+      const lines = day.items.length
+        ? day.items.map((i) => `<div>${esc(i)}</div>`).join('')
+        : '';
+      const schoolLine = school.length
+        ? `<div class="muted small">🎓 ${esc(school.map((s) => s.title).join(' · '))}</div>`
+        : '';
+
       return `
-        <div class="${classes}" id="cal-${day.date}">
+        <div class="${classes}" id="cal-${day.date}" data-day="${esc(day.date)}" role="button" tabindex="0">
           <div class="num">
             <div class="d">${d.getDate()}</div>
             <div class="w">${WEEKDAY_ABBR[d.getDay()]}</div>
           </div>
-          <div class="items">${day.items.map((i) => `<div>${esc(i)}</div>`).join('')}</div>
+          <div class="items">${lines}${schoolLine}</div>
         </div>`;
     }).join('');
 
@@ -835,7 +979,7 @@ function renderGrade() {
       <div class="row"><span class="k">Usually plays</span><span class="v">${esc(grade.teamBlurb)}</span></div>
       <div class="row"><span class="k">Your grade mom</span><span class="v">${esc(grade.gradeMom)}</span></div>
       <div class="row"><span class="k">Grade dues</span><span class="v">${grade.dues ? '$' + grade.dues : 'Baseline only'}</span></div>
-      ${grade.duesHandle ? `<div class="row"><span class="k">Venmo</span><span class="v">${esc(grade.duesHandle)}</span></div>` : ''}
+      ${grade.duesHandle ? `<div class="row"><span class="k">Venmo</span><span class="v"><a class="link" href="https://venmo.com/u/${esc(grade.duesHandle.replace(/^@/, ''))}" target="_blank" rel="noopener">${esc(grade.duesHandle)}</a></span></div>` : ''}
       <div class="row"><span class="k">Tailgate food</span><span class="v">${esc(grade.tailgateFood)}</span></div>
     </div>`;
 
@@ -858,7 +1002,21 @@ function renderGrade() {
 
   const mom = SEASON.gradeMoms.find((m) => m.grade === grade.name);
   if (mom) {
-    html += `<h2 class="section">Your first call</h2>
+    if (grade.dues && grade.duesHandle) {
+    html += `<h2 class="section">Pay your grade dues</h2>
+      <div class="card">
+        <a class="big-action" href="https://venmo.com/u/${esc(grade.duesHandle.replace(/^@/, ''))}" target="_blank" rel="noopener">Venmo $${grade.dues} to ${esc(grade.duesHandle)}</a>
+        <div class="small muted">Put your son's name and grade in the note — $30 of every grade's dues funds the locker-room treat bags.</div>
+      </div>`;
+  } else if (grade.dues) {
+    html += `<h2 class="section">Pay your grade dues</h2>
+      <div class="card">
+        <div class="row"><span class="k">Grade dues</span><span class="v">$${grade.dues}</span></div>
+        <div class="small muted" style="margin-top:9px">Ask ${esc(grade.gradeMom)} where to send it — no Venmo handle on file yet.</div>
+      </div>`;
+  }
+
+  html += `<h2 class="section">Your first call</h2>
       <div class="card">
         <div class="venue-h">${esc(mom.name)}</div>
         <div class="venue-sub">${esc(grade.name)} grade mom</div>
@@ -1101,15 +1259,28 @@ document.body.addEventListener('click', (event) => {
 
   if (event.target.closest('.lightbox')) { closeLightbox(); return; }
 
-  const gameRow = event.target.closest('button.game[data-venue]');
+  if (event.target.closest('.sheet-close')) { closeSheet(); return; }
+  const sheet = event.target.closest('#daysheet');
+  if (sheet && !event.target.closest('.sheet-panel')) { closeSheet(); return; }
+
+  const dayRow = event.target.closest('[data-day]');
+  if (dayRow) { openDay(dayRow.dataset.day); return; }
+
+  const gameRow = event.target.closest('button.game[data-game]');
   if (gameRow) {
-    show('info');
+    const key = gameRow.dataset.game;
+    openGame = openGame === key ? null : key;   // tap again to collapse
+    const y = window.scrollY;
+    renderSchedule();
+    window.scrollTo(0, y);
     return;
   }
 });
 
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && !el('lightbox').hidden) closeLightbox();
+  if (event.key !== 'Escape') return;
+  if (!el('lightbox').hidden) closeLightbox();
+  else if (!el('daysheet').hidden) closeSheet();
 });
 
 /* The month bar sticks below the app header, whose height depends on the
