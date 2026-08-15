@@ -218,6 +218,20 @@ Two things the generator is careful about:
 Output is deterministic, so rebuilding with no data change produces
 byte-identical files. Validated against the `icalendar` parser.
 
+## Auditing the data
+
+```bash
+python3 tools/audit.py
+```
+
+Cross-checks everything the app shows against the coach's calendar, the parent
+welcome letter, Jesuit's official Important Dates, and the working spreadsheet
+— plus internal consistency: dangling venue ids, meal grades matching no grade,
+weekday drift, duplicate sub-varsity games, account-specific Google links.
+
+Run it after any data edit. ERROR means something contradicts a source; CHECK
+means two sources disagree and a human has to pick.
+
 ## Icons
 
 ```bash
@@ -229,7 +243,8 @@ python3 tools/make_icons.py
 ```
 data/       season.json (hand-maintained) + calendar.json (generated)
 tools/      parse_calendar.py, build_web_data.py, build_ics.py,
-            sunday_update.py, prepare_photos.py, make_icons.py
+            sunday_update.py, prepare_photos.py, make_icons.py,
+            audit.py, serve.py
 docs/       the app — index.html, app.js, style.css, data.js (generated), sw.js
 source/     original PDFs (gitignored — school documents, not ours to republish)
 ```
