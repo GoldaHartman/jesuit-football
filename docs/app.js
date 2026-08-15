@@ -440,19 +440,47 @@ function renderSchedule() {
   el('view-schedule').innerHTML = html;
 }
 
-function calendarMonths() {
+/** Set by the "show earlier months" link; not persisted between sessions. */
+let showPastMonths = false;
+
+function allCalendarMonths() {
   const months = [];
   CALENDAR.days.forEach((day) => {
     const d = dateOf(day.date);
     const key = `${d.getFullYear()}-${d.getMonth()}`;
     let group = months[months.length - 1];
     if (!group || group.key !== key) {
-      group = { key, label: `${MONTH_LONG[d.getMonth()]} ${d.getFullYear()}`, days: [] };
+      group = {
+        key,
+        year: d.getFullYear(),
+        month: d.getMonth(),
+        label: `${MONTH_LONG[d.getMonth()]} ${d.getFullYear()}`,
+        days: [],
+      };
       months.push(group);
     }
     group.days.push({ day, d });
   });
   return months;
+}
+
+/**
+ * Months still worth showing. A month drops off once it's fully over — the
+ * current month stays put until the last day of it has passed.
+ */
+function calendarMonths() {
+  const all = allCalendarMonths();
+  if (showPastMonths) return { months: all, hidden: 0 };
+
+  const now = dateOf(todayISO());
+  const cutoff = now.getFullYear() * 12 + now.getMonth();
+  const upcoming = all.filter((m) => m.year * 12 + m.month >= cutoff);
+
+  // past the end of the season everything is "over"; keep the last month
+  // rather than showing an empty calendar
+  if (!upcoming.length) return { months: all.slice(-1), hidden: all.length - 1 };
+
+  return { months: upcoming, hidden: all.length - upcoming.length };
 }
 
 /** The month group containing today, else the first one still ahead of us. */
@@ -465,7 +493,7 @@ function currentMonthKey(months, iso) {
 
 function renderCalendar() {
   const iso = todayISO();
-  const months = calendarMonths();
+  const { months, hidden } = calendarMonths();
 
   const bar = `
     <div class="cal-bar">
@@ -497,12 +525,26 @@ function renderCalendar() {
     return `<div class="cal-month" id="m-${esc(group.key)}" data-month="${esc(group.key)}">${esc(group.label)}</div><div class="card flush">${rows}</div>`;
   }).join('');
 
+  const pastLink = hidden > 0
+    ? `<div class="footnote"><button type="button" class="linkish" id="show-past">Show ${hidden} earlier month${hidden === 1 ? '' : 's'}</button></div>`
+    : (showPastMonths
+        ? `<div class="footnote"><button type="button" class="linkish" id="hide-past">Hide months that are over</button></div>`
+        : '');
+
+  // the link sits above the first month — that's where you look for what
+  // came before, not at the bottom of a twelve-month scroll
   el('view-calendar').innerHTML =
     bar +
     `<div class="footnote" style="margin-top:0">Every practice, workout, and event from the coach's 2026/27 calendar.<br>"Done for 6:30" means finished in time for a 6:30 pickup.</div>` +
+    pastLink +
     body;
 
   wireCalendarControls(months, iso);
+
+  const showBtn = el('show-past');
+  if (showBtn) showBtn.addEventListener('click', () => { showPastMonths = true; renderCalendar(); });
+  const hideBtn = el('hide-past');
+  if (hideBtn) hideBtn.addEventListener('click', () => { showPastMonths = false; renderCalendar(); });
 }
 
 /**

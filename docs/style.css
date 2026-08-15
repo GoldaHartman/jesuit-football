@@ -433,6 +433,19 @@ ul.bullets li:last-child { margin-bottom: 0; }
 a.link { color: var(--jay); font-weight: 600; text-decoration: none; }
 a.link:active { opacity: .6; }
 
+/* a button that reads as a link — the earlier-months toggle */
+button.linkish {
+  border: 0;
+  background: none;
+  color: var(--jay);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 650;
+  padding: 8px 4px;
+  cursor: pointer;
+}
+button.linkish:active { opacity: .6; }
+
 /* ---------- bottom nav ---------- */
 
 nav.tabs {
