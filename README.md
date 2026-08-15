@@ -54,10 +54,17 @@ the other grade moms first, and consider putting it behind a password instead.
 ## Running it locally
 
 ```bash
-cd docs && python3 -m http.server 8770
+python3 tools/serve.py          # or: python3 tools/serve.py 8781
 ```
 
-Then open <http://localhost:8770>. That's it — no build step, no dependencies.
+It prints both a localhost link and a LAN link for testing on your phone.
+
+Use this rather than `python -m http.server`. That sends no cache headers at
+all, so browsers heuristically cache `index.html` — you edit the app, reload,
+and still get the old one. `serve.py` sends `no-store` on everything.
+
+**If a phone is stuck on an old copy anyway**, serve on a different port. A new
+port is a new origin, so there is no old service worker and no cache to fight.
 
 ## Rebuilding the data
 
