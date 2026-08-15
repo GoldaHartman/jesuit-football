@@ -1344,6 +1344,19 @@ function renderInfo() {
     </div>`).join('');
   html += '</div>';
 
+  // Feedback carries the build hash, so a report always says which version it
+  // came from — that ambiguity cost a whole debugging round once already.
+  const feedbackSubject = encodeURIComponent(`Jesuit Football app — feedback (build ${BUILD})`);
+  const feedbackBody = encodeURIComponent(
+    `What I was looking at:\n\n\nWhat I expected:\n\n\nWhat happened instead:\n\n\n---\nBuild ${BUILD}\n`);
+
+  html += `<h2 class="section">Something wrong?</h2>
+    <div class="card">
+      <a class="big-action secondary" href="mailto:bluejays2027@gmail.com?subject=${feedbackSubject}&body=${feedbackBody}">Tell Golda</a>
+      <div class="small muted">Wrong time, missing game, anything confusing. The email fills in which
+      version you're on, which saves a lot of guessing.</div>
+    </div>`;
+
   html += `<div class="footnote">Built from the coach's 2026/27 calendar and the parent welcome letter.<br>Player names and family contact details are deliberately not in this app.<br><br>
     <span class="muted">Version ${esc(BUILD)}</span> · <button type="button" class="linkish" id="force-refresh">Force refresh</button></div>`;
 
