@@ -636,19 +636,11 @@ nav.tabs button.on { color: var(--jay); }
 .block .line:last-child { margin-bottom: 0; }
 .block .line .why { color: var(--muted); font-size: 13.5px; }
 
-/* ---------- expandable game rows ---------- */
-
-.game-detail {
-  padding: 0 var(--pad) 16px;
-  border-bottom: 1px solid var(--line);
-  background: var(--jay-light);
-}
-.game-detail .rule { margin-top: 11px; }
-
+/* chevron on a game row, hinting it opens its own screen */
 .game .chev {
-  font-size: 12px;
+  font-size: 15px;
   color: var(--muted);
-  margin-left: 6px;
+  margin-left: 7px;
 }
 
 /* ---------- misc ---------- */

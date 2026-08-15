@@ -14,7 +14,7 @@ Built for the Class of 2027 season by the grade moms.
 | Tab | What it does |
 | --- | --- |
 | **Today** | Today's practice and times straight off the coach's calendar, a countdown to your team's next game, and your class's game-time notes for that week |
-| **Games** | Switch between **8th · 9th · JV · Varsity**. Tap a game for kickoff, address, Maps link, bag policy, parking, and tickets |
+| **Games** | Switch between **8th · 9th · JV · Varsity**. Tap a game to open it on its own screen — countdown, kickoff, address, Maps link, bag policy, parking, tickets, and what your class owes for that game |
 | **Calendar** | Football and Jesuit's school calendar together. Tap any day for the full picture, football highlighted. Sticky month dropdown |
 | **My Grade** | Pick your son's grade once. Dues, Venmo handle, tailgate category, what your class takes on, your pre-game meal weeks, and your grade mom's contact |
 | **Info** | Bag policy and parking for all 8 venues, traditions, grade moms, photographers, vacation dates |

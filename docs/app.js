@@ -502,16 +502,66 @@ function renderToday() {
   el('view-today').innerHTML = html;
 }
 
-/** Which game row is expanded on the Games tab. Not persisted. */
+/** The game currently open on its own screen, by key. Not persisted. */
 let openGame = null;
 
+const gameKey = (g) => `${g.date}-${g.opponent}`.replace(/[^a-z0-9-]/gi, '');
+
 const mapsUrl = (query) => `https://maps.google.com/?q=${encodeURIComponent(query)}`;
+
+/** One game, on its own screen — nothing else competing for attention. */
+function renderGameView() {
+  if (!openGame) return;
+
+  const team = currentTeam();
+  const g = gamesForTeam(team).find((x) => gameKey(x) === openGame);
+  if (!g) { show('schedule'); return; }
+
+  const iso = todayISO();
+  const out = daysBetween(iso, g.date);
+  const prefix = g.type === 'preseason' ? '' : (g.isHome ? 'vs ' : 'at ');
+  const badges = g.type === 'team'
+    ? `<span class="badge ${g.isHome ? 'home' : 'away'}">${g.isHome ? 'Home' : 'Away'}</span>${g.isDistrict ? '<span class="badge district">District</span>' : ''}`
+    : badgesFor(g.raw) + (g.mealGrade ? `<span class="badge">${esc(g.mealGrade)} meal</span>` : '');
+
+  let html = `<button class="linkish" data-goto="schedule" style="padding-left:0;margin-bottom:6px">‹ All ${esc(TEAM_FULL[team])} games</button>`;
+
+  html += `
+    <div class="card countdown">
+      <div class="eyebrow">${esc(TEAM_FULL[team])}${g.label !== TEAM_FULL[team] ? ' · ' + esc(g.label) : ''}</div>
+      <div class="opponent" style="margin-top:2px">${prefix}${esc(g.opponent)}</div>
+      <div class="meta">${esc(longDate(g.date))} · ${esc(g.time)}</div>
+      <div class="badges">${badges.replace(/class="badge/g, 'class="badge onlight')}</div>
+      ${out >= 0 ? `<div class="tagline">${out === 0 ? 'Today.' : out === 1 ? 'Tomorrow.' : `In ${out} days.`}</div>` : '<div class="tagline">This one has been played.</div>'}
+    </div>`;
+
+  html += gameDetail(g);
+
+  // what your class owes for this particular game
+  const grade = currentGrade();
+  if (grade && g.raw && g.type !== 'team') {
+    const tasks = tasksFor(grade, g.raw);
+    if (tasks.length) {
+      html += `<h2 class="section">${esc(grade.name)} class — for this game</h2><div class="card">`;
+      html += tasks.map((t) => `
+        <div class="task${t.yours ? ' yours' : ''}">
+          <div class="icon">${t.icon}</div>
+          <div class="body">
+            <div class="title">${esc(t.title)}</div>
+            <div class="when">${esc(t.when)}</div>
+          </div>
+        </div>`).join('');
+      html += '</div>';
+    }
+  }
+
+  el('view-game').innerHTML = html;
+}
 
 /** Everything you need on the way to a game: when, where, and what gets you turned away at the gate. */
 function gameDetail(g) {
   const venue = g.venueId ? VENUE_BY_ID[g.venueId] : null;
-
-  let html = '<div class="game-detail">';
+  let html = '<div class="card">';
 
   html += `<div class="rule"><div class="lbl">Kickoff</div><div class="txt">${esc(g.time)}${g.type === 'team' ? ' — as printed on the coach\'s calendar; confirm with your son' : ''}</div></div>`;
 
@@ -611,20 +661,16 @@ function renderSchedule() {
       ? `<span class="badge ${g.isHome ? 'home' : 'away'}">${g.isHome ? 'Home' : 'Away'}</span>${g.isDistrict ? '<span class="badge district">District</span>' : ''}`
       : badgesFor(g.raw) + (g.mealGrade ? `<span class="badge">${esc(g.mealGrade)} meal</span>` : '');
 
-    const key = `${g.date}-${g.opponent}`.replace(/[^a-z0-9-]/gi, '');
-    const open = openGame === key;
-
     return `
-      <button class="game${past ? ' past' : ''}${isNext ? ' next' : ''}" data-game="${esc(key)}">
+      <button class="game${past ? ' past' : ''}${isNext ? ' next' : ''}" data-game="${esc(gameKey(g))}">
         <div class="row1">
           <span class="wk">${esc(g.label)}</span>
           <span class="date">${esc(shortDate(g.date))}</span>
         </div>
-        <div class="opp">${prefix}${esc(g.opponent)}<span class="chev">${open ? '▲' : '▼'}</span></div>
+        <div class="opp">${prefix}${esc(g.opponent)}<span class="chev">›</span></div>
         <div class="where">${esc(g.time)}${g.venueName ? ' · ' + esc(g.venueName) : ''}</div>
         <div class="badges">${badges}</div>
-      </button>
-      ${open ? gameDetail(g) : ''}`;
+      </button>`;
   }).join('');
   html += '</div>';
 
@@ -1215,6 +1261,7 @@ function renderInfo() {
 function renderAll() {
   renderToday();
   renderSchedule();
+  renderGameView();
   renderCalendar();
   renderGrade();
   renderPhotos();
@@ -1224,8 +1271,10 @@ function renderAll() {
 function show(view, opts) {
   document.querySelectorAll('.view').forEach((v) => v.classList.remove('active'));
   el('view-' + view).classList.add('active');
+  // a single game has no tab of its own — it belongs under Games
+  const tabFor = view === 'game' ? 'schedule' : view;
   document.querySelectorAll('nav.tabs button').forEach((b) => {
-    b.classList.toggle('on', b.dataset.view === view);
+    b.classList.toggle('on', b.dataset.view === tabFor);
   });
   window.scrollTo(0, 0);
 
@@ -1292,11 +1341,9 @@ document.body.addEventListener('click', (event) => {
 
   const gameRow = event.target.closest('button.game[data-game]');
   if (gameRow) {
-    const key = gameRow.dataset.game;
-    openGame = openGame === key ? null : key;   // tap again to collapse
-    const y = window.scrollY;
-    renderSchedule();
-    window.scrollTo(0, y);
+    openGame = gameRow.dataset.game;
+    renderGameView();
+    show('game');
     return;
   }
 });
