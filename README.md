@@ -75,7 +75,10 @@ artifact — editing it directly will be overwritten.
 # 1. re-parse the coach's calendar PDF into day-by-day JSON
 python3 tools/parse_calendar.py "source/2026 FOOTBALL CALENDAR.pdf" data/calendar.json
 
-# 2. bundle both JSON files into the app
+# 2. rebuild the school calendar (verifies its dates against step 1)
+python3 tools/build_school_calendar.py
+
+# 3. bundle everything into the app
 python3 tools/build_web_data.py
 ```
 
@@ -101,7 +104,7 @@ run `build_web_data.py`, redeploy.
 | --- | --- |
 | `data/calendar.json` | Generated from the coach's *2026 FOOTBALL CALENDAR* PDF — 277 days |
 | `data/season.json` | Hand-built from the *2026 Football Welcome Letter* and the official varsity schedule |
-| `data/school_calendar.json` | Jesuit's official *2026-27 Important Dates* PDF, transcribed. Cross-checks the football calendar: Registration Day, 1st Quarter, and exam weeks all agree |
+| `data/school_calendar.json` | Built by `tools/build_school_calendar.py`. Jesuit's official *2026-27 Important Dates* PDF, transcribed, plus school events the coach lists that never made the official sheet — each tagged with which source it came from |
 | `teamGames` in `docs/data.js` | Derived at build time — the 8th/9th/JV games the coach buried inside day cells like `"JH vs Shaw 6:30"` |
 
 Sub-varsity times are printed **exactly as the coach wrote them**, with no AM/PM
@@ -244,7 +247,7 @@ python3 tools/make_icons.py
 data/       season.json (hand-maintained) + calendar.json (generated)
 tools/      parse_calendar.py, build_web_data.py, build_ics.py,
             sunday_update.py, prepare_photos.py, make_icons.py,
-            audit.py, serve.py
+            build_school_calendar.py, audit.py, serve.py
 docs/       the app — index.html, app.js, style.css, data.js (generated), sw.js
 source/     original PDFs (gitignored — school documents, not ours to republish)
 ```

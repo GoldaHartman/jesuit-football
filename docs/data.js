@@ -3088,101 +3088,124 @@ const SCHOOL = {
       {
         "title": "Archdiocesan Day of Reflection",
         "detail": "",
-        "audience": "faculty"
+        "audience": "faculty",
+        "source": "official"
       }
     ],
     "2026-08-06": [
       {
         "title": "Faculty Inservice",
         "detail": "",
-        "audience": "faculty"
+        "audience": "faculty",
+        "source": "official"
       }
     ],
     "2026-08-07": [
       {
         "title": "Faculty Inservice",
         "detail": "",
-        "audience": "faculty"
+        "audience": "faculty",
+        "source": "official"
       }
     ],
     "2026-08-10": [
       {
         "title": "Faculty Inservice",
         "detail": "",
-        "audience": "faculty"
+        "audience": "faculty",
+        "source": "official"
       }
     ],
     "2026-08-11": [
       {
         "title": "Registration Day",
         "detail": "",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2026-08-12": [
       {
         "title": "New Students' Orientation",
         "detail": "",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2026-08-13": [
       {
         "title": "1st Quarter Begins",
         "detail": "All classes meet",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2026-08-19": [
       {
         "title": "New Parents' Orientation",
         "detail": "6 p.m.",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       },
       {
         "title": "Mini-Schedule (8th & 9th)",
         "detail": "7 p.m.",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2026-08-26": [
       {
         "title": "Mini-Schedule (10th \u2013 12th)",
         "detail": "6 p.m.",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2026-09-04": [
       {
         "title": "Mass of the Holy Spirit",
         "detail": "9th \u2013 12th dismissed after Mass",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       },
       {
         "title": "Pre-Freshman Retreat",
         "detail": "7:45 a.m. \u2013 2 p.m.",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2026-09-07": [
       {
         "title": "Labor Day Holiday",
         "detail": "",
-        "audience": "holiday"
+        "audience": "holiday",
+        "source": "official"
       }
     ],
     "2026-09-12": [
       {
         "title": "Senior Ring Mass",
         "detail": "4:00 p.m.",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2026-09-14": [
       {
         "title": "Senior Ring Holiday",
         "detail": "",
-        "audience": "holiday"
+        "audience": "holiday",
+        "source": "official"
+      }
+    ],
+    "2026-10-05": [
+      {
+        "title": "College Fair",
+        "detail": "6 p.m.",
+        "audience": "all",
+        "source": "coach"
       }
     ],
     "2026-10-12": [
@@ -3190,6 +3213,7 @@ const SCHOOL = {
         "title": "1st Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2026-10-12..2026-10-16"
       }
     ],
@@ -3198,6 +3222,7 @@ const SCHOOL = {
         "title": "1st Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2026-10-12..2026-10-16"
       }
     ],
@@ -3206,6 +3231,7 @@ const SCHOOL = {
         "title": "1st Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2026-10-12..2026-10-16"
       }
     ],
@@ -3214,6 +3240,7 @@ const SCHOOL = {
         "title": "1st Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2026-10-12..2026-10-16"
       }
     ],
@@ -3222,40 +3249,54 @@ const SCHOOL = {
         "title": "1st Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2026-10-12..2026-10-16"
       },
       {
         "title": "Freshman Retreat",
         "detail": "9:00 a.m.",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2026-10-19": [
       {
         "title": "PSAT for 10th & 11th",
         "detail": "",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
+      }
+    ],
+    "2026-10-29": [
+      {
+        "title": "Parent / Teacher Conferences",
+        "detail": "5:30",
+        "audience": "all",
+        "source": "coach"
       }
     ],
     "2026-11-04": [
       {
         "title": "Open House",
         "detail": "Dismissal at 1:04 p.m.",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2026-11-05": [
       {
         "title": "Holiday for Students, Faculty, and Staff",
         "detail": "",
-        "audience": "holiday"
+        "audience": "holiday",
+        "source": "official"
       }
     ],
     "2026-11-25": [
       {
         "title": "Delivery of Thanksgiving Baskets",
         "detail": "School offices close at noon",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2026-11-26": [
@@ -3263,6 +3304,7 @@ const SCHOOL = {
         "title": "Thanksgiving Holidays",
         "detail": "",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-11-26..2026-11-27"
       }
     ],
@@ -3271,6 +3313,7 @@ const SCHOOL = {
         "title": "Thanksgiving Holidays",
         "detail": "",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-11-26..2026-11-27"
       }
     ],
@@ -3279,6 +3322,7 @@ const SCHOOL = {
         "title": "2nd Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2026-12-14..2026-12-18"
       }
     ],
@@ -3287,6 +3331,7 @@ const SCHOOL = {
         "title": "2nd Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2026-12-14..2026-12-18"
       }
     ],
@@ -3295,6 +3340,7 @@ const SCHOOL = {
         "title": "2nd Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2026-12-14..2026-12-18"
       }
     ],
@@ -3303,6 +3349,7 @@ const SCHOOL = {
         "title": "2nd Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2026-12-14..2026-12-18"
       }
     ],
@@ -3311,6 +3358,7 @@ const SCHOOL = {
         "title": "2nd Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2026-12-14..2026-12-18"
       }
     ],
@@ -3319,6 +3367,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3327,6 +3376,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3335,6 +3385,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3343,6 +3394,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3351,6 +3403,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3359,6 +3412,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3367,6 +3421,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3375,6 +3430,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3383,6 +3439,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3391,6 +3448,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3399,6 +3457,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3407,6 +3466,7 @@ const SCHOOL = {
         "title": "Christmas Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2026-12-21..2027-01-01"
       }
     ],
@@ -3415,6 +3475,7 @@ const SCHOOL = {
         "title": "Faculty Retreat",
         "detail": "Holidays for students",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-01-04..2027-01-05"
       }
     ],
@@ -3423,6 +3484,7 @@ const SCHOOL = {
         "title": "Faculty Retreat",
         "detail": "Holidays for students",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-01-04..2027-01-05"
       }
     ],
@@ -3430,14 +3492,16 @@ const SCHOOL = {
       {
         "title": "Classes Resume",
         "detail": "",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2027-01-18": [
       {
         "title": "Martin Luther King, Jr. Day",
         "detail": "Holiday for students, faculty, and staff",
-        "audience": "holiday"
+        "audience": "holiday",
+        "source": "official"
       }
     ],
     "2027-02-08": [
@@ -3445,6 +3509,7 @@ const SCHOOL = {
         "title": "Mardi Gras Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-02-08..2027-02-12"
       }
     ],
@@ -3453,6 +3518,7 @@ const SCHOOL = {
         "title": "Mardi Gras Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-02-08..2027-02-12"
       }
     ],
@@ -3461,6 +3527,7 @@ const SCHOOL = {
         "title": "Mardi Gras Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-02-08..2027-02-12"
       }
     ],
@@ -3469,6 +3536,7 @@ const SCHOOL = {
         "title": "Mardi Gras Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-02-08..2027-02-12"
       }
     ],
@@ -3477,6 +3545,7 @@ const SCHOOL = {
         "title": "Mardi Gras Holidays",
         "detail": "Students & faculty",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-02-08..2027-02-12"
       }
     ],
@@ -3485,6 +3554,7 @@ const SCHOOL = {
         "title": "3rd Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-03-08..2027-03-12"
       }
     ],
@@ -3493,6 +3563,7 @@ const SCHOOL = {
         "title": "3rd Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-03-08..2027-03-12"
       }
     ],
@@ -3501,6 +3572,7 @@ const SCHOOL = {
         "title": "3rd Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-03-08..2027-03-12"
       }
     ],
@@ -3509,6 +3581,7 @@ const SCHOOL = {
         "title": "3rd Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-03-08..2027-03-12"
       }
     ],
@@ -3517,12 +3590,14 @@ const SCHOOL = {
         "title": "3rd Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-03-08..2027-03-12"
       },
       {
         "title": "PSAT for 8th & 9th",
         "detail": "",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2027-03-25": [
@@ -3530,6 +3605,7 @@ const SCHOOL = {
         "title": "Easter Holidays",
         "detail": "",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-03-25..2027-03-29"
       }
     ],
@@ -3538,6 +3614,7 @@ const SCHOOL = {
         "title": "Easter Holidays",
         "detail": "",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-03-25..2027-03-29"
       }
     ],
@@ -3546,6 +3623,7 @@ const SCHOOL = {
         "title": "Easter Holidays",
         "detail": "",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-03-25..2027-03-29"
       }
     ],
@@ -3554,6 +3632,7 @@ const SCHOOL = {
         "title": "Easter Holidays",
         "detail": "",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-03-25..2027-03-29"
       }
     ],
@@ -3562,7 +3641,32 @@ const SCHOOL = {
         "title": "Easter Holidays",
         "detail": "",
         "audience": "holiday",
+        "source": "official",
         "partOf": "2027-03-25..2027-03-29"
+      }
+    ],
+    "2027-04-03": [
+      {
+        "title": "Blue Jay Bazaar",
+        "detail": "",
+        "audience": "all",
+        "source": "coach"
+      }
+    ],
+    "2027-04-09": [
+      {
+        "title": "Jesuit Golf Classic",
+        "detail": "",
+        "audience": "all",
+        "source": "coach"
+      }
+    ],
+    "2027-04-10": [
+      {
+        "title": "ACT test date",
+        "detail": "",
+        "audience": "all",
+        "source": "coach"
       }
     ],
     "2027-05-03": [
@@ -3570,6 +3674,7 @@ const SCHOOL = {
         "title": "Senior Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-05-03..2027-05-06"
       }
     ],
@@ -3578,6 +3683,7 @@ const SCHOOL = {
         "title": "Senior Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-05-03..2027-05-06"
       }
     ],
@@ -3586,7 +3692,14 @@ const SCHOOL = {
         "title": "Senior Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-05-03..2027-05-06"
+      },
+      {
+        "title": "Commitment Ceremony",
+        "detail": "",
+        "audience": "all",
+        "source": "coach"
       }
     ],
     "2027-05-06": [
@@ -3594,14 +3707,38 @@ const SCHOOL = {
         "title": "Senior Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-05-03..2027-05-06"
+      }
+    ],
+    "2027-05-08": [
+      {
+        "title": "Athletic Physical Day",
+        "detail": "",
+        "audience": "all",
+        "source": "coach"
+      },
+      {
+        "title": "Track State",
+        "detail": "",
+        "audience": "all",
+        "source": "coach"
+      }
+    ],
+    "2027-05-11": [
+      {
+        "title": "Spring Sports Recognition",
+        "detail": "",
+        "audience": "all",
+        "source": "coach"
       }
     ],
     "2027-05-15": [
       {
         "title": "Baccalaureate Mass",
         "detail": "5 p.m.",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2027-05-17": [
@@ -3609,6 +3746,7 @@ const SCHOOL = {
         "title": "4th Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-05-17..2027-05-21"
       }
     ],
@@ -3617,6 +3755,7 @@ const SCHOOL = {
         "title": "4th Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-05-17..2027-05-21"
       }
     ],
@@ -3625,6 +3764,7 @@ const SCHOOL = {
         "title": "4th Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-05-17..2027-05-21"
       }
     ],
@@ -3633,17 +3773,20 @@ const SCHOOL = {
         "title": "4th Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-05-17..2027-05-21"
       },
       {
         "title": "Commencement Rehearsal",
         "detail": "9 a.m.",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       },
       {
         "title": "Commencement Exercises",
         "detail": "8 p.m.",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
       }
     ],
     "2027-05-21": [
@@ -3651,6 +3794,7 @@ const SCHOOL = {
         "title": "4th Quarter Exams",
         "detail": "",
         "audience": "all",
+        "source": "official",
         "partOf": "2027-05-17..2027-05-21"
       }
     ],
@@ -3658,7 +3802,32 @@ const SCHOOL = {
       {
         "title": "Class of 2029 Interviews",
         "detail": "8 \u2013 10:30 a.m.",
-        "audience": "all"
+        "audience": "all",
+        "source": "official"
+      }
+    ],
+    "2027-05-27": [
+      {
+        "title": "Baseball State Championship",
+        "detail": "",
+        "audience": "all",
+        "source": "coach"
+      }
+    ],
+    "2027-05-29": [
+      {
+        "title": "Baseball State Championship",
+        "detail": "",
+        "audience": "all",
+        "source": "coach"
+      }
+    ],
+    "2027-06-12": [
+      {
+        "title": "ACT test date",
+        "detail": "",
+        "audience": "all",
+        "source": "coach"
       }
     ]
   }

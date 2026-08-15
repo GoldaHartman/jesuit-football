@@ -834,7 +834,11 @@ function openDay(iso) {
     html += '<div class="block"><div class="lbl">🎓 Jesuit</div>';
     school.forEach((entry) => {
       const tag = AUDIENCE_LABEL[entry.audience];
-      html += `<div class="line"><strong>${esc(entry.title)}</strong>${tag ? ` <span class="why">· ${esc(tag)}</span>` : ''}</div>`;
+      // events the coach lists but Jesuit's official dates don't — say so
+      const viaCoach = entry.source === 'coach'
+        ? ' <span class="why">· from the coach\'s calendar</span>'
+        : '';
+      html += `<div class="line"><strong>${esc(entry.title)}</strong>${tag ? ` <span class="why">· ${esc(tag)}</span>` : ''}${viaCoach}</div>`;
       if (entry.detail) html += `<div class="line why">${esc(entry.detail)}</div>`;
     });
     html += '</div>';
