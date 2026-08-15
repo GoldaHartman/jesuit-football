@@ -99,6 +99,14 @@ def stamp_build_version():
     return build
 
 
+def load_this_week():
+    """The coach's posted week, if sunday_update.py has fetched one."""
+    path = DATA / "this_week.json"
+    if not path.exists():
+        return None
+    return json.loads(path.read_text())
+
+
 def load_photos():
     """Written by prepare_photos.py; absent until photos have been processed."""
     manifest = ROOT / "docs" / "photos" / "photos.json"
@@ -112,6 +120,7 @@ def main():
     calendar = json.loads((DATA / "calendar.json").read_text())
     season["teamGames"] = extract_team_games(calendar)
     photos = load_photos()
+    this_week = load_this_week()
 
     # the album link lives in season.json so it can be edited without
     # re-running the photo pipeline
@@ -124,7 +133,8 @@ def main():
         "// Rebuild with: python3 tools/build_web_data.py\n"
         f"const SEASON = {json.dumps(season, indent=2)};\n\n"
         f"const CALENDAR = {json.dumps(calendar, indent=2)};\n\n"
-        f"const PHOTOS = {json.dumps(photos, indent=2)};\n"
+        f"const PHOTOS = {json.dumps(photos, indent=2)};\n\n"
+        f"const THIS_WEEK = {json.dumps(this_week, indent=2)};\n"
     )
 
     days = len(calendar["days"])
@@ -145,6 +155,8 @@ def main():
     print(f"  photos bundled: {len(photos['photos'])}"
           + ("" if photos["album"] else "  (no shared album URL set yet)"))
     print(f"  build {build} stamped into index.html and sw.js — no manual cache bump needed")
+    print("  this week: " + (f"{len(this_week['days'])} days from the coach, posted {this_week['postedOn']}"
+                            if this_week else "none yet — run tools/sunday_update.py"))
     print("  calendar feeds: " + ", ".join(f"{n.replace('jesuit-', '').replace('.ics', '')} {c}"
                                            for n, c in feeds.items()))
 

@@ -17,3 +17,6 @@ roster*
 .DS_Store
 __pycache__/
 venv/
+
+# API keys — never committed
+.env

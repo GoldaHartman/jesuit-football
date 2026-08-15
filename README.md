@@ -139,6 +139,54 @@ every portrait photo from an iPhone shows up on its side.
 
 Videos are skipped — they belong in the shared album.
 
+## The coach's weekly schedule
+
+The coach posts the coming week as a **picture** in the Class of 2027 GroupMe
+every Sunday. `tools/sunday_update.py` pulls it in:
+
+```bash
+python3 tools/sunday_update.py            # fetch, read, apply, rebuild
+python3 tools/sunday_update.py --dry-run  # show what it read, write nothing
+python3 tools/sunday_update.py --image ~/Downloads/week.png   # skip GroupMe
+```
+
+It asks the GroupMe API for the newest image in the group, has Claude read the
+schedule out of it, writes `data/this_week.json`, copies the picture into
+`docs/schedules/`, and rebuilds. The result shows as a **This week, from Coach**
+card on Today, and those days override the year-long calendar.
+
+### Two things it needs
+
+Both go in `.env`, which is gitignored:
+
+```
+GROUPME_ACCESS_TOKEN=...   # dev.groupme.com — "Access Token", top right
+ANTHROPIC_API_KEY=...      # console.anthropic.com
+```
+
+Without them the script exits with instructions rather than a stack trace.
+
+### Why the picture is kept
+
+The parsed times are shown **next to the original photo**, and anything the
+model could not read confidently is listed as a warning. A model reading a
+photo of a whiteboard can misread a 5 as a 6, and a wrong pickup time strands
+a kid in a parking lot. The source is always one tap away.
+
+Run `--dry-run` the first couple of Sundays and check it against the picture
+before trusting it unattended.
+
+### Running it every Sunday
+
+Once you trust it, add a cron entry (`crontab -e`) — 7pm Sunday:
+
+```
+0 19 * * 0 cd ~/Documents/JesuitFootball && /usr/bin/python3 tools/sunday_update.py >> /tmp/jesuit-sunday.log 2>&1
+```
+
+That updates the local files. Committing and pushing is still deliberate — see
+Hosting. Only run it unattended after a few supervised weeks.
+
 ## Calendar subscriptions
 
 `tools/build_ics.py` (run automatically by `build_web_data.py`) emits five
@@ -173,7 +221,7 @@ python3 tools/make_icons.py
 ```
 data/       season.json (hand-maintained) + calendar.json (generated)
 tools/      parse_calendar.py, build_web_data.py, build_ics.py,
-            prepare_photos.py, make_icons.py
+            sunday_update.py, prepare_photos.py, make_icons.py
 docs/       the app — index.html, app.js, style.css, data.js (generated), sw.js
 source/     original PDFs (gitignored — school documents, not ours to republish)
 ```

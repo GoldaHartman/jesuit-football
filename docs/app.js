@@ -71,6 +71,23 @@ const el = (id) => document.getElementById(id);
 // ---------------------------------------------------------------- lookups
 
 const CAL_BY_DATE = Object.fromEntries(CALENDAR.days.map((d) => [d.date, d]));
+
+/* The coach posts the real week on Sundays. Where he has spoken, he wins —
+   the year-long calendar is the plan, this is what's actually happening. */
+const WEEK = (typeof THIS_WEEK !== 'undefined' && THIS_WEEK) ? THIS_WEEK : null;
+const WEEK_BY_DATE = WEEK
+  ? Object.fromEntries(WEEK.days.map((d) => [d.date, d]))
+  : {};
+
+/** Items for a date: the coach's posted week if he covered it, else the plan. */
+function itemsFor(iso) {
+  const posted = WEEK_BY_DATE[iso];
+  if (posted && posted.items.length) {
+    return { items: posted.items, fromCoach: true };
+  }
+  const planned = CAL_BY_DATE[iso];
+  return { items: planned ? planned.items : [], fromCoach: false };
+}
 const VENUE_BY_ID = Object.fromEntries(SEASON.venues.map((v) => [v.id, v]));
 const GRADE_BY_NAME = Object.fromEntries(SEASON.grades.map((g) => [g.name, g]));
 const GAME_DATES = new Set(SEASON.games.map((g) => g.date));
@@ -304,9 +321,56 @@ function venueCard(venue, heading) {
 
 // ---------------------------------------------------------------- views
 
+/**
+ * The coach's posted week. Shows the whole week with today marked, plus the
+ * original photo — a model reading a picture can misread a 5 as a 6, so the
+ * source stays one tap away rather than being quietly thrown out.
+ */
+function thisWeekCard(iso) {
+  if (!WEEK || !WEEK.days || !WEEK.days.length) return '';
+
+  const days = WEEK.days.slice().sort((a, b) => a.date.localeCompare(b.date));
+  const last = days[days.length - 1].date;
+  if (last < iso) return '';   // the posted week has already gone by
+
+  let html = '<h2 class="section">This week, from Coach</h2><div class="card flush">';
+
+  html += days.map((day) => {
+    const isToday = day.date === iso;
+    const past = day.date < iso;
+    const d = dateOf(day.date);
+    return `
+      <div class="cal-day${isToday ? ' today' : ''}"${past ? ' style="opacity:.45"' : ''}>
+        <div class="num">
+          <div class="d">${d.getDate()}</div>
+          <div class="w">${WEEKDAY_ABBR[d.getDay()]}</div>
+        </div>
+        <div class="items">${day.items.map((i) => `<div>${esc(i)}</div>`).join('')}</div>
+      </div>`;
+  }).join('');
+
+  html += '</div>';
+
+  if (WEEK.unreadable && WEEK.unreadable.length) {
+    html += `<div class="card"><div class="task-flag">
+      <strong>Check the photo for these</strong> — they were not clear enough to read:
+      <div class="small" style="margin-top:5px">${WEEK.unreadable.map(esc).join('<br>')}</div>
+    </div></div>`;
+  }
+
+  if (WEEK.image) {
+    html += `<div class="photo-grid" style="grid-template-columns:1fr">
+      <button data-schedule-image="1"><img src="${esc(WEEK.image)}" alt="The coach's posted schedule" loading="lazy" style="aspect-ratio:auto"></button>
+    </div>`;
+  }
+
+  html += `<div class="footnote" style="margin-top:8px">Read automatically from the picture ${esc(WEEK.postedBy || 'Coach')} posted${WEEK.postedOn ? ' on ' + esc(shortDate(WEEK.postedOn)) : ''}.<br>Tap it to check the original. Times change — your son hears first.</div>`;
+
+  return html;
+}
+
 function renderToday() {
   const iso = todayISO();
-  const entry = CAL_BY_DATE[iso];
   const game = gameOn(iso);
   const grade = currentGrade();
 
@@ -319,9 +383,13 @@ function renderToday() {
   let html = `<div class="today-date">${esc(longDate(iso))}</div>`;
 
   // --- what's on today
+  const today = itemsFor(iso);
   html += '<div class="card">';
-  if (entry && entry.items.length) {
-    html += entry.items.map((item) => {
+  if (today.fromCoach) {
+    html += '<div class="eyebrow" style="color:var(--gold)">From Coach — this week</div>';
+  }
+  if (today.items.length) {
+    html += today.items.map((item) => {
       const isGame = /WEEK \d|SCRIMMAGE|JAMBOREE|CHAMPIONSHIP/i.test(item);
       return `<div class="today-item${isGame ? ' is-game' : ''}"><span class="dot"></span><span>${esc(item)}</span></div>`;
     }).join('');
@@ -329,6 +397,8 @@ function renderToday() {
     html += '<div class="rest-day">Nothing on the football calendar today.</div>';
   }
   html += '</div>';
+
+  html += thisWeekCard(iso);
 
   // --- countdown for your team
   if (upcoming) {
@@ -1016,6 +1086,15 @@ document.body.addEventListener('click', (event) => {
 
   const pick = event.target.closest('button[data-grade]');
   if (pick) { setGrade(pick.dataset.grade); return; }
+
+  const scheduleImage = event.target.closest('button[data-schedule-image]');
+  if (scheduleImage && WEEK && WEEK.image) {
+    const box = el('lightbox');
+    box.querySelector('img').src = WEEK.image;
+    box.hidden = false;
+    document.body.style.overflow = 'hidden';
+    return;
+  }
 
   const photo = event.target.closest('button[data-photo]');
   if (photo) { openLightbox(Number(photo.dataset.photo)); return; }

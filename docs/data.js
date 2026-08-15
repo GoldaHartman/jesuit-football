@@ -3077,3 +3077,5 @@ const PHOTOS = {
     }
   ]
 };
+
+const THIS_WEEK = null;
