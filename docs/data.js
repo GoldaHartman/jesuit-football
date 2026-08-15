@@ -292,55 +292,23 @@ const SEASON = {
   ],
   "grades": [
     {
-      "id": "senior",
-      "name": "Senior",
-      "classYear": "Class of 2027",
-      "dues": 140,
-      "duesHandle": "@bluejays2027",
-      "tailgateFood": "Main course",
-      "gradeMom": "Golda Hartman",
+      "id": "pre-freshman",
+      "name": "Pre-Freshman",
+      "classYear": "8th Grade",
+      "dues": null,
+      "duesHandle": null,
+      "tailgateFood": "Help as needed",
+      "gradeMom": "Laura Wooderson",
       "responsibilities": [
-        "Pre-game meals for assigned games \u2014 your grade mom will tell you which weeks are yours.",
-        "Post-game chocolate milk after Varsity games \u2014 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
-        "Game banners in the locker room each week, starting with the first regular season game. Chaired by Raelene Williams.",
-        "Treat bags for every varsity player, trainer, and manager the day before each game \u2014 shopping, stuffing, a note in each one, drop-off at the locker room. Chaired by Nikki McSpadden.",
-        "Parent and family bus for travel games.",
-        "Tailgate coordination \u2014 location, timing, setup, and paper products. Chaired by Tessa Vorhaben, with Jene Ponder.",
-        "Food to share at tailgates and at the Blue and White Scrimmage.",
-        "Help with setup and breakdown."
-      ]
-    },
-    {
-      "id": "junior",
-      "name": "Junior",
-      "classYear": "Class of 2028",
-      "dues": 130,
-      "duesHandle": "@Nicole-Abadie",
-      "tailgateFood": "Drinks",
-      "gradeMom": "Nicole Abadie",
-      "responsibilities": [
-        "Pre-game meals for assigned games \u2014 your grade mom will tell you which weeks are yours.",
-        "Post-game chocolate milk after Varsity games \u2014 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
-        "Hosting the Senior Parent Tailgate on Friday, October 30 at Tad Gormley \u2014 the Junior class's big event honoring the senior class.",
-        "Food to share at tailgates and at the Blue and White Scrimmage.",
-        "Help with setup and breakdown."
-      ]
-    },
-    {
-      "id": "sophomore",
-      "name": "Sophomore",
-      "classYear": "Class of 2029",
-      "dues": 100,
-      "duesHandle": "@JesuitFootball2029",
-      "tailgateFood": "Desserts",
-      "gradeMom": "Mandi Mohr",
-      "responsibilities": [
-        "Pre-game meals for assigned games \u2014 your grade mom will tell you which weeks are yours.",
-        "Post-game chocolate milk after Varsity games \u2014 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
-        "Chocolate milk for JV games, in a cooler, organized by your grade mom.",
-        "Food to share at tailgates and at the Blue and White Scrimmage.",
-        "Help with setup and breakdown."
-      ]
+        "Baseline only \u2014 post-game chocolate milk and tailgate food to share.",
+        "Assignments confirmed by your grade mom."
+      ],
+      "gradeNumber": 8,
+      "shortLabel": "8th",
+      "teams": [
+        "JH"
+      ],
+      "teamBlurb": "Junior High (8th grade)"
     },
     {
       "id": "freshman",
@@ -358,20 +326,86 @@ const SEASON = {
         "Presentation roses, with a bow, from Villere's florist, plus the announcer script, for Senior Night on Thursday, September 3.",
         "Food to share at tailgates and at the Blue and White Scrimmage.",
         "Help with setup and breakdown."
-      ]
+      ],
+      "gradeNumber": 9,
+      "shortLabel": "9th",
+      "teams": [
+        "9th",
+        "FR",
+        "JV"
+      ],
+      "teamBlurb": "9th grade team"
     },
     {
-      "id": "pre-freshman",
-      "name": "Pre-Freshman",
-      "classYear": "8th Grade",
-      "dues": null,
-      "duesHandle": null,
-      "tailgateFood": "Help as needed",
-      "gradeMom": "Laura Wooderson",
+      "id": "sophomore",
+      "name": "Sophomore",
+      "classYear": "Class of 2029",
+      "dues": 100,
+      "duesHandle": "@JesuitFootball2029",
+      "tailgateFood": "Desserts",
+      "gradeMom": "Mandi Mohr",
       "responsibilities": [
-        "Baseline only \u2014 post-game chocolate milk and tailgate food to share.",
-        "Assignments confirmed by your grade mom."
-      ]
+        "Pre-game meals for assigned games \u2014 your grade mom will tell you which weeks are yours.",
+        "Post-game chocolate milk after Varsity games \u2014 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
+        "Chocolate milk for JV games, in a cooler, organized by your grade mom.",
+        "Food to share at tailgates and at the Blue and White Scrimmage.",
+        "Help with setup and breakdown."
+      ],
+      "gradeNumber": 10,
+      "shortLabel": "10th",
+      "teams": [
+        "JV",
+        "Varsity"
+      ],
+      "teamBlurb": "JV and Varsity"
+    },
+    {
+      "id": "junior",
+      "name": "Junior",
+      "classYear": "Class of 2028",
+      "dues": 130,
+      "duesHandle": "@Nicole-Abadie",
+      "tailgateFood": "Drinks",
+      "gradeMom": "Nicole Abadie",
+      "responsibilities": [
+        "Pre-game meals for assigned games \u2014 your grade mom will tell you which weeks are yours.",
+        "Post-game chocolate milk after Varsity games \u2014 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
+        "Hosting the Senior Parent Tailgate on Friday, October 30 at Tad Gormley \u2014 the Junior class's big event honoring the senior class.",
+        "Food to share at tailgates and at the Blue and White Scrimmage.",
+        "Help with setup and breakdown."
+      ],
+      "gradeNumber": 11,
+      "shortLabel": "11th",
+      "teams": [
+        "JV",
+        "Varsity"
+      ],
+      "teamBlurb": "JV and Varsity"
+    },
+    {
+      "id": "senior",
+      "name": "Senior",
+      "classYear": "Class of 2027",
+      "dues": 140,
+      "duesHandle": "@bluejays2027",
+      "tailgateFood": "Main course",
+      "gradeMom": "Golda Hartman",
+      "responsibilities": [
+        "Pre-game meals for assigned games \u2014 your grade mom will tell you which weeks are yours.",
+        "Post-game chocolate milk after Varsity games \u2014 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
+        "Game banners in the locker room each week, starting with the first regular season game. Chaired by Raelene Williams.",
+        "Treat bags for every varsity player, trainer, and manager the day before each game \u2014 shopping, stuffing, a note in each one, drop-off at the locker room. Chaired by Nikki McSpadden.",
+        "Parent and family bus for travel games.",
+        "Tailgate coordination \u2014 location, timing, setup, and paper products. Chaired by Tessa Vorhaben, with Jene Ponder.",
+        "Food to share at tailgates and at the Blue and White Scrimmage.",
+        "Help with setup and breakdown."
+      ],
+      "gradeNumber": 12,
+      "shortLabel": "12th",
+      "teams": [
+        "Varsity"
+      ],
+      "teamBlurb": "Varsity"
     }
   ],
   "gradeMoms": [
@@ -514,6 +548,332 @@ const SEASON = {
       "name": "Summer II",
       "start": "2027-07-20",
       "end": "2027-08-01"
+    }
+  ],
+  "teams": [
+    {
+      "code": "JH",
+      "name": "Junior High",
+      "detail": "8th grade team"
+    },
+    {
+      "code": "9th",
+      "name": "9th Grade",
+      "detail": "Freshman team"
+    },
+    {
+      "code": "FR",
+      "name": "Freshman",
+      "detail": "Freshman team"
+    },
+    {
+      "code": "JV",
+      "name": "JV",
+      "detail": "Junior varsity"
+    },
+    {
+      "code": "Varsity",
+      "name": "Varsity",
+      "detail": "The 10-game varsity schedule"
+    }
+  ],
+  "teamGames": [
+    {
+      "team": "8th",
+      "date": "2026-08-22",
+      "weekday": "Saturday",
+      "isHome": false,
+      "opponent": "Mandeville",
+      "kickoff": null,
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-08-29",
+      "weekday": "Saturday",
+      "isHome": false,
+      "opponent": "Northshore",
+      "kickoff": null,
+      "isDistrict": false
+    },
+    {
+      "team": "9th",
+      "date": "2026-08-31",
+      "weekday": "Monday",
+      "isHome": true,
+      "opponent": "De La Salle",
+      "kickoff": "5:00",
+      "isDistrict": false
+    },
+    {
+      "team": "JV",
+      "date": "2026-08-31",
+      "weekday": "Monday",
+      "isHome": false,
+      "opponent": "St. Aug",
+      "kickoff": "5:30",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-09-02",
+      "weekday": "Wednesday",
+      "isHome": true,
+      "opponent": "Hannan",
+      "kickoff": "6:00",
+      "isDistrict": false
+    },
+    {
+      "team": "9th",
+      "date": "2026-09-07",
+      "weekday": "Monday",
+      "isHome": false,
+      "opponent": "SCC",
+      "kickoff": "9:00",
+      "isDistrict": false
+    },
+    {
+      "team": "JV",
+      "date": "2026-09-07",
+      "weekday": "Monday",
+      "isHome": false,
+      "opponent": "SCC",
+      "kickoff": "10:30",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-09-08",
+      "weekday": "Tuesday",
+      "isHome": true,
+      "opponent": "Shaw",
+      "kickoff": "6:30",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-09-09",
+      "weekday": "Wednesday",
+      "isHome": false,
+      "opponent": "St. Martin's",
+      "kickoff": "5:00",
+      "isDistrict": true
+    },
+    {
+      "team": "9th",
+      "date": "2026-09-16",
+      "weekday": "Wednesday",
+      "isHome": false,
+      "opponent": "KARR",
+      "kickoff": "5:30",
+      "isDistrict": false
+    },
+    {
+      "team": "JV",
+      "date": "2026-09-16",
+      "weekday": "Wednesday",
+      "isHome": true,
+      "opponent": "KARR",
+      "kickoff": "6:00",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-09-17",
+      "weekday": "Thursday",
+      "isHome": true,
+      "opponent": "St. Pauls",
+      "kickoff": "5:30",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-09-24",
+      "weekday": "Thursday",
+      "isHome": true,
+      "opponent": "Bro Mart",
+      "kickoff": "5:30",
+      "isDistrict": false
+    },
+    {
+      "team": "JV",
+      "date": "2026-09-26",
+      "weekday": "Saturday",
+      "isHome": true,
+      "opponent": "BM",
+      "kickoff": "10:00",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-10-01",
+      "weekday": "Thursday",
+      "isHome": true,
+      "opponent": "St. Martin's",
+      "kickoff": "5:30",
+      "isDistrict": true
+    },
+    {
+      "team": "8th",
+      "date": "2026-10-03",
+      "weekday": "Saturday",
+      "isHome": true,
+      "opponent": "HC",
+      "kickoff": "12:00",
+      "isDistrict": false
+    },
+    {
+      "team": "9th",
+      "date": "2026-10-03",
+      "weekday": "Saturday",
+      "isHome": true,
+      "opponent": "HC",
+      "kickoff": "9am",
+      "isDistrict": false
+    },
+    {
+      "team": "JV",
+      "date": "2026-10-03",
+      "weekday": "Saturday",
+      "isHome": true,
+      "opponent": "HC",
+      "kickoff": "10:30",
+      "isDistrict": false
+    },
+    {
+      "team": "9th",
+      "date": "2026-10-07",
+      "weekday": "Wednesday",
+      "isHome": false,
+      "opponent": "Chalmette",
+      "kickoff": "5:00",
+      "isDistrict": false
+    },
+    {
+      "team": "JV",
+      "date": "2026-10-07",
+      "weekday": "Wednesday",
+      "isHome": false,
+      "opponent": "Chalmette",
+      "kickoff": "6:15",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-10-08",
+      "weekday": "Thursday",
+      "isHome": false,
+      "opponent": "Shaw",
+      "kickoff": "5:30",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-10-15",
+      "weekday": "Thursday",
+      "isHome": true,
+      "opponent": "St. Aug",
+      "kickoff": "5:00",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-10-15",
+      "weekday": "Thursday",
+      "isHome": false,
+      "opponent": "St. Pauls",
+      "kickoff": "5:30",
+      "isDistrict": false
+    },
+    {
+      "team": "9th",
+      "date": "2026-10-15",
+      "weekday": "Thursday",
+      "isHome": true,
+      "opponent": "St. Aug",
+      "kickoff": "6:30",
+      "isDistrict": false
+    },
+    {
+      "team": "9th",
+      "date": "2026-10-19",
+      "weekday": "Monday",
+      "isHome": true,
+      "opponent": "De La Salle",
+      "kickoff": "6:00",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-10-20",
+      "weekday": "Tuesday",
+      "isHome": false,
+      "opponent": "St. Pauls",
+      "kickoff": "5:30",
+      "isDistrict": true
+    },
+    {
+      "team": "8th",
+      "date": "2026-10-21",
+      "weekday": "Wednesday",
+      "isHome": true,
+      "opponent": "Curtis",
+      "kickoff": "5:00",
+      "isDistrict": false
+    },
+    {
+      "team": "9th",
+      "date": "2026-10-21",
+      "weekday": "Wednesday",
+      "isHome": true,
+      "opponent": "Curtis",
+      "kickoff": "6:30",
+      "isDistrict": false
+    },
+    {
+      "team": "JV",
+      "date": "2026-10-24",
+      "weekday": "Saturday",
+      "isHome": false,
+      "opponent": "Curtis",
+      "kickoff": "10:30",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-10-26",
+      "weekday": "Monday",
+      "isHome": false,
+      "opponent": "Rummel",
+      "kickoff": "4:30",
+      "isDistrict": false
+    },
+    {
+      "team": "9th",
+      "date": "2026-10-26",
+      "weekday": "Monday",
+      "isHome": true,
+      "opponent": "Rummel",
+      "kickoff": "6:00",
+      "isDistrict": false
+    },
+    {
+      "team": "8th",
+      "date": "2026-10-27",
+      "weekday": "Tuesday",
+      "isHome": false,
+      "opponent": "Hannan",
+      "kickoff": "5:30",
+      "isDistrict": true
+    },
+    {
+      "team": "JV",
+      "date": "2026-10-31",
+      "weekday": "Saturday",
+      "isHome": false,
+      "opponent": "Rummel",
+      "kickoff": "10:00",
+      "isDistrict": false
     }
   ]
 };

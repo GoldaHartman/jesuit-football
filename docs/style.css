@@ -329,6 +329,14 @@ ul.bullets li:last-child { margin-bottom: 0; }
   color: #fff;
 }
 
+/* team picker — four chips, always one row even on a small phone */
+.picker.four button {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 9px 4px;
+  font-size: 13px;
+}
+
 /* ---------- calendar ---------- */
 
 .cal-month {

@@ -89,6 +89,13 @@ function gameOn(iso) {
 // ---------------------------------------------------------------- state
 
 const SAVED_GRADE = 'jesuitfb.grade';
+const SAVED_TEAM = 'jesuitfb.team';
+
+/** The four teams the program actually fields. Varsity lives in SEASON.games;
+    the other three are pulled out of the coach's calendar at build time. */
+const TEAMS = ['8th', '9th', 'JV', 'Varsity'];
+const TEAM_LABEL = { '8th': '8th', '9th': '9th', JV: 'JV', Varsity: 'Varsity' };
+const TEAM_FULL = { '8th': '8th Grade', '9th': '9th Grade', JV: 'JV', Varsity: 'Varsity' };
 
 function currentGrade() {
   const saved = localStorage.getItem(SAVED_GRADE);
@@ -98,6 +105,62 @@ function currentGrade() {
 function setGrade(name) {
   localStorage.setItem(SAVED_GRADE, name);
   renderAll();
+}
+
+function currentTeam() {
+  const saved = localStorage.getItem(SAVED_TEAM);
+  return TEAMS.includes(saved) ? saved : 'Varsity';
+}
+
+function setTeam(team) {
+  localStorage.setItem(SAVED_TEAM, team);
+  renderAll();
+}
+
+/**
+ * Varsity games and sub-varsity games come from different sources and have
+ * different shapes. Flatten both into what the UI actually draws.
+ */
+function normalize(game) {
+  if (game.venueId) {
+    const venue = VENUE_BY_ID[game.venueId];
+    return {
+      date: game.date,
+      opponent: game.opponent,
+      isHome: game.isHome,
+      isDistrict: game.isDistrict,
+      label: game.week ? `Week ${game.week}` : 'Preseason',
+      time: prettyTime(game.kickoff) || game.kickoffNote || 'Time TBA',
+      venueName: venue ? venue.name : null,
+      venueId: game.venueId,
+      notes: game.notes,
+      mealGrade: game.mealGrade,
+      type: game.type,
+      raw: game,
+    };
+  }
+  return {
+    date: game.date,
+    opponent: game.opponent,
+    isHome: game.isHome,
+    isDistrict: game.isDistrict,
+    label: TEAM_FULL[game.team],
+    // times are shown exactly as the coach printed them — no AM/PM guessing
+    time: game.kickoff || 'Time TBA',
+    venueName: null,
+    venueId: null,
+    notes: null,
+    mealGrade: null,
+    type: 'team',
+    raw: game,
+  };
+}
+
+function gamesForTeam(team) {
+  const list = team === 'Varsity'
+    ? SEASON.games
+    : (SEASON.teamGames || []).filter((g) => g.team === team);
+  return list.map(normalize);
 }
 
 // ---------------------------------------------------------------- game-week tasks
@@ -240,8 +303,13 @@ function renderToday() {
   const iso = todayISO();
   const entry = CAL_BY_DATE[iso];
   const game = gameOn(iso);
-  const upcoming = nextGame(iso);
   const grade = currentGrade();
+
+  // the countdown follows your son's team; the parent jobs follow the varsity
+  // game week, since that is how the grade duties are organised
+  const team = currentTeam();
+  const upcoming = gamesForTeam(team).find((g) => g.date >= iso) || null;
+  const nextVarsity = nextGame(iso);
 
   let html = `<div class="today-date">${esc(longDate(iso))}</div>`;
 
@@ -257,35 +325,42 @@ function renderToday() {
   }
   html += '</div>';
 
-  // --- countdown
+  // --- countdown for your team
   if (upcoming) {
     const days = daysBetween(iso, upcoming.date);
-    const venue = venueOf(upcoming);
     const when = days === 0 ? 'TODAY' : days === 1 ? 'TOMORROW' : `${days}<small>days</small>`;
-    const kickoff = prettyTime(upcoming.kickoff) || upcoming.kickoffNote || 'Time TBA';
+    const prefix = upcoming.type === 'preseason' ? '' : (upcoming.isHome ? 'vs ' : 'at ');
+    const badges = upcoming.type === 'team'
+      ? `<span class="badge onlight">${upcoming.isHome ? 'Home' : 'Away'}</span>${upcoming.isDistrict ? '<span class="badge onlight">District</span>' : ''}`
+      : badgesFor(upcoming.raw).replace(/class="badge/g, 'class="badge onlight');
 
     html += `
       <div class="card countdown">
-        <div class="eyebrow">${upcoming.week ? `Week ${upcoming.week}` : 'Next up'}</div>
+        <div class="eyebrow">${esc(TEAM_FULL[team])}${upcoming.label !== TEAM_FULL[team] ? ' · ' + esc(upcoming.label) : ''}</div>
         <div class="n">${when}</div>
-        <div class="opponent">${upcoming.isHome === false && upcoming.type === 'regular' ? 'at ' : upcoming.type === 'regular' ? 'vs ' : ''}${esc(upcoming.opponent)}</div>
-        <div class="meta">${esc(shortDate(upcoming.date))} · ${esc(kickoff)}${venue ? ' · ' + esc(venue.name) : ''}</div>
-        <div class="badges">${badgesFor(upcoming).replace(/class="badge/g, 'class="badge onlight')}</div>
+        <div class="opponent">${prefix}${esc(upcoming.opponent)}</div>
+        <div class="meta">${esc(shortDate(upcoming.date))} · ${esc(upcoming.time)}${upcoming.venueName ? ' · ' + esc(upcoming.venueName) : ''}</div>
+        <div class="badges">${badges}</div>
         ${upcoming.notes ? `<div class="tagline">${esc(upcoming.notes)}</div>` : ''}
       </div>`;
   } else {
-    html += '<div class="card"><div class="rest-day">The 2026 regular season is complete. Go Jays!</div></div>';
+    html += `<div class="card"><div class="rest-day">No more ${esc(TEAM_FULL[team])} games on the calendar. Go Jays!</div></div>`;
   }
 
+  // --- team switcher, so you can flip without leaving Today
+  html += `<div class="picker four" style="margin-top:-2px">
+    ${TEAMS.map((t) => `<button data-team="${esc(t)}" class="${t === team ? 'on' : ''}">${esc(TEAM_LABEL[t])}</button>`).join('')}
+  </div>`;
+
   // --- your grade this week
-  if (grade && upcoming) {
-    const out = daysBetween(iso, upcoming.date);
-    const tasks = tasksFor(grade, upcoming);
+  if (grade && nextVarsity) {
+    const out = daysBetween(iso, nextVarsity.date);
+    const tasks = tasksFor(grade, nextVarsity);
     if (tasks.length) {
       html += `<h2 class="section">${esc(grade.name)} class — ${out <= 7 ? 'this game week' : 'next game week'}</h2>`;
       html += '<div class="card">';
-      if (grade.name === upcoming.mealGrade) {
-        html += `<div class="task-flag"><strong>Your grade has the pre-game meal</strong> for ${esc(upcoming.opponent)} on ${esc(shortDate(upcoming.date))}.</div>`;
+      if (grade.name === nextVarsity.mealGrade) {
+        html += `<div class="task-flag"><strong>Your grade has the pre-game meal</strong> for ${esc(nextVarsity.opponent)} on ${esc(shortDate(nextVarsity.date))}.</div>`;
       }
       html += tasks.map((t) => `
         <div class="task${t.yours ? ' yours' : ''}">
@@ -303,7 +378,7 @@ function renderToday() {
         <div class="eyebrow">Set this once</div>
         <div style="font-size:15px;margin-bottom:11px">Pick your son's grade and this screen will show what your class owes each game week.</div>
         <div class="picker">
-          ${SEASON.grades.map((g) => `<button data-grade="${esc(g.name)}">${esc(g.name)}</button>`).join('')}
+          ${SEASON.grades.map((g) => `<button data-grade="${esc(g.name)}">${esc(g.shortLabel)}</button>`).join('')}
         </div>
       </div>`;
   }
@@ -321,29 +396,46 @@ function renderToday() {
 
 function renderSchedule() {
   const iso = todayISO();
-  const upcoming = nextGame(iso);
+  const team = currentTeam();
+  const games = gamesForTeam(team);
+  const upcoming = games.find((g) => g.date >= iso);
 
-  let html = '<h2 class="section">2026 Season</h2><div class="card flush">';
-  html += SEASON.games.map((g) => {
-    const venue = venueOf(g);
+  let html = `<h2 class="section">Which team?</h2>
+    <div class="picker four">
+      ${TEAMS.map((t) => `<button data-team="${esc(t)}" class="${t === team ? 'on' : ''}">${esc(TEAM_LABEL[t])}</button>`).join('')}
+    </div>`;
+
+  if (!games.length) {
+    html += '<div class="empty">No games listed for this team yet.</div>';
+    el('view-schedule').innerHTML = html;
+    return;
+  }
+
+  html += `<h2 class="section">${esc(TEAM_FULL[team])} — ${games.length} games</h2><div class="card flush">`;
+  html += games.map((g) => {
     const past = g.date < iso;
-    const isNext = upcoming && g.id === upcoming.id;
-    const kickoff = prettyTime(g.kickoff) || g.kickoffNote || 'TBA';
-    const prefix = g.type === 'regular' ? (g.isHome ? 'vs ' : 'at ') : '';
+    const isNext = upcoming && g.date === upcoming.date && g.opponent === upcoming.opponent;
+    const prefix = g.type === 'preseason' ? '' : (g.isHome ? 'vs ' : 'at ');
+    const badges = g.type === 'team'
+      ? `<span class="badge ${g.isHome ? 'home' : 'away'}">${g.isHome ? 'Home' : 'Away'}</span>${g.isDistrict ? '<span class="badge district">District</span>' : ''}`
+      : badgesFor(g.raw) + (g.mealGrade ? `<span class="badge">${esc(g.mealGrade)} meal</span>` : '');
+
     return `
-      <button class="game${past ? ' past' : ''}${isNext ? ' next' : ''}" data-venue="${esc(g.venueId)}">
+      <button class="game${past ? ' past' : ''}${isNext ? ' next' : ''}"${g.venueId ? ` data-venue="${esc(g.venueId)}"` : ''}>
         <div class="row1">
-          <span class="wk">${g.week ? 'Week ' + g.week : g.type === 'preseason' ? 'Preseason' : ''}</span>
+          <span class="wk">${esc(g.label)}</span>
           <span class="date">${esc(shortDate(g.date))}</span>
         </div>
         <div class="opp">${prefix}${esc(g.opponent)}</div>
-        <div class="where">${esc(kickoff)}${venue ? ' · ' + esc(venue.name) : ''}</div>
-        <div class="badges">${badgesFor(g)}${g.mealGrade ? `<span class="badge">${esc(g.mealGrade)} meal</span>` : ''}</div>
+        <div class="where">${esc(g.time)}${g.venueName ? ' · ' + esc(g.venueName) : ''}</div>
+        <div class="badges">${badges}</div>
       </button>`;
   }).join('');
   html += '</div>';
 
-  html += `<div class="footnote">Jesuit hosts four of the ten. Brother Martin and St. Augustine are played at Tad Gormley, but we are the visiting team.<br>Tap a game for that venue's bag policy and parking.</div>`;
+  html += team === 'Varsity'
+    ? `<div class="footnote">Jesuit hosts four of the ten. Brother Martin and St. Augustine are played at Tad Gormley, but we are the visiting team.<br>Tap a game for that venue's bag policy and parking.</div>`
+    : `<div class="footnote">Taken from the coach's calendar, with times exactly as he printed them.<br>Sub-varsity venues are not listed on the calendar — check with your grade mom, and confirm times with your son.</div>`;
 
   el('view-schedule').innerHTML = html;
 }
@@ -396,7 +488,7 @@ function renderGrade() {
 
   let html = '<h2 class="section">Which grade is your son in?</h2>';
   html += `<div class="picker">
-    ${SEASON.grades.map((g) => `<button data-grade="${esc(g.name)}" class="${grade && g.name === grade.name ? 'on' : ''}">${esc(g.name)}</button>`).join('')}
+    ${SEASON.grades.map((g) => `<button data-grade="${esc(g.name)}" class="${grade && g.name === grade.name ? 'on' : ''}">${esc(g.shortLabel)}</button>`).join('')}
   </div>`;
 
   if (!grade) {
@@ -407,7 +499,8 @@ function renderGrade() {
 
   html += `
     <div class="card">
-      <div class="eyebrow">${esc(grade.classYear)}</div>
+      <div class="eyebrow">${esc(grade.shortLabel)} grade · ${esc(grade.classYear)}</div>
+      <div class="row"><span class="k">Usually plays</span><span class="v">${esc(grade.teamBlurb)}</span></div>
       <div class="row"><span class="k">Your grade mom</span><span class="v">${esc(grade.gradeMom)}</span></div>
       <div class="row"><span class="k">Grade dues</span><span class="v">${grade.dues ? '$' + grade.dues : 'Baseline only'}</span></div>
       ${grade.duesHandle ? `<div class="row"><span class="k">Venmo</span><span class="v">${esc(grade.duesHandle)}</span></div>` : ''}
@@ -529,6 +622,9 @@ document.querySelector('nav.tabs').addEventListener('click', (event) => {
 
 // grade pickers live in two views and are re-rendered, so delegate from body
 document.body.addEventListener('click', (event) => {
+  const pickTeam = event.target.closest('button[data-team]');
+  if (pickTeam) { setTeam(pickTeam.dataset.team); return; }
+
   const pick = event.target.closest('button[data-grade]');
   if (pick) { setGrade(pick.dataset.grade); return; }
 

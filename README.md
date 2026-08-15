@@ -13,14 +13,30 @@ Built for the Class of 2027 season by the grade moms.
 
 | Tab | What it does |
 | --- | --- |
-| **Today** | Today's practice and times straight off the coach's calendar, a countdown to the next game, and your grade's jobs for that game week |
-| **Games** | All 12 games (2 preseason + 10 regular season) with kickoff, venue, home/away, district, and which grade has the pre-game meal |
+| **Today** | Today's practice and times straight off the coach's calendar, a countdown to your team's next game, and your grade's jobs for that game week |
+| **Games** | Switch between **8th · 9th · JV · Varsity** and see that team's full schedule |
 | **Calendar** | Every practice, workout, and event, Aug 2026 through Jul 2027, auto-scrolled to today |
 | **My Grade** | Pick your son's grade once. Dues, Venmo handle, tailgate category, what your class takes on, your pre-game meal weeks, and your grade mom's contact |
 | **Info** | Bag policy and parking for all 8 venues, traditions, grade moms, photographers, vacation dates |
 
-The grade choice is remembered on the phone (`localStorage`). No accounts, no
-login, no server, no tracking.
+Both the team and grade choices are remembered on the phone (`localStorage`).
+No accounts, no login, no server, no tracking.
+
+### Team vs. grade — why there are two pickers
+
+They answer different questions and they don't line up:
+
+- **Team** (8th / 9th / JV / Varsity) decides *which games your son plays in*. A
+  10th grader might be on JV or Varsity, so grade alone can't tell you.
+- **Grade** (8th–12th) decides *what you owe as a parent* — dues, pre-game meal
+  weeks, chocolate milk, donuts. That's organised by class, not by team.
+
+| Team | Games | Where it comes from |
+| --- | --- | --- |
+| Varsity | 12 | `data/season.json`, hand-maintained |
+| 8th grade (JH) | 16 | extracted from the calendar |
+| 9th grade | 9 | extracted from the calendar |
+| JV | 8 | extracted from the calendar |
 
 ### Deliberately not in the app
 
@@ -38,14 +54,14 @@ the other grade moms first, and consider putting it behind a password instead.
 ## Running it locally
 
 ```bash
-cd web && python3 -m http.server 8770
+cd docs && python3 -m http.server 8770
 ```
 
 Then open <http://localhost:8770>. That's it — no build step, no dependencies.
 
 ## Rebuilding the data
 
-The app's data is **generated**, never hand-typed. `web/data.js` is a build
+The app's data is **generated**, never hand-typed. `docs/data.js` is a build
 artifact — editing it directly will be overwritten.
 
 ```bash
@@ -55,7 +71,7 @@ python3 tools/parse_calendar.py "source/2026 FOOTBALL CALENDAR.pdf" data/calenda
 # 2. bundle both JSON files into the app
 python3 tools/build_web_data.py
 
-# 3. bump CACHE in web/sw.js (e.g. jesuit-fb-v1 -> v2) so phones
+# 3. bump CACHE in docs/sw.js (e.g. jesuit-fb-v1 -> v2) so phones
 #    pick up the new schedule instead of serving the cached one
 ```
 
@@ -72,6 +88,16 @@ run `build_web_data.py`, bump the service worker cache, redeploy.
 | --- | --- |
 | `data/calendar.json` | Generated from the coach's *2026 FOOTBALL CALENDAR* PDF — 277 days |
 | `data/season.json` | Hand-built from the *2026 Football Welcome Letter* and the official varsity schedule |
+| `teamGames` in `docs/data.js` | Derived at build time — the 8th/9th/JV games the coach buried inside day cells like `"JH vs Shaw 6:30"` |
+
+Sub-varsity times are printed **exactly as the coach wrote them**, with no AM/PM
+guessing, because the calendar doesn't say. The calendar also lists no venues
+for those games.
+
+Two known oddities in the source, left as-is rather than silently "fixed":
+Oct 15 lists two 8th grade games (vs St. Aug 5:00 and at St. Pauls 5:30), and
+the first two weeks of August have some practice numbers doubled up in one day
+cell. Both are in the past or worth confirming with the coach.
 
 The parser was verified against 16 independent anchors from the welcome letter
 (combine, parent dinner, Blue & White, all 10 game dates, holidays) — all match
@@ -88,7 +114,7 @@ python3 tools/make_icons.py
 ```
 data/       season.json (hand-maintained) + calendar.json (generated)
 tools/      parse_calendar.py, build_web_data.py, make_icons.py
-web/        the app — index.html, app.js, style.css, data.js (generated), sw.js
+docs/       the app — index.html, app.js, style.css, data.js (generated), sw.js
 source/     original PDFs (gitignored — school documents, not ours to republish)
 ```
 
@@ -112,10 +138,10 @@ Works on both. No App Store, no download.
 Any static host works. The app is 8 files and about 120 KB.
 
 **GitHub Pages** (free): push this repo, then Settings → Pages → deploy from
-`main` branch, `/web` folder. The link becomes
+`main` branch, `/docs` folder. The link becomes
 `https://<user>.github.io/<repo>/`.
 
-**Netlify Drop** (free, no account needed to try): drag the `web/` folder onto
+**Netlify Drop** (free, no account needed to try): drag the `docs/` folder onto
 <https://app.netlify.com/drop>.
 
 Whichever you pick, the link is public — anyone with it can open it. That is the

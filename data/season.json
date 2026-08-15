@@ -1,11 +1,25 @@
 {
   "season": "2026",
-  "team": "Jesuit High School New Orleans — Blue Jays",
+  "team": "Jesuit High School New Orleans \u2014 Blue Jays",
   "motto": "Men of Faith and Men for Others",
-  "culture": ["Accountability", "High Character", "Detail", "Discipline", "Humility"],
+  "culture": [
+    "Accountability",
+    "High Character",
+    "Detail",
+    "Discipline",
+    "Humility"
+  ],
   "district": "9-5A",
-  "districtTeams": ["Jesuit", "Brother Martin", "Chalmette", "Edna Karr", "Holy Cross", "John Curtis", "Rummel", "St. Augustine"],
-
+  "districtTeams": [
+    "Jesuit",
+    "Brother Martin",
+    "Chalmette",
+    "Edna Karr",
+    "Holy Cross",
+    "John Curtis",
+    "Rummel",
+    "St. Augustine"
+  ],
   "games": [
     {
       "id": "preseason-bluewhite",
@@ -13,7 +27,7 @@
       "date": "2026-08-14",
       "opponent": "Blue & White Scrimmage",
       "kickoff": "18:10",
-      "kickoffNote": "9th grade 5:20 · JV/Varsity 6:10",
+      "kickoffNote": "9th grade 5:20 \u00b7 JV/Varsity 6:10",
       "venueId": "john-ryan",
       "isHome": true,
       "isDistrict": false,
@@ -33,7 +47,7 @@
       "isDistrict": false,
       "type": "preseason",
       "mealGrade": null,
-      "notes": "Preseason scrimmage — no pre-game meal."
+      "notes": "Preseason scrimmage \u2014 no pre-game meal."
     },
     {
       "id": "week-1",
@@ -47,7 +61,7 @@
       "isDistrict": false,
       "type": "regular",
       "mealGrade": "Junior",
-      "notes": "SENIOR NIGHT. Thursday game — tailgate timing shifts. Freshman class brings presentation roses with a bow from Villere's, plus the announcer script."
+      "notes": "SENIOR NIGHT. Thursday game \u2014 tailgate timing shifts. Freshman class brings presentation roses with a bow from Villere's, plus the announcer script."
     },
     {
       "id": "week-2",
@@ -131,7 +145,7 @@
       "isDistrict": true,
       "type": "regular",
       "mealGrade": "Senior",
-      "notes": "SATURDAY game — tailgate timing shifts. Played at Tad Gormley, but Jesuit is the visiting team."
+      "notes": "SATURDAY game \u2014 tailgate timing shifts. Played at Tad Gormley, but Jesuit is the visiting team."
     },
     {
       "id": "week-8",
@@ -145,7 +159,7 @@
       "isDistrict": true,
       "type": "regular",
       "mealGrade": "Freshman",
-      "notes": "HOMECOMING and court presentation. Home game, but played at SLU in Hammond — about a 1 hour drive."
+      "notes": "HOMECOMING and court presentation. Home game, but played at SLU in Hammond \u2014 about a 1 hour drive."
     },
     {
       "id": "week-9",
@@ -173,10 +187,9 @@
       "isDistrict": true,
       "type": "regular",
       "mealGrade": "Senior",
-      "notes": "Thursday game — tailgate timing shifts. Buy GoFan tickets ahead."
+      "notes": "Thursday game \u2014 tailgate timing shifts. Buy GoFan tickets ahead."
     }
   ],
-
   "venues": [
     {
       "id": "tad-gormley",
@@ -186,7 +199,7 @@
       "ticketNote": "Jesuit home games. Posts closer to game day.",
       "bagPolicy": "CLEAR bags only, max 12x12x16 in. A small clutch of any material up to 4.5x6.5 in. is fine. All bags subject to search.",
       "prohibited": "Coolers. Non-clear bags, backpacks, purses. Seat cushions with pockets. Metal-detector wanding at all gates.",
-      "parking": "City Park — lots along Marconi Dr and Roosevelt Mall. Arrive early; lots fill.",
+      "parking": "City Park \u2014 lots along Marconi Dr and Roosevelt Mall. Arrive early; lots fill.",
       "driveNote": null,
       "source": "Jesuit official Stadium Bag Policy (cdn.jesuitnola.org)"
     },
@@ -195,7 +208,7 @@
       "name": "John Ryan Stadium",
       "address": "Jesuit High School campus, Metairie, LA",
       "tickets": null,
-      "ticketNote": "Blue & White Night — on campus.",
+      "ticketNote": "Blue & White Night \u2014 on campus.",
       "bagPolicy": "Follow the Jesuit clear-bag policy: clear bags, or a small clutch up to 4.5x6.5 in.",
       "prohibited": "Non-clear bags and backpacks.",
       "parking": "On campus.",
@@ -223,7 +236,7 @@
       "bagPolicy": "CLEAR bags only, max 12x6x12 in. A clear small purse is fine.",
       "prohibited": "Book bags, large purses, fanny packs. Diaper bags allowed ONLY if you are entering with a child.",
       "parking": "On-campus lots.",
-      "driveNote": "NO exit and re-entry — once you leave, you are out.",
+      "driveNote": "NO exit and re-entry \u2014 once you leave, you are out.",
       "source": "St. Bernard Parish clear-bag policy (2025)"
     },
     {
@@ -231,7 +244,7 @@
       "name": "Northshore High School",
       "address": "Slidell, LA (St. Tammany Parish)",
       "tickets": null,
-      "ticketNote": "Jamboree — pay at the gate.",
+      "ticketNote": "Jamboree \u2014 pay at the gate.",
       "bagPolicy": "CLEAR totes max 12x8x12 in., or a clear small purse max 4.5x6.5 in. One bag per person.",
       "prohibited": "Non-clear bags, backpacks.",
       "parking": "On campus.",
@@ -240,7 +253,7 @@
     },
     {
       "id": "slu-strawberry",
-      "name": "SLU — Strawberry Stadium",
+      "name": "SLU \u2014 Strawberry Stadium",
       "address": "Southeastern Louisiana University, Hammond, LA",
       "tickets": null,
       "ticketNote": "Confirm on GoFan / SLU.",
@@ -252,7 +265,7 @@
     },
     {
       "id": "stm",
-      "name": "St. Thomas More — Cougar Stadium",
+      "name": "St. Thomas More \u2014 Cougar Stadium",
       "address": "Cougar Stadium, Lafayette, LA",
       "tickets": null,
       "ticketNote": "Via STM GoFan. Clear bags are sold at the Cougar Closet.",
@@ -267,7 +280,7 @@
       "name": "Morris F.X. Jeff Stadium",
       "address": "Algiers, New Orleans, LA (formerly Behrman Stadium)",
       "tickets": "https://gofan.co",
-      "ticketNote": "GoFan pre-sale around $10 — buy ahead.",
+      "ticketNote": "GoFan pre-sale around $10 \u2014 buy ahead.",
       "bagPolicy": "CLEAR bags only. A small clutch max 4.5x6.5 in. is fine.",
       "prohibited": "Non-clear bags, purses over clutch size, coolers, backpacks.",
       "parking": "Algiers / West Bank.",
@@ -275,58 +288,25 @@
       "source": "Edna Karr clear-bag policy (official)"
     }
   ],
-
   "grades": [
     {
-      "id": "senior",
-      "name": "Senior",
-      "classYear": "Class of 2027",
-      "dues": 140,
-      "duesHandle": "@bluejays2027",
-      "tailgateFood": "Main course",
-      "gradeMom": "Golda Hartman",
+      "id": "pre-freshman",
+      "name": "Pre-Freshman",
+      "classYear": "8th Grade",
+      "dues": null,
+      "duesHandle": null,
+      "tailgateFood": "Help as needed",
+      "gradeMom": "Laura Wooderson",
       "responsibilities": [
-        "Pre-game meals for assigned games — your grade mom will tell you which weeks are yours.",
-        "Post-game chocolate milk after Varsity games — 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
-        "Game banners in the locker room each week, starting with the first regular season game. Chaired by Raelene Williams.",
-        "Treat bags for every varsity player, trainer, and manager the day before each game — shopping, stuffing, a note in each one, drop-off at the locker room. Chaired by Nikki McSpadden.",
-        "Parent and family bus for travel games.",
-        "Tailgate coordination — location, timing, setup, and paper products. Chaired by Tessa Vorhaben, with Jene Ponder.",
-        "Food to share at tailgates and at the Blue and White Scrimmage.",
-        "Help with setup and breakdown."
-      ]
-    },
-    {
-      "id": "junior",
-      "name": "Junior",
-      "classYear": "Class of 2028",
-      "dues": 130,
-      "duesHandle": "@Nicole-Abadie",
-      "tailgateFood": "Drinks",
-      "gradeMom": "Nicole Abadie",
-      "responsibilities": [
-        "Pre-game meals for assigned games — your grade mom will tell you which weeks are yours.",
-        "Post-game chocolate milk after Varsity games — 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
-        "Hosting the Senior Parent Tailgate on Friday, October 30 at Tad Gormley — the Junior class's big event honoring the senior class.",
-        "Food to share at tailgates and at the Blue and White Scrimmage.",
-        "Help with setup and breakdown."
-      ]
-    },
-    {
-      "id": "sophomore",
-      "name": "Sophomore",
-      "classYear": "Class of 2029",
-      "dues": 100,
-      "duesHandle": "@JesuitFootball2029",
-      "tailgateFood": "Desserts",
-      "gradeMom": "Mandi Mohr",
-      "responsibilities": [
-        "Pre-game meals for assigned games — your grade mom will tell you which weeks are yours.",
-        "Post-game chocolate milk after Varsity games — 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
-        "Chocolate milk for JV games, in a cooler, organized by your grade mom.",
-        "Food to share at tailgates and at the Blue and White Scrimmage.",
-        "Help with setup and breakdown."
-      ]
+        "Baseline only \u2014 post-game chocolate milk and tailgate food to share.",
+        "Assignments confirmed by your grade mom."
+      ],
+      "gradeNumber": 8,
+      "shortLabel": "8th",
+      "teams": [
+        "JH"
+      ],
+      "teamBlurb": "Junior High (8th grade)"
     },
     {
       "id": "freshman",
@@ -337,67 +317,262 @@
       "tailgateFood": "Appetizers",
       "gradeMom": "Gabby Thompson",
       "responsibilities": [
-        "Pre-game meals for assigned games — your grade mom will tell you which weeks are yours.",
-        "Post-game chocolate milk after Varsity games — 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
+        "Pre-game meals for assigned games \u2014 your grade mom will tell you which weeks are yours.",
+        "Post-game chocolate milk after Varsity games \u2014 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
         "Chocolate milk for 9th grade games, in a cooler, organized by your grade mom.",
-        "Player donuts and milk to the locker room by 7:10 am the morning before each game — one of the players' favorite traditions.",
+        "Player donuts and milk to the locker room by 7:10 am the morning before each game \u2014 one of the players' favorite traditions.",
         "Presentation roses, with a bow, from Villere's florist, plus the announcer script, for Senior Night on Thursday, September 3.",
         "Food to share at tailgates and at the Blue and White Scrimmage.",
         "Help with setup and breakdown."
-      ]
+      ],
+      "gradeNumber": 9,
+      "shortLabel": "9th",
+      "teams": [
+        "9th",
+        "FR",
+        "JV"
+      ],
+      "teamBlurb": "9th grade team"
     },
     {
-      "id": "pre-freshman",
-      "name": "Pre-Freshman",
-      "classYear": "8th Grade",
-      "dues": null,
-      "duesHandle": null,
-      "tailgateFood": "Help as needed",
-      "gradeMom": "Laura Wooderson",
+      "id": "sophomore",
+      "name": "Sophomore",
+      "classYear": "Class of 2029",
+      "dues": 100,
+      "duesHandle": "@JesuitFootball2029",
+      "tailgateFood": "Desserts",
+      "gradeMom": "Mandi Mohr",
       "responsibilities": [
-        "Baseline only — post-game chocolate milk and tailgate food to share.",
-        "Assignments confirmed by your grade mom."
-      ]
+        "Pre-game meals for assigned games \u2014 your grade mom will tell you which weeks are yours.",
+        "Post-game chocolate milk after Varsity games \u2014 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
+        "Chocolate milk for JV games, in a cooler, organized by your grade mom.",
+        "Food to share at tailgates and at the Blue and White Scrimmage.",
+        "Help with setup and breakdown."
+      ],
+      "gradeNumber": 10,
+      "shortLabel": "10th",
+      "teams": [
+        "JV",
+        "Varsity"
+      ],
+      "teamBlurb": "JV and Varsity"
+    },
+    {
+      "id": "junior",
+      "name": "Junior",
+      "classYear": "Class of 2028",
+      "dues": 130,
+      "duesHandle": "@Nicole-Abadie",
+      "tailgateFood": "Drinks",
+      "gradeMom": "Nicole Abadie",
+      "responsibilities": [
+        "Pre-game meals for assigned games \u2014 your grade mom will tell you which weeks are yours.",
+        "Post-game chocolate milk after Varsity games \u2014 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
+        "Hosting the Senior Parent Tailgate on Friday, October 30 at Tad Gormley \u2014 the Junior class's big event honoring the senior class.",
+        "Food to share at tailgates and at the Blue and White Scrimmage.",
+        "Help with setup and breakdown."
+      ],
+      "gradeNumber": 11,
+      "shortLabel": "11th",
+      "teams": [
+        "JV",
+        "Varsity"
+      ],
+      "teamBlurb": "JV and Varsity"
+    },
+    {
+      "id": "senior",
+      "name": "Senior",
+      "classYear": "Class of 2027",
+      "dues": 140,
+      "duesHandle": "@bluejays2027",
+      "tailgateFood": "Main course",
+      "gradeMom": "Golda Hartman",
+      "responsibilities": [
+        "Pre-game meals for assigned games \u2014 your grade mom will tell you which weeks are yours.",
+        "Post-game chocolate milk after Varsity games \u2014 2 volunteers bring an ice chest with 24 iced chocolate milks, kept cold, to where players exit the field.",
+        "Game banners in the locker room each week, starting with the first regular season game. Chaired by Raelene Williams.",
+        "Treat bags for every varsity player, trainer, and manager the day before each game \u2014 shopping, stuffing, a note in each one, drop-off at the locker room. Chaired by Nikki McSpadden.",
+        "Parent and family bus for travel games.",
+        "Tailgate coordination \u2014 location, timing, setup, and paper products. Chaired by Tessa Vorhaben, with Jene Ponder.",
+        "Food to share at tailgates and at the Blue and White Scrimmage.",
+        "Help with setup and breakdown."
+      ],
+      "gradeNumber": 12,
+      "shortLabel": "12th",
+      "teams": [
+        "Varsity"
+      ],
+      "teamBlurb": "Varsity"
     }
   ],
-
   "gradeMoms": [
-    { "grade": "Senior", "name": "Golda Hartman", "email": "bluejays2027@gmail.com", "phone": "417-827-8644" },
-    { "grade": "Junior", "name": "Nicole Abadie", "email": "nicoleabadie22@yahoo.com", "phone": "504-261-4763" },
-    { "grade": "Sophomore", "name": "Mandi Mohr", "email": "mohrjesuitfootball@gmail.com", "phone": "504-812-3896" },
-    { "grade": "Freshman", "name": "Gabby Thompson", "email": "Gabbytfootballmom2028@gmail.com", "phone": "504-782-2174" },
-    { "grade": "Pre-Freshman", "name": "Laura Wooderson", "email": "lauradwooderson@gmail.com", "phone": "504-430-2623" }
+    {
+      "grade": "Senior",
+      "name": "Golda Hartman",
+      "email": "bluejays2027@gmail.com",
+      "phone": "417-827-8644"
+    },
+    {
+      "grade": "Junior",
+      "name": "Nicole Abadie",
+      "email": "nicoleabadie22@yahoo.com",
+      "phone": "504-261-4763"
+    },
+    {
+      "grade": "Sophomore",
+      "name": "Mandi Mohr",
+      "email": "mohrjesuitfootball@gmail.com",
+      "phone": "504-812-3896"
+    },
+    {
+      "grade": "Freshman",
+      "name": "Gabby Thompson",
+      "email": "Gabbytfootballmom2028@gmail.com",
+      "phone": "504-782-2174"
+    },
+    {
+      "grade": "Pre-Freshman",
+      "name": "Laura Wooderson",
+      "email": "lauradwooderson@gmail.com",
+      "phone": "504-430-2623"
+    }
   ],
-
   "contacts": [
-    { "role": "Accountability & attendance", "name": "Coach Manale", "detail": "Players handle their own accountability with Coach directly.", "phone": "504-858-7639", "email": "Manale@Jesuitnola.org" },
-    { "role": "Team & individual photos", "name": "Loupe Photography", "detail": "Official team photographer. A package purchase is required to use a photo in the Media Guide.", "phone": null, "email": null },
-    { "role": "Action photos", "name": "Kevin Blakes Photography", "detail": "Optional service, listed as a courtesy. Not an official Jesuit photographer.", "phone": "504-606-9745", "email": "KEVINBLAKES@gmail.com" },
-    { "role": "Action photos", "name": "Kurviss Chansee — C91 Media", "detail": "Optional service, listed as a courtesy. Not an official Jesuit photographer.", "phone": "504-535-9679", "email": "info@channel91photography.com" }
+    {
+      "role": "Accountability & attendance",
+      "name": "Coach Manale",
+      "detail": "Players handle their own accountability with Coach directly.",
+      "phone": "504-858-7639",
+      "email": "Manale@Jesuitnola.org"
+    },
+    {
+      "role": "Team & individual photos",
+      "name": "Loupe Photography",
+      "detail": "Official team photographer. A package purchase is required to use a photo in the Media Guide.",
+      "phone": null,
+      "email": null
+    },
+    {
+      "role": "Action photos",
+      "name": "Kevin Blakes Photography",
+      "detail": "Optional service, listed as a courtesy. Not an official Jesuit photographer.",
+      "phone": "504-606-9745",
+      "email": "KEVINBLAKES@gmail.com"
+    },
+    {
+      "role": "Action photos",
+      "name": "Kurviss Chansee \u2014 C91 Media",
+      "detail": "Optional service, listed as a courtesy. Not an official Jesuit photographer.",
+      "phone": "504-535-9679",
+      "email": "info@channel91photography.com"
+    }
   ],
-
   "traditions": [
-    { "title": "Ask your son first", "detail": "Coaches communicate directly with the players, and that independence is an intentional part of the Jesuit experience. Schedule changes, equipment reminders, and what to bring are usually in your son's hands before they reach yours." },
-    { "title": "Donuts by 7:10 am", "detail": "The Freshman class delivers donuts and milk to the locker room by 7:10 am the morning before each game. One of the players' favorite traditions." },
-    { "title": "Chocolate milk, not Gatorade", "detail": "New this year at Coach Manale's request, post-game Gatorade has been replaced with chocolate milk. Two volunteers per grade bring an ice chest of 24, kept cold, to where players exit the field." },
-    { "title": "Senior parents wear white", "detail": "A long-standing tradition for the Senior Parent Photo. The photo goes into the Jesuit Football Program and cannot be photoshopped, so arrive on time." },
-    { "title": "Roses with a bow", "detail": "Presentation roses from Villere's florist, tied with a bow, for Senior Night." },
-    { "title": "Treat bags", "detail": "Every varsity player, trainer, and manager gets a treat bag the day before each game, with a note tucked in. Funded by $30 of every grade's dues." },
-    { "title": "Tailgate breakdown", "detail": "Parents of players who are not starters lend a hand with breakdown so senior parents and parents of starters can get into the stadium by game time." }
+    {
+      "title": "Ask your son first",
+      "detail": "Coaches communicate directly with the players, and that independence is an intentional part of the Jesuit experience. Schedule changes, equipment reminders, and what to bring are usually in your son's hands before they reach yours."
+    },
+    {
+      "title": "Donuts by 7:10 am",
+      "detail": "The Freshman class delivers donuts and milk to the locker room by 7:10 am the morning before each game. One of the players' favorite traditions."
+    },
+    {
+      "title": "Chocolate milk, not Gatorade",
+      "detail": "New this year at Coach Manale's request, post-game Gatorade has been replaced with chocolate milk. Two volunteers per grade bring an ice chest of 24, kept cold, to where players exit the field."
+    },
+    {
+      "title": "Senior parents wear white",
+      "detail": "A long-standing tradition for the Senior Parent Photo. The photo goes into the Jesuit Football Program and cannot be photoshopped, so arrive on time."
+    },
+    {
+      "title": "Roses with a bow",
+      "detail": "Presentation roses from Villere's florist, tied with a bow, for Senior Night."
+    },
+    {
+      "title": "Treat bags",
+      "detail": "Every varsity player, trainer, and manager gets a treat bag the day before each game, with a note tucked in. Funded by $30 of every grade's dues."
+    },
+    {
+      "title": "Tailgate breakdown",
+      "detail": "Parents of players who are not starters lend a hand with breakdown so senior parents and parents of starters can get into the stadium by game time."
+    }
   ],
-
   "keyDates": [
-    { "date": "2026-08-20", "title": "Media Guide ad deadline", "detail": "Ads are due to make the Week 1 edition. Use Family pricing for every size except the Full Spread. All prices include a copy of the end-of-season book.", "link": "https://storyoftheseason.org/2026fall/football/jesuit/advertise" },
-    { "date": "2026-09-03", "title": "Senior Night", "detail": "Week 1 vs Madison Prep at Tad Gormley. Thursday game." },
-    { "date": "2026-10-30", "title": "Senior Parent Appreciation Tailgate", "detail": "Hosted by the Junior class at Tad Gormley, before the last home game." }
+    {
+      "date": "2026-08-20",
+      "title": "Media Guide ad deadline",
+      "detail": "Ads are due to make the Week 1 edition. Use Family pricing for every size except the Full Spread. All prices include a copy of the end-of-season book.",
+      "link": "https://storyoftheseason.org/2026fall/football/jesuit/advertise"
+    },
+    {
+      "date": "2026-09-03",
+      "title": "Senior Night",
+      "detail": "Week 1 vs Madison Prep at Tad Gormley. Thursday game."
+    },
+    {
+      "date": "2026-10-30",
+      "title": "Senior Parent Appreciation Tailgate",
+      "detail": "Hosted by the Junior class at Tad Gormley, before the last home game."
+    }
   ],
-
   "vacations": [
-    { "name": "Christmas / New Years", "start": "2026-12-19", "end": "2027-01-05" },
-    { "name": "Mardi Gras", "start": "2027-02-06", "end": "2027-02-14" },
-    { "name": "Easter", "start": "2027-03-25", "end": "2027-03-29" },
-    { "name": "Summer I", "start": "2027-06-12", "end": "2027-06-20" },
-    { "name": "4th of July", "start": "2027-07-02", "end": "2027-07-05" },
-    { "name": "Summer II", "start": "2027-07-20", "end": "2027-08-01" }
+    {
+      "name": "Christmas / New Years",
+      "start": "2026-12-19",
+      "end": "2027-01-05"
+    },
+    {
+      "name": "Mardi Gras",
+      "start": "2027-02-06",
+      "end": "2027-02-14"
+    },
+    {
+      "name": "Easter",
+      "start": "2027-03-25",
+      "end": "2027-03-29"
+    },
+    {
+      "name": "Summer I",
+      "start": "2027-06-12",
+      "end": "2027-06-20"
+    },
+    {
+      "name": "4th of July",
+      "start": "2027-07-02",
+      "end": "2027-07-05"
+    },
+    {
+      "name": "Summer II",
+      "start": "2027-07-20",
+      "end": "2027-08-01"
+    }
+  ],
+  "teams": [
+    {
+      "code": "JH",
+      "name": "Junior High",
+      "detail": "8th grade team"
+    },
+    {
+      "code": "9th",
+      "name": "9th Grade",
+      "detail": "Freshman team"
+    },
+    {
+      "code": "FR",
+      "name": "Freshman",
+      "detail": "Freshman team"
+    },
+    {
+      "code": "JV",
+      "name": "JV",
+      "detail": "Junior varsity"
+    },
+    {
+      "code": "Varsity",
+      "name": "Varsity",
+      "detail": "The 10-game varsity schedule"
+    }
   ]
 }

@@ -12,7 +12,7 @@ import pathlib
 from PIL import Image, ImageDraw
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-OUT = ROOT / "web"
+OUT = ROOT / "docs"
 
 NAVY = (10, 36, 80)
 WHITE = (255, 255, 255)
