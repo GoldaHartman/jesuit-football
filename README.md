@@ -15,7 +15,7 @@ Built for the Class of 2027 season by the grade moms.
 | --- | --- |
 | **Today** | Today's practice and times straight off the coach's calendar, a countdown to your team's next game, and your grade's jobs for that game week |
 | **Games** | Switch between **8th · 9th · JV · Varsity** and see that team's full schedule |
-| **Calendar** | Every practice, workout, and event, Aug 2026 through Jul 2027, auto-scrolled to today |
+| **Calendar** | Every practice, workout, and event, Aug 2026 through Jul 2027. Opens on today, with a sticky month dropdown to jump anywhere in the season |
 | **My Grade** | Pick your son's grade once. Dues, Venmo handle, tailgate category, what your class takes on, your pre-game meal weeks, and your grade mom's contact |
 | **Info** | Bag policy and parking for all 8 venues, traditions, grade moms, photographers, vacation dates |
 

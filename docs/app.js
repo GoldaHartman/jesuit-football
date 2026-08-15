@@ -440,10 +440,7 @@ function renderSchedule() {
   el('view-schedule').innerHTML = html;
 }
 
-function renderCalendar() {
-  const iso = todayISO();
-
-  // group the days into months first, then render — no string surgery
+function calendarMonths() {
   const months = [];
   CALENDAR.days.forEach((day) => {
     const d = dateOf(day.date);
@@ -455,6 +452,28 @@ function renderCalendar() {
     }
     group.days.push({ day, d });
   });
+  return months;
+}
+
+/** The month group containing today, else the first one still ahead of us. */
+function currentMonthKey(months, iso) {
+  const hit = months.find((m) => m.days.some((x) => x.day.date === iso))
+    || months.find((m) => m.days.some((x) => x.day.date >= iso))
+    || months[months.length - 1];
+  return hit ? hit.key : null;
+}
+
+function renderCalendar() {
+  const iso = todayISO();
+  const months = calendarMonths();
+
+  const bar = `
+    <div class="cal-bar">
+      <select id="month-picker" aria-label="Jump to month">
+        ${months.map((m) => `<option value="${esc(m.key)}">${esc(m.label)}</option>`).join('')}
+      </select>
+      <button id="jump-today" type="button">Today</button>
+    </div>`;
 
   const body = months.map((group) => {
     const rows = group.days.map(({ day, d }) => {
@@ -475,12 +494,85 @@ function renderCalendar() {
         </div>`;
     }).join('');
 
-    return `<div class="cal-month">${esc(group.label)}</div><div class="card flush">${rows}</div>`;
+    return `<div class="cal-month" id="m-${esc(group.key)}" data-month="${esc(group.key)}">${esc(group.label)}</div><div class="card flush">${rows}</div>`;
   }).join('');
 
   el('view-calendar').innerHTML =
+    bar +
     `<div class="footnote" style="margin-top:0">Every practice, workout, and event from the coach's 2026/27 calendar.<br>"Done for 6:30" means finished in time for a 6:30 pickup.</div>` +
     body;
+
+  wireCalendarControls(months, iso);
+}
+
+/**
+ * Scroll the window, and actually land there.
+ *
+ * `behavior: 'smooth'` is a no-op in some environments — notably when the OS
+ * has Reduce Motion turned on. Left alone, that makes the month picker look
+ * broken. So: honour the motion preference, then verify we moved and snap if
+ * we didn't.
+ */
+function scrollToY(top) {
+  const target = Math.max(0, Math.round(top));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  window.scrollTo({ top: target, behavior: reduceMotion ? 'auto' : 'smooth' });
+
+  if (reduceMotion) return;
+  window.setTimeout(() => {
+    if (Math.abs(window.scrollY - target) > 4) window.scrollTo(0, target);
+  }, 400);
+}
+
+function wireCalendarControls(months, iso) {
+  const picker = el('month-picker');
+  const todayBtn = el('jump-today');
+  if (!picker) return;
+
+  const startKey = currentMonthKey(months, iso);
+  if (startKey) picker.value = startKey;
+
+  /** Distance from the top of the page that the sticky chrome covers. */
+  const stickyOffset = () => {
+    const header = document.querySelector('header.app');
+    const bar = document.querySelector('.cal-bar');
+    return (header ? header.offsetHeight : 0) + (bar ? bar.offsetHeight : 0);
+  };
+
+  const jumpTo = (key) => {
+    const target = el(`m-${key}`);
+    if (!target) return;
+    scrollToY(target.getBoundingClientRect().top + window.scrollY - stickyOffset() + 1);
+  };
+
+  picker.addEventListener('change', () => jumpTo(picker.value));
+
+  todayBtn.addEventListener('click', () => {
+    const target = el(`cal-${iso}`);
+    if (target) {
+      // centre today in whatever space is left below the sticky chrome
+      const offset = stickyOffset();
+      const middle = target.getBoundingClientRect().top + window.scrollY
+        - offset - (window.innerHeight - offset) / 2 + target.offsetHeight / 2;
+      scrollToY(middle);
+      if (startKey) picker.value = startKey;
+    } else {
+      jumpTo(picker.value);
+    }
+  });
+
+  // keep the dropdown in step with whatever month you've scrolled to
+  if ('IntersectionObserver' in window) {
+    const headerH = document.querySelector('header.app').offsetHeight;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) picker.value = entry.target.dataset.month;
+      });
+    }, { rootMargin: `-${headerH + 60}px 0px -70% 0px`, threshold: 0 });
+
+    document.querySelectorAll('#view-calendar .cal-month').forEach((h) => observer.observe(h));
+  }
 }
 
 function renderGrade() {
@@ -715,6 +807,19 @@ document.body.addEventListener('click', (event) => {
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && !el('lightbox').hidden) closeLightbox();
 });
+
+/* The month bar sticks below the app header, whose height depends on the
+   device's safe-area inset. Measure it rather than hard-coding. */
+function syncHeaderHeight() {
+  const header = document.querySelector('header.app');
+  if (header) {
+    document.documentElement.style.setProperty('--header-h', `${header.offsetHeight}px`);
+  }
+}
+
+syncHeaderHeight();
+window.addEventListener('resize', syncHeaderHeight);
+window.addEventListener('orientationchange', syncHeaderHeight);
 
 renderAll();
 

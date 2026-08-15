@@ -4,7 +4,7 @@
    Bump CACHE when you rebuild data.js, or phones will keep serving the old
    schedule from cache. */
 
-const CACHE = 'jesuit-fb-v2';
+const CACHE = 'jesuit-fb-v3';
 
 const ASSETS = [
   './',
