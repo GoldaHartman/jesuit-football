@@ -577,6 +577,11 @@ const SEASON = {
       "detail": "The 10-game varsity schedule"
     }
   ],
+  "photoAlbum": {
+    "url": "",
+    "name": "Jesuit Football 2026 \u2014 Parent Photos",
+    "howTo": "Open the album, tap Add photos, pick your shots. Everyone in the program can see and add."
+  },
   "teamGames": [
     {
       "team": "8th",
@@ -2820,6 +2825,180 @@ const CALENDAR = {
       "items": [
         "Coaches Meetings"
       ]
+    }
+  ]
+};
+
+const PHOTOS = {
+  "album": "",
+  "photos": [
+    {
+      "file": "img_6927.jpg",
+      "thumb": "thumbs/img_6927.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6928.jpg",
+      "thumb": "thumbs/img_6928.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6929.jpg",
+      "thumb": "thumbs/img_6929.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6930.jpg",
+      "thumb": "thumbs/img_6930.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6931.jpg",
+      "thumb": "thumbs/img_6931.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6932.jpg",
+      "thumb": "thumbs/img_6932.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": false
+    },
+    {
+      "file": "img_6933.jpg",
+      "thumb": "thumbs/img_6933.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6934.jpg",
+      "thumb": "thumbs/img_6934.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": false
+    },
+    {
+      "file": "img_6935.jpg",
+      "thumb": "thumbs/img_6935.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": false
+    },
+    {
+      "file": "img_6937.jpg",
+      "thumb": "thumbs/img_6937.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6938.jpg",
+      "thumb": "thumbs/img_6938.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6939.jpg",
+      "thumb": "thumbs/img_6939.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6940.jpg",
+      "thumb": "thumbs/img_6940.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6941.jpg",
+      "thumb": "thumbs/img_6941.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6942.jpg",
+      "thumb": "thumbs/img_6942.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6943.jpg",
+      "thumb": "thumbs/img_6943.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6944.jpg",
+      "thumb": "thumbs/img_6944.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6945.jpg",
+      "thumb": "thumbs/img_6945.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6946.jpg",
+      "thumb": "thumbs/img_6946.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6947.jpg",
+      "thumb": "thumbs/img_6947.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": true
+    },
+    {
+      "file": "img_6949.jpg",
+      "thumb": "thumbs/img_6949.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": false
+    },
+    {
+      "file": "img_6950.jpg",
+      "thumb": "thumbs/img_6950.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": false
+    },
+    {
+      "file": "img_6951.jpg",
+      "thumb": "thumbs/img_6951.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": false
+    },
+    {
+      "file": "img_6952.jpg",
+      "thumb": "thumbs/img_6952.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": false
+    },
+    {
+      "file": "img_6953.jpg",
+      "thumb": "thumbs/img_6953.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": false
+    },
+    {
+      "file": "img_6954.jpg",
+      "thumb": "thumbs/img_6954.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": false
+    },
+    {
+      "file": "img_6955.jpg",
+      "thumb": "thumbs/img_6955.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": false
+    },
+    {
+      "file": "img_6956.jpg",
+      "thumb": "thumbs/img_6956.jpg",
+      "caption": "Blue & White Night \u00b7 Aug 14",
+      "portrait": false
     }
   ]
 };

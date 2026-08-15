@@ -62,17 +62,32 @@ def extract_team_games(calendar):
     return games
 
 
+def load_photos():
+    """Written by prepare_photos.py; absent until photos have been processed."""
+    manifest = ROOT / "docs" / "photos" / "photos.json"
+    if not manifest.exists():
+        return {"album": "", "photos": []}
+    return json.loads(manifest.read_text())
+
+
 def main():
     season = json.loads((DATA / "season.json").read_text())
     calendar = json.loads((DATA / "calendar.json").read_text())
     season["teamGames"] = extract_team_games(calendar)
+    photos = load_photos()
+
+    # the album link lives in season.json so it can be edited without
+    # re-running the photo pipeline
+    if season.get("photoAlbum", {}).get("url"):
+        photos["album"] = season["photoAlbum"]["url"]
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(
         "// GENERATED FILE — do not edit by hand.\n"
         "// Rebuild with: python3 tools/build_web_data.py\n"
         f"const SEASON = {json.dumps(season, indent=2)};\n\n"
-        f"const CALENDAR = {json.dumps(calendar, indent=2)};\n"
+        f"const CALENDAR = {json.dumps(calendar, indent=2)};\n\n"
+        f"const PHOTOS = {json.dumps(photos, indent=2)};\n"
     )
 
     days = len(calendar["days"])
@@ -83,6 +98,8 @@ def main():
     teams = ", ".join(f"{k} {v}" for k, v in sorted(by_team.items()))
     print(f"docs/data.js written — {games} varsity games, {days} calendar days")
     print(f"  team games extracted: {teams}")
+    print(f"  photos bundled: {len(photos['photos'])}"
+          + ("" if photos["album"] else "  (no shared album URL set yet)"))
 
 
 if __name__ == "__main__":

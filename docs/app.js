@@ -540,6 +540,77 @@ function renderGrade() {
   el('view-grade').innerHTML = html;
 }
 
+function renderPhotos() {
+  const album = (PHOTOS && PHOTOS.album) || '';
+  const shots = (PHOTOS && PHOTOS.photos) || [];
+
+  let html = '<h2 class="section">Season photos</h2>';
+
+  if (album) {
+    html += `
+      <a class="big-action" href="${esc(album)}" target="_blank" rel="noopener">📸 Add your photos</a>
+      <a class="big-action secondary" href="${esc(album)}" target="_blank" rel="noopener">See every photo and video</a>
+      <div class="card">
+        <div class="eyebrow">How it works</div>
+        <div class="small">Tap <strong>Add your photos</strong>, pick your shots, and they go straight into the shared album everyone in the program can see. Videos go there too — they are too big for this app.</div>
+      </div>`;
+  } else {
+    html += `
+      <div class="card">
+        <div class="task-flag">
+          <strong>The shared album isn't set up yet.</strong> Once it is, this is where
+          parents will tap to add their photos.
+        </div>
+        <div class="eyebrow">To finish setting it up</div>
+        <ul class="bullets small">
+          <li>In Google Photos, make an album called <em>Jesuit Football 2026 — Parent Photos</em>.</li>
+          <li>Share it, and turn on <strong>Collaborate</strong> so parents can add their own.</li>
+          <li>Copy the share link into <code>photoAlbum.url</code> in <code>data/season.json</code>, then rebuild.</li>
+        </ul>
+      </div>`;
+  }
+
+  html += `
+    <div class="card">
+      <div class="eyebrow">A quick ask</div>
+      <div class="small">These are other people's kids as well as your own. If a photo
+      focuses on a boy who isn't yours, check with his parents before you post it —
+      and tell your grade mom if you'd rather your son not appear at all.</div>
+    </div>`;
+
+  if (shots.length) {
+    const caption = shots[0].caption;
+    html += `<h2 class="section">${esc(caption || 'From the season')} · ${shots.length} photos</h2>`;
+    html += `<div class="photo-grid">
+      ${shots.map((p, i) => `
+        <button data-photo="${i}">
+          <img src="photos/${esc(p.thumb)}" alt="" loading="lazy">
+        </button>`).join('')}
+    </div>`;
+  }
+
+  html += `<div class="footnote">Camera, timestamp, and location data are stripped from every photo in this app.</div>`;
+
+  el('view-photos').innerHTML = html;
+}
+
+function openLightbox(index) {
+  const shots = (PHOTOS && PHOTOS.photos) || [];
+  const shot = shots[index];
+  if (!shot) return;
+  const box = el('lightbox');
+  box.querySelector('img').src = `photos/${shot.file}`;
+  box.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  const box = el('lightbox');
+  box.hidden = true;
+  box.querySelector('img').removeAttribute('src');
+  document.body.style.overflow = '';
+}
+
 function renderInfo() {
   let html = '';
 
@@ -598,6 +669,7 @@ function renderAll() {
   renderSchedule();
   renderCalendar();
   renderGrade();
+  renderPhotos();
   renderInfo();
 }
 
@@ -628,11 +700,20 @@ document.body.addEventListener('click', (event) => {
   const pick = event.target.closest('button[data-grade]');
   if (pick) { setGrade(pick.dataset.grade); return; }
 
+  const photo = event.target.closest('button[data-photo]');
+  if (photo) { openLightbox(Number(photo.dataset.photo)); return; }
+
+  if (event.target.closest('.lightbox')) { closeLightbox(); return; }
+
   const gameRow = event.target.closest('button.game[data-venue]');
   if (gameRow) {
     show('info');
     return;
   }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !el('lightbox').hidden) closeLightbox();
 });
 
 renderAll();

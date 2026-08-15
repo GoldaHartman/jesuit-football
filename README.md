@@ -103,6 +103,36 @@ The parser was verified against 16 independent anchors from the welcome letter
 (combine, parent dinner, Blue & White, all 10 game dates, holidays) — all match
 with correct weekdays.
 
+## Photos
+
+Parents add photos to a **shared Google Photos album**, not to the app. The
+Photos tab is a front door to that album plus a gallery of selected shots.
+
+That is a deliberate choice. Real in-app upload needs a server, storage, and
+moderation — and on a public link with no login, "any parent can upload" also
+means "anyone at all can upload," with photos of minors appearing unreviewed.
+A collaborative shared album gets the same result, inherits Google's access
+controls, handles video, and needs no backend.
+
+To finish wiring it up: create the album, turn on **Collaborate**, then paste
+the share link into `photoAlbum.url` in `data/season.json` and rebuild.
+
+### Adding photos to the in-app gallery
+
+```bash
+python3 tools/prepare_photos.py ~/Downloads/IMG_*.HEIC --caption "Blue & White Night · Aug 14"
+python3 tools/build_web_data.py
+```
+
+Every photo is converted from HEIC to JPEG (Safari renders HEIC; most other
+browsers don't), resized to a 1600px long edge with a 500px thumbnail, and has
+**all EXIF stripped** — camera, timestamps, and any GPS coordinates.
+
+The orientation flag is baked into the pixels *before* the strip. Skip that and
+every portrait photo from an iPhone shows up on its side.
+
+Videos are skipped — they belong in the shared album.
+
 ## Icons
 
 ```bash

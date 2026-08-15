@@ -422,6 +422,84 @@ nav.tabs button {
 nav.tabs button .ico { font-size: 19px; line-height: 1; }
 nav.tabs button.on { color: var(--jay); }
 
+/* ---------- photos ---------- */
+
+.big-action {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: var(--navy);
+  color: #fff;
+  border: 0;
+  border-radius: var(--radius);
+  padding: 15px 16px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.big-action.secondary {
+  background: var(--surface);
+  color: var(--jay);
+  border: 1.5px solid var(--line);
+}
+.big-action:active { opacity: .75; }
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.photo-grid button {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+.photo-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .94);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.lightbox[hidden] { display: none; }
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.lb-close {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  right: 14px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, .16);
+  color: #fff;
+  font-size: 17px;
+  cursor: pointer;
+}
+
 /* ---------- misc ---------- */
 
 .footnote {

@@ -29,6 +29,7 @@
   <section id="view-schedule" class="view"></section>
   <section id="view-calendar" class="view"></section>
   <section id="view-grade"    class="view"></section>
+  <section id="view-photos"   class="view"></section>
   <section id="view-info"     class="view"></section>
 </main>
 
@@ -36,9 +37,15 @@
   <button data-view="today"    class="on"><span class="ico">📅</span>Today</button>
   <button data-view="schedule"><span class="ico">🏈</span>Games</button>
   <button data-view="calendar"><span class="ico">🗓️</span>Calendar</button>
-  <button data-view="grade"><span class="ico">✅</span>My Grade</button>
+  <button data-view="grade"><span class="ico">✅</span>Grade</button>
+  <button data-view="photos"><span class="ico">📸</span>Photos</button>
   <button data-view="info"><span class="ico">ℹ️</span>Info</button>
 </nav>
+
+<div id="lightbox" class="lightbox" hidden>
+  <button class="lb-close" aria-label="Close">✕</button>
+  <img alt="Photo from the season">
+</div>
 
 <script src="data.js"></script>
 <script src="app.js"></script>
