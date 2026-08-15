@@ -40,8 +40,8 @@
       "week": null,
       "date": "2026-08-27",
       "opponent": "Northshore Jamboree",
-      "kickoff": null,
-      "kickoffNote": "Time TBA",
+      "kickoff": "17:30",
+      "kickoffNote": null,
       "venueId": "northshore",
       "isHome": false,
       "isDistrict": false,
@@ -181,7 +181,7 @@
       "date": "2026-11-05",
       "opponent": "Edna Karr",
       "kickoff": "19:00",
-      "kickoffNote": "Listed TBD; Karr kickoffs are usually 7:00",
+      "kickoffNote": null,
       "venueId": "morris-jeff",
       "isHome": false,
       "isDistrict": true,
@@ -652,6 +652,32 @@
             "detail": "Welcome letter, calendar, roster, Venmos by class, senior directory."
           }
         ]
+      }
+    ]
+  },
+  "results": {},
+  "streaming": {
+    "note": "Jesuit's NFHS page carries games played at Jesuit. For away games the home school usually does the streaming, so check their page too.",
+    "links": [
+      {
+        "label": "NFHS Network \u2014 Jesuit",
+        "url": "https://www.nfhsnetwork.com/schools/jesuit-high-school-new-orleans-la/football",
+        "detail": "The main one. Live and on demand. Subscription required \u2014 check current pricing on their site."
+      },
+      {
+        "label": "Hudl Fan \u2014 Boys Varsity Football",
+        "url": "https://fan.hudl.com/usa/la/new-orleans/organization/3388/jesuit-high-school/team/41497/boys-varsity-football",
+        "detail": "Livestreams and highlights. Free to browse."
+      },
+      {
+        "label": "MaxPreps \u2014 scores and schedule",
+        "url": "https://www.maxpreps.com/la/new-orleans/jesuit-blue-jays/football/",
+        "detail": "Fastest place to see a final score if you missed the game."
+      },
+      {
+        "label": "ScoreStream \u2014 live scores",
+        "url": "https://scorestream.com/team/jesuit-high-school-blue-jays-243152",
+        "detail": "Crowd-sourced live scoring, often updated during the game."
       }
     ]
   }

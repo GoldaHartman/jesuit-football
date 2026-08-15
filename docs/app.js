@@ -188,6 +188,43 @@ function normalize(game) {
   };
 }
 
+// ---------------------------------------------------------------- results
+
+const RESULTS = SEASON.results || {};
+
+const slugify = (text) => String(text).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+/** Stable id for a game, matching what tools/score.py writes. */
+function resultId(g) {
+  if (g.raw && g.raw.id) return g.raw.id;                 // varsity
+  return `${g.raw.team}-${g.date}-${slugify(g.opponent)}`; // sub-varsity
+}
+
+function resultFor(g) {
+  const r = RESULTS[resultId(g)];
+  if (!r || typeof r.us !== 'number' || typeof r.them !== 'number') return null;
+  return {
+    us: r.us,
+    them: r.them,
+    note: r.note || '',
+    outcome: r.us > r.them ? 'W' : r.us < r.them ? 'L' : 'T',
+  };
+}
+
+/** Win–loss record for a team so far, or null if nothing has been played. */
+function recordFor(games) {
+  let w = 0, l = 0, t = 0;
+  games.forEach((g) => {
+    const r = resultFor(g);
+    if (!r) return;
+    if (r.outcome === 'W') w += 1;
+    else if (r.outcome === 'L') l += 1;
+    else t += 1;
+  });
+  if (!(w + l + t)) return null;
+  return t ? `${w}–${l}–${t}` : `${w}–${l}`;
+}
+
 function gamesForTeam(team) {
   const list = team === 'Varsity'
     ? SEASON.games
@@ -526,16 +563,38 @@ function renderGameView() {
 
   let html = `<button class="linkish" data-goto="schedule" style="padding-left:0;margin-bottom:6px">‹ All ${esc(TEAM_FULL[team])} games</button>`;
 
+  const result = resultFor(g);
+  const finalLine = result
+    ? `<div class="final">
+         <span class="mark">${result.outcome === 'W' ? 'Won' : result.outcome === 'L' ? 'Lost' : 'Tied'}</span>
+         <span class="digits">${result.us}–${result.them}</span>
+       </div>${result.note ? `<div class="tagline">${esc(result.note)}</div>` : ''}`
+    : (out >= 0
+        ? `<div class="tagline">${out === 0 ? 'Today.' : out === 1 ? 'Tomorrow.' : `In ${out} days.`}</div>`
+        : '<div class="tagline">Played — no score recorded yet.</div>');
+
   html += `
     <div class="card countdown">
       <div class="eyebrow">${esc(TEAM_FULL[team])}${g.label !== TEAM_FULL[team] ? ' · ' + esc(g.label) : ''}</div>
       <div class="opponent" style="margin-top:2px">${prefix}${esc(g.opponent)}</div>
       <div class="meta">${esc(longDate(g.date))} · ${esc(g.time)}</div>
       <div class="badges">${badges.replace(/class="badge/g, 'class="badge onlight')}</div>
-      ${out >= 0 ? `<div class="tagline">${out === 0 ? 'Today.' : out === 1 ? 'Tomorrow.' : `In ${out} days.`}</div>` : '<div class="tagline">This one has been played.</div>'}
+      ${finalLine}
     </div>`;
 
   html += gameDetail(g);
+
+  // watching from home — or checking the score when you couldn't make it
+  const streaming = SEASON.streaming;
+  if (streaming && g.type !== 'team') {
+    html += `<h2 class="section">${result ? 'Watch it back' : 'Can\'t be there?'}</h2>`;
+    html += streaming.links.map((link) => `
+      <a class="big-action secondary" href="${esc(link.url)}" target="_blank" rel="noopener">${esc(link.label)}</a>
+      <div class="footnote" style="margin:-4px 0 12px">${esc(link.detail)}</div>`).join('');
+    if (!g.isHome) {
+      html += `<div class="card"><div class="small muted">${esc(streaming.note)}</div></div>`;
+    }
+  }
 
   // what your class owes for this particular game
   const grade = currentGrade();
@@ -648,8 +707,9 @@ function renderSchedule() {
         return `${d.getFullYear()}-${d.getMonth()}` === gamesMonth;
       });
 
+  const record = recordFor(games);
   const heading = gamesMonth === 'all'
-    ? `${TEAM_FULL[team]} — ${games.length} games`
+    ? `${TEAM_FULL[team]} — ${games.length} games${record ? ` · ${record}` : ''}`
     : `${TEAM_FULL[team]} — ${shown.length} game${shown.length === 1 ? '' : 's'} in ${monthsWithGames.find((m) => m.key === gamesMonth).label}`;
 
   html += `<h2 class="section">${esc(heading)}</h2><div class="card flush">`;
@@ -661,14 +721,20 @@ function renderSchedule() {
       ? `<span class="badge ${g.isHome ? 'home' : 'away'}">${g.isHome ? 'Home' : 'Away'}</span>${g.isDistrict ? '<span class="badge district">District</span>' : ''}`
       : badgesFor(g.raw) + (g.mealGrade ? `<span class="badge">${esc(g.mealGrade)} meal</span>` : '');
 
+    const result = resultFor(g);
+
     return `
-      <button class="game${past ? ' past' : ''}${isNext ? ' next' : ''}" data-game="${esc(gameKey(g))}">
+      <button class="game${past && !result ? ' past' : ''}${isNext ? ' next' : ''}" data-game="${esc(gameKey(g))}">
         <div class="row1">
           <span class="wk">${esc(g.label)}</span>
           <span class="date">${esc(shortDate(g.date))}</span>
         </div>
         <div class="opp">${prefix}${esc(g.opponent)}<span class="chev">›</span></div>
-        <div class="where">${esc(g.time)}${g.venueName ? ' · ' + esc(g.venueName) : ''}</div>
+        ${result
+          ? `<div class="score ${result.outcome === 'W' ? 'won' : result.outcome === 'L' ? 'lost' : 'tied'}">
+               <span class="mark">${result.outcome}</span> ${result.us}–${result.them}${result.note ? ` <span class="note">${esc(result.note)}</span>` : ''}
+             </div>`
+          : `<div class="where">${esc(g.time)}${g.venueName ? ' · ' + esc(g.venueName) : ''}</div>`}
         <div class="badges">${badges}</div>
       </button>`;
   }).join('');
@@ -1210,6 +1276,14 @@ function renderOrdering() {
 
 function renderInfo() {
   let html = renderOrdering();
+
+  if (SEASON.streaming) {
+    html += '<h2 class="section">Watch the games</h2>';
+    html += SEASON.streaming.links.map((link) => `
+      <a class="big-action secondary" href="${esc(link.url)}" target="_blank" rel="noopener">${esc(link.label)}</a>
+      <div class="footnote" style="margin:-4px 0 12px">${esc(link.detail)}</div>`).join('');
+    html += `<div class="card"><div class="small muted">${esc(SEASON.streaming.note)}</div></div>`;
+  }
 
   html += '<h2 class="section">Venues and bag rules</h2>';
   html += `<div class="card"><div class="rule warn"><div class="lbl">Bottom line</div><div class="txt">Every venue is clear-bag only. Bring a clear bag or a small clutch (max 4.5x6.5 in.) and expect bag checks and metal-detector wanding.</div></div></div>`;

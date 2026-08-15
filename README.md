@@ -221,6 +221,33 @@ Two things the generator is careful about:
 Output is deterministic, so rebuilding with no data change produces
 byte-identical files. Validated against the `icalendar` parser.
 
+## Final scores
+
+```bash
+python3 tools/score.py                   # list every game and its id
+python3 tools/score.py week-1 28 14      # Jesuit 28, Madison Prep 14
+python3 tools/score.py week-1 28 14 --note OT
+python3 tools/score.py --clear week-1
+```
+
+Jesuit's points always come first, home or away — the app derives win/loss from
+that. Scores land in `results` in `data/season.json` keyed by game id, so
+nothing else about the schedule changes. Sub-varsity games work too
+(`8th-2026-09-02-hannan`).
+
+A recorded score replaces the kickoff time on the games list, shows as a large
+final on the game's own screen, and the team's record appears in the list
+heading (`Varsity — 12 games · 3–1`). Played games stop being greyed out once
+they have a score.
+
+## Watching from home
+
+`streaming` in `data/season.json` — NFHS Network, Hudl, MaxPreps, ScoreStream.
+Shown on each varsity game's screen and in Info.
+
+Away games are usually streamed by the **home** school, not Jesuit, so the app
+says so rather than implying Jesuit's NFHS page covers everything.
+
 ## Auditing the data
 
 ```bash

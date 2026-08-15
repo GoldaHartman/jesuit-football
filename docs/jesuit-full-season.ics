@@ -22,8 +22,8 @@ END:VEVENT
 BEGIN:VEVENT
 UID:varsity-preseason-jamboree@jesuitfootball.local
 DTSTAMP:20260801T000000Z
-DTSTART;VALUE=DATE:20260827
-DTEND;VALUE=DATE:20260828
+DTSTART:20260827T223000Z
+DTEND:20260828T013000Z
 SUMMARY:🏈 Northshore Jamboree
 LOCATION:Slidell\, LA (St. Tammany Parish)
 DESCRIPTION:Preseason scrimmage — no pre-game meal.\nBags: CLEAR totes ma

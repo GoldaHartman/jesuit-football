@@ -287,6 +287,54 @@ h2.section:first-child { margin-top: 4px; }
 .game .opp { font-size: 17.5px; font-weight: 700; margin-top: 3px; }
 .game .where { font-size: 13.5px; color: var(--muted); margin-top: 2px; }
 
+/* ---------- final scores ---------- */
+
+.score {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 3px;
+  letter-spacing: .2px;
+}
+.score .mark {
+  display: inline-block;
+  min-width: 20px;
+  padding: 1px 6px;
+  border-radius: 5px;
+  font-size: 12.5px;
+  font-weight: 800;
+  margin-right: 5px;
+  vertical-align: 1px;
+}
+.score.won  .mark { background: var(--home-soft); color: var(--home); }
+.score.lost .mark { background: var(--away-soft); color: var(--away); }
+.score.tied .mark { background: var(--line);      color: var(--muted); }
+.score.lost { color: var(--muted); }
+.score .note { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+
+/* the score on a game's own screen, in place of the countdown */
+.final {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(255, 255, 255, .16);
+}
+.final .mark {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: #9fbdec;
+}
+.final .digits {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  color: #fff;
+}
+
 /* ---------- lists ---------- */
 
 .row {
