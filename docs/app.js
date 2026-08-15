@@ -414,7 +414,8 @@ function renderToday() {
     html += venueCard(venueOf(game), 'Where you are going');
   }
 
-  html += `<button class="big-action secondary" data-goto="info" style="margin-top:6px">Order buttons and lanyards</button>`;
+  html += `<button class="big-action secondary" data-goto="calendar" data-top="1" style="margin-top:6px">Sync the schedule to your calendar</button>`;
+  html += `<button class="big-action secondary" data-goto="info">Order buttons and lanyards</button>`;
 
   html += `<div class="footnote">Coaches communicate directly with the players.<br>Ask your son first — then your grade mom.</div>`;
 
@@ -541,6 +542,59 @@ function allCalendarMonths() {
  * Months still worth showing. A month drops off once it's fully over — the
  * current month stays put until the last day of it has passed.
  */
+// ---------------------------------------------------------------- calendar subscribe
+
+const FEED_FOR_TEAM = {
+  Varsity: 'jesuit-varsity.ics',
+  JV: 'jesuit-jv.ics',
+  '9th': 'jesuit-9th.ics',
+  '8th': 'jesuit-8th.ics',
+};
+
+/**
+ * Subscribing beats downloading: when a TBD kickoff finally gets set, a
+ * subscribed calendar picks it up on its own. A downloaded file never changes.
+ */
+function subscribeCard() {
+  const team = currentTeam();
+  const feed = FEED_FOR_TEAM[team] || FEED_FOR_TEAM.Varsity;
+
+  const link = (file) => {
+    const abs = new URL(file, location.href).href;
+    return {
+      webcal: abs.replace(/^https?:/, 'webcal:'),
+      google: `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(abs.replace(/^https?:/, 'webcal:'))}`,
+    };
+  };
+
+  const mine = link(feed);
+  const everything = link('jesuit-full-season.ics');
+
+  return `
+    <h2 class="section">Add to your calendar</h2>
+    <div class="card">
+      <div class="eyebrow">${esc(TEAM_FULL[team])} games</div>
+      <a class="big-action" href="${esc(mine.google)}" target="_blank" rel="noopener">Add to Google Calendar</a>
+      <a class="big-action secondary" href="${esc(mine.webcal)}">Add to Apple Calendar</a>
+      <div class="small muted" style="margin-top:4px">
+        This subscribes — it is not a one-off copy. When a kickoff time changes,
+        your calendar updates on its own.
+      </div>
+    </div>
+    <div class="card">
+      <div class="eyebrow">Everything — practices too</div>
+      <a class="big-action secondary" href="${esc(everything.google)}" target="_blank" rel="noopener">Add to Google Calendar</a>
+      <a class="big-action secondary" href="${esc(everything.webcal)}">Add to Apple Calendar</a>
+      <div class="small muted" style="margin-top:4px">
+        All 277 days, including every practice and "done for" time. Busy, but complete.
+      </div>
+    </div>
+    <div class="footnote" style="margin-top:0">
+      Switch teams on the Games tab and this follows.<br>
+      Google can take a few hours to notice a change; Apple checks more often.
+    </div>`;
+}
+
 function calendarMonths() {
   const all = allCalendarMonths();
   if (showPastMonths) return { months: all, hidden: 0 };
@@ -608,7 +662,8 @@ function renderCalendar() {
   // came before, not at the bottom of a twelve-month scroll
   el('view-calendar').innerHTML =
     bar +
-    `<div class="footnote" style="margin-top:0">Every practice, workout, and event from the coach's 2026/27 calendar.<br>"Done for 6:30" means finished in time for a 6:30 pickup.</div>` +
+    subscribeCard() +
+    `<div class="footnote">Every practice, workout, and event from the coach's 2026/27 calendar.<br>"Done for 6:30" means finished in time for a 6:30 pickup.</div>` +
     pastLink +
     body;
 
@@ -927,7 +982,7 @@ function renderAll() {
   renderInfo();
 }
 
-function show(view) {
+function show(view, opts) {
   document.querySelectorAll('.view').forEach((v) => v.classList.remove('active'));
   el('view-' + view).classList.add('active');
   document.querySelectorAll('nav.tabs button').forEach((b) => {
@@ -935,7 +990,7 @@ function show(view) {
   });
   window.scrollTo(0, 0);
 
-  if (view === 'calendar') {
+  if (view === 'calendar' && !(opts && opts.top)) {
     const target = el('cal-' + todayISO());
     if (target) target.scrollIntoView({ block: 'center' });
   }
@@ -949,7 +1004,12 @@ document.querySelector('nav.tabs').addEventListener('click', (event) => {
 // grade pickers live in two views and are re-rendered, so delegate from body
 document.body.addEventListener('click', (event) => {
   const goto = event.target.closest('[data-goto]');
-  if (goto) { show(goto.dataset.goto); return; }
+  if (goto) {
+    // data-top overrides a view's own landing scroll (the calendar normally
+    // jumps to today, which would hide the subscribe card above it)
+    show(goto.dataset.goto, { top: goto.dataset.top === '1' });
+    return;
+  }
 
   const pickTeam = event.target.closest('button[data-team]');
   if (pickTeam) { setTeam(pickTeam.dataset.team); return; }

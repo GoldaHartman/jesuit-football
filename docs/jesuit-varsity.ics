@@ -1,0 +1,154 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jesuit Football//Parent App//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jesuit Football — Varsity
+X-WR-TIMEZONE:America/Chicago
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:varsity-preseason-bluewhite@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART:20260814T231000Z
+DTEND:20260815T021000Z
+SUMMARY:🏈 Blue & White Scrimmage
+LOCATION:Jesuit High School campus\, Metairie\, LA
+DESCRIPTION:Fourth annual. Intrasquad scrimmage. Food provided for players\
+ ; each grade brings a dish tailgate style.\nBags: Follow the Jesuit clear-
+ bag policy: clear bags\, or a small clutch up to 4.5x6.5 in.\nParking: On 
+ campus.
+END:VEVENT
+BEGIN:VEVENT
+UID:varsity-preseason-jamboree@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260827
+DTEND;VALUE=DATE:20260828
+SUMMARY:🏈 Northshore Jamboree
+LOCATION:Slidell\, LA (St. Tammany Parish)
+DESCRIPTION:Preseason scrimmage — no pre-game meal.\nBags: CLEAR totes ma
+ x 12x8x12 in.\, or a clear small purse max 4.5x6.5 in. One bag per person.
+ \nParking: On campus.
+END:VEVENT
+BEGIN:VEVENT
+UID:varsity-week-1@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART:20260904T000000Z
+DTEND:20260904T030000Z
+SUMMARY:🏈 Week 1 — vs Madison Prep
+LOCATION:5400 Marconi Dr\, New Orleans\, LA 70124
+DESCRIPTION:SENIOR NIGHT. Thursday game — tailgate timing shifts. Freshma
+ n class brings presentation roses with a bow from Villere's\, plus the ann
+ ouncer script.\nPre-game meal: Junior class.\nBags: CLEAR bags only\, max 
+ 12x12x16 in. A small clutch of any material up to 4.5x6.5 in. is fine. All
+  bags subject to search.\nParking: City Park — lots along Marconi Dr and
+  Roosevelt Mall. Arrive early\; lots fill.
+END:VEVENT
+BEGIN:VEVENT
+UID:varsity-week-2@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART:20260912T000000Z
+DTEND:20260912T030000Z
+SUMMARY:🏈 Week 2 — at St. Thomas More
+LOCATION:Cougar Stadium\, Lafayette\, LA
+DESCRIPTION:Away in Lafayette\, about a 2.5 hour drive. Parent and family b
+ us coordinated by the senior class.\nBags: CLEAR bags only\, max 12x6x12 i
+ n. A small clutch up to 4.5x6.5 in. is fine.\nParking: On campus\, Lafayet
+ te.
+END:VEVENT
+BEGIN:VEVENT
+UID:varsity-week-3@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART:20260919T000000Z
+DTEND:20260919T030000Z
+SUMMARY:🏈 Week 3 — at Bonnabel
+LOCATION:400 Phlox Ave\, Metairie\, LA 70001
+DESCRIPTION:Pre-game meal: Sophomore class.\nBags: CLEAR bags only (Jeffers
+ on Parish policy).\nParking: Stadium lots off Phlox Ave.
+END:VEVENT
+BEGIN:VEVENT
+UID:varsity-week-4@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART:20260926T000000Z
+DTEND:20260926T030000Z
+SUMMARY:🏈 Week 4 — at Brother Martin
+LOCATION:5400 Marconi Dr\, New Orleans\, LA 70124
+DESCRIPTION:Played at Tad Gormley\, but Jesuit is the visiting team.\nPre-g
+ ame meal: Freshman class.\nBags: CLEAR bags only\, max 12x12x16 in. A smal
+ l clutch of any material up to 4.5x6.5 in. is fine. All bags subject to se
+ arch.\nParking: City Park — lots along Marconi Dr and Roosevelt Mall. Ar
+ rive early\; lots fill.
+END:VEVENT
+BEGIN:VEVENT
+UID:varsity-week-5@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART:20261003T001500Z
+DTEND:20261003T031500Z
+SUMMARY:🏈 Week 5 — vs Holy Cross
+LOCATION:5400 Marconi Dr\, New Orleans\, LA 70124
+DESCRIPTION:RIVALRY GAME.\nPre-game meal: Senior class.\nBags: CLEAR bags o
+ nly\, max 12x12x16 in. A small clutch of any material up to 4.5x6.5 in. is
+  fine. All bags subject to search.\nParking: City Park — lots along Marc
+ oni Dr and Roosevelt Mall. Arrive early\; lots fill.
+END:VEVENT
+BEGIN:VEVENT
+UID:varsity-week-6@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART:20261010T000000Z
+DTEND:20261010T030000Z
+SUMMARY:🏈 Week 6 — at Chalmette
+LOCATION:1100 E Judge Perez Dr\, Chalmette\, LA 70043
+DESCRIPTION:No exit and re-entry at this venue.\nPre-game meal: Junior clas
+ s.\nBags: CLEAR bags only\, max 12x6x12 in. A clear small purse is fine.\n
+ Parking: On-campus lots.
+END:VEVENT
+BEGIN:VEVENT
+UID:varsity-week-7@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART:20261018T000000Z
+DTEND:20261018T030000Z
+SUMMARY:🏈 Week 7 — at St. Augustine
+LOCATION:5400 Marconi Dr\, New Orleans\, LA 70124
+DESCRIPTION:SATURDAY game — tailgate timing shifts. Played at Tad Gormley
+ \, but Jesuit is the visiting team.\nPre-game meal: Senior class.\nBags: C
+ LEAR bags only\, max 12x12x16 in. A small clutch of any material up to 4.5
+ x6.5 in. is fine. All bags subject to search.\nParking: City Park — lots
+  along Marconi Dr and Roosevelt Mall. Arrive early\; lots fill.
+END:VEVENT
+BEGIN:VEVENT
+UID:varsity-week-8@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART:20261024T000000Z
+DTEND:20261024T030000Z
+SUMMARY:🏈 Week 8 — vs John Curtis
+LOCATION:Southeastern Louisiana University\, Hammond\, LA
+DESCRIPTION:HOMECOMING and court presentation. Home game\, but played at SL
+ U in Hammond — about a 1 hour drive.\nPre-game meal: Freshman class.\nBa
+ gs: CLEAR bags max 12x6x12 in.\, OR one one-gallon clear freezer bag. A sm
+ all clutch is fine.\nParking: SLU campus lots\, Hammond.
+END:VEVENT
+BEGIN:VEVENT
+UID:varsity-week-9@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART:20261031T000000Z
+DTEND:20261031T030000Z
+SUMMARY:🏈 Week 9 — vs Archbishop Rummel
+LOCATION:5400 Marconi Dr\, New Orleans\, LA 70124
+DESCRIPTION:LAST HOME GAME. Junior class hosts the Senior Parent Appreciati
+ on Tailgate at Tad Gormley.\nPre-game meal: Sophomore class.\nBags: CLEAR 
+ bags only\, max 12x12x16 in. A small clutch of any material up to 4.5x6.5 
+ in. is fine. All bags subject to search.\nParking: City Park — lots alon
+ g Marconi Dr and Roosevelt Mall. Arrive early\; lots fill.
+END:VEVENT
+BEGIN:VEVENT
+UID:varsity-week-10@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART:20261106T010000Z
+DTEND:20261106T040000Z
+SUMMARY:🏈 Week 10 — at Edna Karr
+LOCATION:Algiers\, New Orleans\, LA (formerly Behrman Stadium)
+DESCRIPTION:Thursday game — tailgate timing shifts. Buy GoFan tickets ahe
+ ad.\nPre-game meal: Senior class.\nBags: CLEAR bags only. A small clutch m
+ ax 4.5x6.5 in. is fine.\nParking: Algiers / West Bank.
+END:VEVENT
+END:VCALENDAR

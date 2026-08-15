@@ -139,6 +139,29 @@ every portrait photo from an iPhone shows up on its side.
 
 Videos are skipped — they belong in the shared album.
 
+## Calendar subscriptions
+
+`tools/build_ics.py` (run automatically by `build_web_data.py`) emits five
+feeds into `docs/`: one per team, plus `jesuit-full-season.ics` with all 277
+days.
+
+Parents **subscribe** rather than download, so a corrected kickoff reaches
+their phone without anyone re-importing anything. The Calendar tab offers a
+Google link (`calendar.google.com/render?cid=`) and an Apple one (`webcal://`),
+both pointed at whichever team is selected on the Games tab.
+
+Two things the generator is careful about:
+
+* **Varsity games are timed events**, converted from New Orleans local time to
+  UTC — which correctly gives CDT for the September and October games and CST
+  for Nov 5, after daylight saving ends.
+* **Sub-varsity games are all-day events with the time in the title.** The
+  coach prints "4:30" with no AM/PM, and a calendar entry that confidently
+  says 4:30 AM is worse than one that makes you read the title.
+
+Output is deterministic, so rebuilding with no data change produces
+byte-identical files. Validated against the `icalendar` parser.
+
 ## Icons
 
 ```bash
@@ -149,7 +172,8 @@ python3 tools/make_icons.py
 
 ```
 data/       season.json (hand-maintained) + calendar.json (generated)
-tools/      parse_calendar.py, build_web_data.py, make_icons.py
+tools/      parse_calendar.py, build_web_data.py, build_ics.py,
+            prepare_photos.py, make_icons.py
 docs/       the app — index.html, app.js, style.css, data.js (generated), sw.js
 source/     original PDFs (gitignored — school documents, not ours to republish)
 ```

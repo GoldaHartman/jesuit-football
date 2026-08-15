@@ -133,6 +133,11 @@ def main():
     for g in season["teamGames"]:
         by_team[g["team"]] = by_team.get(g["team"], 0) + 1
     teams = ", ".join(f"{k} {v}" for k, v in sorted(by_team.items()))
+    # imported here, not at module scope: build_ics imports this module for the
+    # team-game parser, so a top-level import would be circular
+    from build_ics import build as build_calendars
+    feeds = build_calendars()
+
     build = stamp_build_version()
 
     print(f"docs/data.js written — {games} varsity games, {days} calendar days")
@@ -140,6 +145,8 @@ def main():
     print(f"  photos bundled: {len(photos['photos'])}"
           + ("" if photos["album"] else "  (no shared album URL set yet)"))
     print(f"  build {build} stamped into index.html and sw.js — no manual cache bump needed")
+    print("  calendar feeds: " + ", ".join(f"{n.replace('jesuit-', '').replace('.ics', '')} {c}"
+                                           for n, c in feeds.items()))
 
 
 if __name__ == "__main__":

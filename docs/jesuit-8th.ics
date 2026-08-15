@@ -1,0 +1,154 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jesuit Football//Parent App//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jesuit Football — 8th Grade
+X-WR-TIMEZONE:America/Chicago
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:8th-2026-08-22-0@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260822
+DTEND;VALUE=DATE:20260823
+SUMMARY:🏈 8th at Mandeville
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-08-29-1@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260829
+DTEND;VALUE=DATE:20260830
+SUMMARY:🏈 8th at Northshore
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-09-02-4@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260902
+DTEND;VALUE=DATE:20260903
+SUMMARY:🏈 8th vs Hannan — 6:00
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-09-08-7@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260908
+DTEND;VALUE=DATE:20260909
+SUMMARY:🏈 8th vs Shaw — 6:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-09-09-8@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260909
+DTEND;VALUE=DATE:20260910
+SUMMARY:🏈 8th at St. Martin's — 5:00
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-09-17-11@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260917
+DTEND;VALUE=DATE:20260918
+SUMMARY:🏈 8th vs St. Pauls — 5:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-09-24-12@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260924
+DTEND;VALUE=DATE:20260925
+SUMMARY:🏈 8th vs Bro Mart — 5:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-10-01-14@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20261002
+SUMMARY:🏈 8th vs St. Martin's — 5:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-10-03-15@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261003
+DTEND;VALUE=DATE:20261004
+SUMMARY:🏈 8th vs HC — 12:00
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-10-08-20@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261008
+DTEND;VALUE=DATE:20261009
+SUMMARY:🏈 8th at Shaw — 5:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-10-15-21@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261015
+DTEND;VALUE=DATE:20261016
+SUMMARY:🏈 8th vs St. Aug — 5:00
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-10-15-22@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261015
+DTEND;VALUE=DATE:20261016
+SUMMARY:🏈 8th at St. Pauls — 5:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-10-20-25@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261020
+DTEND;VALUE=DATE:20261021
+SUMMARY:🏈 8th at St. Pauls — 5:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-10-21-26@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261021
+DTEND;VALUE=DATE:20261022
+SUMMARY:🏈 8th vs Curtis — 5:00
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-10-26-29@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261026
+DTEND;VALUE=DATE:20261027
+SUMMARY:🏈 8th at Rummel — 4:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:8th-2026-10-27-31@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261027
+DTEND;VALUE=DATE:20261028
+SUMMARY:🏈 8th at Hannan — 5:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+END:VCALENDAR

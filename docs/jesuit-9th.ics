@@ -1,0 +1,91 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jesuit Football//Parent App//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jesuit Football — 9th Grade
+X-WR-TIMEZONE:America/Chicago
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+UID:9th-2026-08-31-2@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260831
+DTEND;VALUE=DATE:20260901
+SUMMARY:🏈 9th vs De La Salle — 5:00
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:9th-2026-09-07-5@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260907
+DTEND;VALUE=DATE:20260908
+SUMMARY:🏈 9th at SCC — 9:00
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:9th-2026-09-16-9@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260916
+DTEND;VALUE=DATE:20260917
+SUMMARY:🏈 9th at KARR — 5:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:9th-2026-10-03-16@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261003
+DTEND;VALUE=DATE:20261004
+SUMMARY:🏈 9th vs HC — 9am
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:9th-2026-10-07-18@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261007
+DTEND;VALUE=DATE:20261008
+SUMMARY:🏈 9th at Chalmette — 5:00
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:9th-2026-10-15-23@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261015
+DTEND;VALUE=DATE:20261016
+SUMMARY:🏈 9th vs St. Aug — 6:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:9th-2026-10-19-24@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261019
+DTEND;VALUE=DATE:20261020
+SUMMARY:🏈 9th vs De La Salle — 6:00
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:9th-2026-10-21-27@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261021
+DTEND;VALUE=DATE:20261022
+SUMMARY:🏈 9th vs Curtis — 6:30
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+BEGIN:VEVENT
+UID:9th-2026-10-26-30@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20261026
+DTEND;VALUE=DATE:20261027
+SUMMARY:🏈 9th vs Rummel — 6:00
+DESCRIPTION:Time as printed on the coach's calendar\; confirm with your son
+ . The calendar does not list a venue for sub-varsity games.
+END:VEVENT
+END:VCALENDAR
