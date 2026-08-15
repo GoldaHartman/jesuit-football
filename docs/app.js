@@ -112,8 +112,13 @@ function currentTeam() {
   return TEAMS.includes(saved) ? saved : 'Varsity';
 }
 
+/** Games-tab month filter. Reset when the team changes, since each team
+    plays in a different set of months. */
+let gamesMonth = 'all';
+
 function setTeam(team) {
   localStorage.setItem(SAVED_TEAM, team);
+  gamesMonth = 'all';
   renderAll();
 }
 
@@ -166,7 +171,7 @@ function gamesForTeam(team) {
 // ---------------------------------------------------------------- game-week tasks
 
 /**
- * What this grade owes for a given game, straight out of the welcome letter.
+ * This grade's game-time notes for a given game, straight out of the welcome letter.
  * `yours` marks the items that are this grade's specific job rather than the
  * baseline every grade shares.
  */
@@ -352,12 +357,32 @@ function renderToday() {
     ${TEAMS.map((t) => `<button data-team="${esc(t)}" class="${t === team ? 'on' : ''}">${esc(TEAM_LABEL[t])}</button>`).join('')}
   </div>`;
 
+  // --- deadlines creeping up (ad deadlines, Senior Night) — easy to miss
+  const soon = (SEASON.keyDates || [])
+    .filter((k) => k.date >= iso && daysBetween(iso, k.date) <= 14);
+
+  if (soon.length) {
+    html += '<h2 class="section">Coming up</h2>';
+    html += soon.map((k) => {
+      const out = daysBetween(iso, k.date);
+      const when = out === 0 ? 'Today' : out === 1 ? 'Tomorrow' : `In ${out} days`;
+      return `
+        <div class="card">
+          <div class="task-flag">
+            <strong>${esc(k.title)}</strong> · ${esc(when)}, ${esc(shortDate(k.date))}
+          </div>
+          <div class="small muted">${esc(k.detail)}</div>
+          ${k.link ? `<a class="big-action secondary" style="margin-top:11px" href="${esc(k.link)}" target="_blank" rel="noopener">Open the link</a>` : ''}
+        </div>`;
+    }).join('');
+  }
+
   // --- your grade this week
   if (grade && nextVarsity) {
     const out = daysBetween(iso, nextVarsity.date);
     const tasks = tasksFor(grade, nextVarsity);
     if (tasks.length) {
-      html += `<h2 class="section">${esc(grade.name)} class — ${out <= 7 ? 'this game week' : 'next game week'}</h2>`;
+      html += `<h2 class="section">Game-time notes · ${esc(grade.name)} class${out <= 7 ? '' : ' · next game week'}</h2>`;
       html += '<div class="card">';
       if (grade.name === nextVarsity.mealGrade) {
         html += `<div class="task-flag"><strong>Your grade has the pre-game meal</strong> for ${esc(nextVarsity.opponent)} on ${esc(shortDate(nextVarsity.date))}.</div>`;
@@ -376,7 +401,7 @@ function renderToday() {
     html += `
       <div class="card">
         <div class="eyebrow">Set this once</div>
-        <div style="font-size:15px;margin-bottom:11px">Pick your son's grade and this screen will show what your class owes each game week.</div>
+        <div style="font-size:15px;margin-bottom:11px">Pick your son's grade for game-time notes for your class.</div>
         <div class="picker">
           ${SEASON.grades.map((g) => `<button data-grade="${esc(g.name)}">${esc(g.shortLabel)}</button>`).join('')}
         </div>
@@ -388,6 +413,8 @@ function renderToday() {
     html += '<h2 class="section">Game day</h2>';
     html += venueCard(venueOf(game), 'Where you are going');
   }
+
+  html += `<button class="big-action secondary" data-goto="info" style="margin-top:6px">Order buttons and lanyards</button>`;
 
   html += `<div class="footnote">Coaches communicate directly with the players.<br>Ask your son first — then your grade mom.</div>`;
 
@@ -411,8 +438,45 @@ function renderSchedule() {
     return;
   }
 
-  html += `<h2 class="section">${esc(TEAM_FULL[team])} — ${games.length} games</h2><div class="card flush">`;
-  html += games.map((g) => {
+  // month options: only months this team still has games in, so nobody picks
+  // a month and lands on an empty list
+  const now = dateOf(iso);
+  const cutoff = now.getFullYear() * 12 + now.getMonth();
+  const monthsWithGames = [];
+  games.forEach((g) => {
+    const d = dateOf(g.date);
+    const key = `${d.getFullYear()}-${d.getMonth()}`;
+    if (d.getFullYear() * 12 + d.getMonth() < cutoff) return;
+    if (!monthsWithGames.some((m) => m.key === key)) {
+      monthsWithGames.push({ key, label: `${MONTH_LONG[d.getMonth()]} ${d.getFullYear()}` });
+    }
+  });
+
+  if (!monthsWithGames.some((m) => m.key === gamesMonth)) gamesMonth = 'all';
+
+  if (monthsWithGames.length > 1) {
+    html += `
+      <div class="cal-bar" style="top:0;position:static;padding-top:0">
+        <select id="games-month" aria-label="Filter games by month">
+          <option value="all">All games</option>
+          ${monthsWithGames.map((m) => `<option value="${esc(m.key)}"${m.key === gamesMonth ? ' selected' : ''}>${esc(m.label)}</option>`).join('')}
+        </select>
+      </div>`;
+  }
+
+  const shown = gamesMonth === 'all'
+    ? games
+    : games.filter((g) => {
+        const d = dateOf(g.date);
+        return `${d.getFullYear()}-${d.getMonth()}` === gamesMonth;
+      });
+
+  const heading = gamesMonth === 'all'
+    ? `${TEAM_FULL[team]} — ${games.length} games`
+    : `${TEAM_FULL[team]} — ${shown.length} game${shown.length === 1 ? '' : 's'} in ${monthsWithGames.find((m) => m.key === gamesMonth).label}`;
+
+  html += `<h2 class="section">${esc(heading)}</h2><div class="card flush">`;
+  html += shown.map((g) => {
     const past = g.date < iso;
     const isNext = upcoming && g.date === upcoming.date && g.opponent === upcoming.opponent;
     const prefix = g.type === 'preseason' ? '' : (g.isHome ? 'vs ' : 'at ');
@@ -438,6 +502,15 @@ function renderSchedule() {
     : `<div class="footnote">Taken from the coach's calendar, with times exactly as he printed them.<br>Sub-varsity venues are not listed on the calendar — check with your grade mom, and confirm times with your son.</div>`;
 
   el('view-schedule').innerHTML = html;
+
+  const monthSelect = el('games-month');
+  if (monthSelect) {
+    monthSelect.addEventListener('change', () => {
+      gamesMonth = monthSelect.value;
+      renderSchedule();
+      window.scrollTo(0, 0);
+    });
+  }
 }
 
 /** Set by the "show earlier months" link; not persisted between sessions. */
@@ -745,8 +818,55 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 
+function renderOrdering() {
+  const order = SEASON.ordering;
+  if (!order) return '';
+
+  let html = '<h2 class="section">Order buttons and lanyards</h2>';
+
+  html += '<div class="card">';
+  html += order.items.map((item) => `
+    <div class="row">
+      <span class="k">${esc(item.name)}<br><span class="small muted">${esc(item.detail)}</span></span>
+      <span class="v">$${item.price}</span>
+    </div>`).join('');
+  html += '</div>';
+
+  // buttons need a photo of the player before Beth can make one
+  const needsAction = order.items.filter((i) => i.action);
+  if (needsAction.length) {
+    html += needsAction.map((i) => `
+      <div class="card">
+        <div class="eyebrow">${esc(i.name)} — one more step</div>
+        <div class="small" style="margin-bottom:10px">${esc(i.action)}</div>
+        ${i.actionUrl ? `<a class="big-action secondary" href="${esc(i.actionUrl)}">Email Beth your photo</a>` : ''}
+      </div>`).join('');
+  }
+
+  html += `<a class="big-action" href="${esc(order.venmoUrl)}" target="_blank" rel="noopener">Pay by Venmo · ${esc(order.venmo)}</a>`;
+
+  // the note is the whole ballgame — orders are matched to players from it
+  html += `
+    <div class="card">
+      <div class="task-flag">
+        <strong>Put this in the Venmo note:</strong><br>
+        ${esc(order.noteRule)}
+        <div class="small" style="margin-top:7px;opacity:.85">For example — <em>${esc(order.noteExample)}</em></div>
+      </div>
+      <div class="small muted">${esc(order.whyNote)}</div>
+    </div>`;
+
+  html += (order.groups || []).map((group) => `
+    <h2 class="section">${esc(group.title)}</h2>
+    ${group.links.map((link) => `
+      <a class="big-action secondary" href="${esc(link.url)}" target="_blank" rel="noopener">${esc(link.label)}</a>
+      <div class="footnote" style="margin:-4px 0 12px">${esc(link.detail)}</div>`).join('')}`).join('');
+
+  return html;
+}
+
 function renderInfo() {
-  let html = '';
+  let html = renderOrdering();
 
   html += '<h2 class="section">Venues and bag rules</h2>';
   html += `<div class="card"><div class="rule warn"><div class="lbl">Bottom line</div><div class="txt">Every venue is clear-bag only. Bring a clear bag or a small clutch (max 4.5x6.5 in.) and expect bag checks and metal-detector wanding.</div></div></div>`;
@@ -828,6 +948,9 @@ document.querySelector('nav.tabs').addEventListener('click', (event) => {
 
 // grade pickers live in two views and are re-rendered, so delegate from body
 document.body.addEventListener('click', (event) => {
+  const goto = event.target.closest('[data-goto]');
+  if (goto) { show(goto.dataset.goto); return; }
+
   const pickTeam = event.target.closest('button[data-team]');
   if (pickTeam) { setTeam(pickTeam.dataset.team); return; }
 

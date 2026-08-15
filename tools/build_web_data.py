@@ -8,6 +8,7 @@ file is opened directly from disk, with no server and no CORS surprises.
 Usage: build_web_data.py
 """
 
+import hashlib
 import json
 import pathlib
 import re
@@ -62,6 +63,42 @@ def extract_team_games(calendar):
     return games
 
 
+VERSIONED = ("style.css", "app.js", "data.js")
+
+
+def stamp_build_version():
+    """
+    Give the app's assets a content-derived version and thread it through
+    index.html and the service worker.
+
+    Without this a browser will happily serve a cached data.js and show last
+    week's kickoff times — which is the single worst way this app can fail.
+    Hashing the contents means the URL changes only when something really did.
+    """
+    docs = ROOT / "docs"
+
+    digest = hashlib.sha256()
+    for name in VERSIONED:
+        digest.update((docs / name).read_bytes())
+    build = digest.hexdigest()[:12]
+
+    index = docs / "index.html"
+    html = index.read_text()
+    for name in VERSIONED:
+        attr = "href" if name.endswith(".css") else "src"
+        html = re.sub(
+            rf'{attr}="{re.escape(name)}(?:\?v=[^"]*)?"',
+            f'{attr}="{name}?v={build}"',
+            html,
+        )
+    index.write_text(html)
+
+    sw = docs / "sw.js"
+    sw.write_text(re.sub(r"const BUILD = '[^']*';", f"const BUILD = '{build}';", sw.read_text()))
+
+    return build
+
+
 def load_photos():
     """Written by prepare_photos.py; absent until photos have been processed."""
     manifest = ROOT / "docs" / "photos" / "photos.json"
@@ -96,10 +133,13 @@ def main():
     for g in season["teamGames"]:
         by_team[g["team"]] = by_team.get(g["team"], 0) + 1
     teams = ", ".join(f"{k} {v}" for k, v in sorted(by_team.items()))
+    build = stamp_build_version()
+
     print(f"docs/data.js written — {games} varsity games, {days} calendar days")
     print(f"  team games extracted: {teams}")
     print(f"  photos bundled: {len(photos['photos'])}"
           + ("" if photos["album"] else "  (no shared album URL set yet)"))
+    print(f"  build {build} stamped into index.html and sw.js — no manual cache bump needed")
 
 
 if __name__ == "__main__":

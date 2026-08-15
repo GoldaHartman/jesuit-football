@@ -295,12 +295,12 @@ const SEASON = {
       "id": "pre-freshman",
       "name": "Pre-Freshman",
       "classYear": "8th Grade",
-      "dues": null,
+      "dues": 100,
       "duesHandle": null,
       "tailgateFood": "Help as needed",
       "gradeMom": "Laura Wooderson",
       "responsibilities": [
-        "Baseline only \u2014 post-game chocolate milk and tailgate food to share.",
+        "Post-game chocolate milk after Varsity games and tailgate food to share \u2014 your grade mom will tell you which weeks are yours.",
         "Assignments confirmed by your grade mom."
       ],
       "gradeNumber": 8,
@@ -505,7 +505,7 @@ const SEASON = {
       "date": "2026-08-20",
       "title": "Media Guide ad deadline",
       "detail": "Ads are due to make the Week 1 edition. Use Family pricing for every size except the Full Spread. All prices include a copy of the end-of-season book.",
-      "link": "https://storyoftheseason.org/2026fall/football/jesuit/advertise"
+      "link": "https://bngn.blackbaud.school/?id=qy2zptznlde"
     },
     {
       "date": "2026-09-03",
@@ -581,6 +581,81 @@ const SEASON = {
     "url": "",
     "name": "Jesuit Football 2026 \u2014 Parent Photos",
     "howTo": "Open the album, tap Add photos, pick your shots. Everyone in the program can see and add."
+  },
+  "ordering": {
+    "venmo": "@bluejays2027",
+    "venmoUrl": "https://venmo.com/u/bluejays2027",
+    "noteRule": "Player name \u00b7 grade \u00b7 what you ordered",
+    "noteExample": "2 buttons \u2014 Oliver Hartman, 12th, #19",
+    "whyNote": "Every order is matched to a player from the Venmo note alone. If the note only says \"lanyard\", nobody knows whose it is.",
+    "items": [
+      {
+        "name": "Player button",
+        "price": 10,
+        "detail": "Made by Beth Schibler as a fundraiser \u2014 she donates her time and materials.",
+        "action": "Email Beth a photo of your son: schiblerii@aol.com",
+        "actionUrl": "mailto:schiblerii@aol.com?subject=Jesuit%20Football%20button%20photo"
+      },
+      {
+        "name": "Lanyard",
+        "price": 10,
+        "detail": "Made by Laurie Leiva, fundraising for the program.",
+        "action": null,
+        "actionUrl": null
+      }
+    ],
+    "groups": [
+      {
+        "title": "Where to buy gear",
+        "links": [
+          {
+            "label": "The Blue Jay Shop",
+            "url": "https://www.thebluejayshop.com",
+            "detail": "Official football apparel, online any time. New ladies football tank this year."
+          },
+          {
+            "label": "Perret's",
+            "url": "https://www.perrets.com/category/97_01_.html",
+            "detail": "Jesuit football attire."
+          },
+          {
+            "label": "Travel polo order form",
+            "url": "https://artwork.bsnteamsports.com/v3/flyer/1609/160985/16098519/8e856c/16098519-flyer.pdf",
+            "detail": "BSN Team Sports flyer. Nike items can take a while to ship."
+          }
+        ]
+      },
+      {
+        "title": "Media Guide \u2014 ads due Aug 20",
+        "links": [
+          {
+            "label": "Pay for your ad",
+            "url": "https://bngn.blackbaud.school/?id=qy2zptznlde",
+            "detail": "August 20 is the deadline to make the Week 1 edition."
+          },
+          {
+            "label": "Send in your ad",
+            "url": "https://forms.monday.com/forms/0e94fb586cba2192041ccd4eee5f83b9?r=use1",
+            "detail": "All ad prices include a hard copy of the year in review \u2014 every game, interview, and stat."
+          }
+        ]
+      },
+      {
+        "title": "Sign up once",
+        "links": [
+          {
+            "label": "Chocolate milk sign-up",
+            "url": "https://www.signupgenius.com/go/10C0C48A8AA2BA3F58-64978612-senior",
+            "detail": "Two families per game, ten games. Grab one and it is off your plate until November."
+          },
+          {
+            "label": "Jesuit Football folder",
+            "url": "https://drive.google.com/drive/folders/1A8ydfvoupc6qUrmfIGTbg0epbz-E9VLv",
+            "detail": "Welcome letter, calendar, roster, Venmos by class, senior directory."
+          }
+        ]
+      }
+    ]
   },
   "teamGames": [
     {

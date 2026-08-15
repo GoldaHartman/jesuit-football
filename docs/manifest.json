@@ -1,7 +1,7 @@
 {
   "name": "Jesuit Football 2026",
   "short_name": "Jesuit FB",
-  "description": "Day-by-day schedule, practice times, and what your grade owes — Jesuit High School New Orleans football.",
+  "description": "Day-by-day schedule, practice times, and game-time notes for your class — Jesuit High School New Orleans football.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

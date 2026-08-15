@@ -299,8 +299,10 @@ h2.section:first-child { margin-top: 4px; }
 }
 .row:last-child { border-bottom: 0; padding-bottom: 0; }
 .row:first-child { padding-top: 0; }
-.row .k { color: var(--muted); flex: 0 0 auto; }
-.row .v { text-align: right; font-weight: 600; }
+/* the label shrinks, the value never does — otherwise a long description
+   shoves the price off the side of the phone */
+.row .k { color: var(--muted); flex: 1 1 auto; min-width: 0; }
+.row .v { text-align: right; font-weight: 600; flex: 0 0 auto; white-space: nowrap; }
 
 ul.bullets { margin: 0; padding-left: 19px; }
 ul.bullets li { margin-bottom: 8px; font-size: 15px; }

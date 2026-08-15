@@ -2,8 +2,8 @@
 
 A day-by-day phone app for Jesuit High School New Orleans football parents,
 2026 season. Open it in the morning and it answers the three questions parents
-actually ask: **what's happening today, when is the next game, and what does my
-grade owe this week.**
+actually ask: **what's happening today, when is the next game, and what are this
+week's notes for my class.**
 
 Built for the Class of 2027 season by the grade moms.
 
@@ -13,7 +13,7 @@ Built for the Class of 2027 season by the grade moms.
 
 | Tab | What it does |
 | --- | --- |
-| **Today** | Today's practice and times straight off the coach's calendar, a countdown to your team's next game, and your grade's jobs for that game week |
+| **Today** | Today's practice and times straight off the coach's calendar, a countdown to your team's next game, and your class's game-time notes for that week |
 | **Games** | Switch between **8th · 9th · JV · Varsity** and see that team's full schedule |
 | **Calendar** | Every practice, workout, and event, Aug 2026 through Jul 2027. Opens on today, with a sticky month dropdown to jump anywhere in the season |
 | **My Grade** | Pick your son's grade once. Dues, Venmo handle, tailgate category, what your class takes on, your pre-game meal weeks, and your grade mom's contact |
@@ -28,7 +28,7 @@ They answer different questions and they don't line up:
 
 - **Team** (8th / 9th / JV / Varsity) decides *which games your son plays in*. A
   10th grader might be on JV or Varsity, so grade alone can't tell you.
-- **Grade** (8th–12th) decides *what you owe as a parent* — dues, pre-game meal
+- **Grade** (8th–12th) decides *your class's game-time notes* — dues, pre-game meal
   weeks, chocolate milk, donuts. That's organised by class, not by team.
 
 | Team | Games | Where it comes from |
@@ -70,17 +70,23 @@ python3 tools/parse_calendar.py "source/2026 FOOTBALL CALENDAR.pdf" data/calenda
 
 # 2. bundle both JSON files into the app
 python3 tools/build_web_data.py
-
-# 3. bump CACHE in docs/sw.js (e.g. jesuit-fb-v1 -> v2) so phones
-#    pick up the new schedule instead of serving the cached one
 ```
+
+That's the whole deploy prep. Step 2 also hashes `style.css`, `app.js`, and
+`data.js` and stamps that hash into the asset URLs in `index.html` and into
+`BUILD` in `sw.js`. So cache-busting is automatic — there is no version number
+to remember to bump.
+
+This matters more than it sounds. Before it existed, a browser would happily
+serve a cached `data.js` and show **last week's kickoff times**, which is the
+single worst way this app can fail.
 
 `data/season.json` is the hand-maintained file — games, venues, grade
 responsibilities, dues, traditions. Edit that when the schedule shifts, then run
 step 2.
 
 **When a game time changes** (several are still TBD), edit `data/season.json`,
-run `build_web_data.py`, bump the service worker cache, redeploy.
+run `build_web_data.py`, redeploy.
 
 ### Where the data came from
 
