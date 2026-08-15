@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Jesuit Football</title>
+<meta name="description" content="Day-by-day schedule, practice times, and what your grade owes — Jesuit High School New Orleans football, 2026 season.">
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Jesuit FB">
+<meta name="theme-color" content="#0a2450">
+</head>
+<body>
+
+<header class="app">
+  <div class="wordmark">
+    <h1>Jesuit Football</h1>
+    <span class="season">2026 · BLUE JAYS</span>
+  </div>
+  <div class="motto">Men of Faith and Men for Others</div>
+</header>
+
+<main>
+  <section id="view-today"    class="view active"></section>
+  <section id="view-schedule" class="view"></section>
+  <section id="view-calendar" class="view"></section>
+  <section id="view-grade"    class="view"></section>
+  <section id="view-info"     class="view"></section>
+</main>
+
+<nav class="tabs">
+  <button data-view="today"    class="on"><span class="ico">📅</span>Today</button>
+  <button data-view="schedule"><span class="ico">🏈</span>Games</button>
+  <button data-view="calendar"><span class="ico">🗓️</span>Calendar</button>
+  <button data-view="grade"><span class="ico">✅</span>My Grade</button>
+  <button data-view="info"><span class="ico">ℹ️</span>Info</button>
+</nav>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

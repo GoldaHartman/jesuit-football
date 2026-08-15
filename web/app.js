@@ -1,0 +1,555 @@
+/* Jesuit Football — parent app
+   Data comes from data.js (generated from the coach's calendar PDF and the
+   parent welcome letter). Nothing here talks to a server. */
+
+'use strict';
+
+// ---------------------------------------------------------------- utilities
+
+const WEEKDAY_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const WEEKDAY_ABBR = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MONTH_LONG = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
+const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/** Local calendar date as YYYY-MM-DD. Avoids the UTC shift toISOString() causes. */
+function isoOf(date) {
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${date.getFullYear()}-${m}-${d}`;
+}
+
+/** Parse YYYY-MM-DD as a *local* date, so day-of-week never slips a day. */
+function dateOf(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function todayISO() {
+  return isoOf(new Date());
+}
+
+/** Whole days from a to b, both YYYY-MM-DD. */
+function daysBetween(aISO, bISO) {
+  return Math.round((dateOf(bISO) - dateOf(aISO)) / 86400000);
+}
+
+function shiftISO(iso, days) {
+  const d = dateOf(iso);
+  d.setDate(d.getDate() + days);
+  return isoOf(d);
+}
+
+/** '19:00' -> '7:00 PM' */
+function prettyTime(hhmm) {
+  if (!hhmm) return null;
+  const [h, m] = hhmm.split(':').map(Number);
+  const suffix = h >= 12 ? 'PM' : 'AM';
+  const hour = h % 12 === 0 ? 12 : h % 12;
+  return `${hour}:${String(m).padStart(2, '0')} ${suffix}`;
+}
+
+function longDate(iso) {
+  const d = dateOf(iso);
+  return `${WEEKDAY_LONG[d.getDay()]}, ${MONTH_LONG[d.getMonth()]} ${d.getDate()}`;
+}
+
+function shortDate(iso) {
+  const d = dateOf(iso);
+  return `${WEEKDAY_ABBR[d.getDay()]}, ${MONTH_ABBR[d.getMonth()]} ${d.getDate()}`;
+}
+
+function esc(text) {
+  return String(text == null ? '' : text)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+const el = (id) => document.getElementById(id);
+
+// ---------------------------------------------------------------- lookups
+
+const CAL_BY_DATE = Object.fromEntries(CALENDAR.days.map((d) => [d.date, d]));
+const VENUE_BY_ID = Object.fromEntries(SEASON.venues.map((v) => [v.id, v]));
+const GRADE_BY_NAME = Object.fromEntries(SEASON.grades.map((g) => [g.name, g]));
+const GAME_DATES = new Set(SEASON.games.map((g) => g.date));
+
+const venueOf = (game) => VENUE_BY_ID[game.venueId] || null;
+
+/** The next game on or after `iso`, or null once the season is done. */
+function nextGame(iso) {
+  return SEASON.games.find((g) => g.date >= iso) || null;
+}
+
+function gameOn(iso) {
+  return SEASON.games.find((g) => g.date === iso) || null;
+}
+
+// ---------------------------------------------------------------- state
+
+const SAVED_GRADE = 'jesuitfb.grade';
+
+function currentGrade() {
+  const saved = localStorage.getItem(SAVED_GRADE);
+  return saved && GRADE_BY_NAME[saved] ? GRADE_BY_NAME[saved] : null;
+}
+
+function setGrade(name) {
+  localStorage.setItem(SAVED_GRADE, name);
+  renderAll();
+}
+
+// ---------------------------------------------------------------- game-week tasks
+
+/**
+ * What this grade owes for a given game, straight out of the welcome letter.
+ * `yours` marks the items that are this grade's specific job rather than the
+ * baseline every grade shares.
+ */
+function tasksFor(grade, game) {
+  if (!grade || !game) return [];
+
+  const tasks = [];
+  const dayBefore = shortDate(shiftISO(game.date, -1));
+  const isVarsity = game.type === 'regular';
+
+  if (game.mealGrade === grade.name) {
+    tasks.push({
+      icon: '🍽️', yours: true,
+      title: 'Pre-game meal — this one is your grade',
+      when: 'Your grade mom will confirm what is needed',
+    });
+  }
+
+  if (grade.name === 'Freshman' && isVarsity) {
+    tasks.push({
+      icon: '🍩', yours: true,
+      title: 'Donuts and milk to the locker room by 7:10 am',
+      when: `${dayBefore} — the morning before the game`,
+    });
+    if (game.id === 'week-1') {
+      tasks.push({
+        icon: '🌹', yours: true,
+        title: 'Presentation roses with a bow, plus the announcer script',
+        when: 'Senior Night — from Villere\'s florist',
+      });
+    }
+  }
+
+  // The weekly senior jobs start with the first regular season game — the
+  // preseason scrimmage and jamboree don't get banners or treat bags.
+  if (grade.name === 'Senior' && isVarsity) {
+    tasks.push({
+      icon: '🎁', yours: true,
+      title: 'Treat bags for every varsity player, trainer, and manager',
+      when: `${dayBefore} — shop, stuff, add a note, drop at the locker room`,
+    });
+    tasks.push({
+      icon: '🪧', yours: true,
+      title: 'Game banners in the locker room',
+      when: 'This week — chaired by Raelene Williams',
+    });
+    tasks.push({
+      icon: '🧺', yours: true,
+      title: 'Tailgate setup and paper products',
+      when: 'Game day — chaired by Tessa Vorhaben, with Jene Ponder',
+    });
+    if (!game.isHome && venueOf(game) && venueOf(game).driveNote) {
+      tasks.push({
+        icon: '🚌', yours: true,
+        title: 'Parent and family bus for the travel game',
+        when: venueOf(game).driveNote,
+      });
+    }
+  }
+
+  if (grade.name === 'Junior' && game.id === 'week-9') {
+    tasks.push({
+      icon: '🎉', yours: true,
+      title: 'Senior Parent Appreciation Tailgate',
+      when: 'Fri, Oct 30 at Tad Gormley — the Junior class hosts',
+    });
+  }
+
+  if (isVarsity) {
+    tasks.push({
+      icon: '🥛', yours: false,
+      title: 'Post-game chocolate milk — 2 volunteers',
+      when: 'Ice chest, 24 iced chocolate milks, kept cold, at the field exit',
+    });
+  }
+
+  if (grade.tailgateFood) {
+    tasks.push({
+      icon: '🍽️', yours: false,
+      title: `Tailgate food: ${grade.tailgateFood.toLowerCase()}`,
+      when: 'Your grade\'s category — bring something to share',
+    });
+  }
+
+  return tasks;
+}
+
+// ---------------------------------------------------------------- components
+
+function badgesFor(game) {
+  const out = [];
+  if (game.type === 'preseason') out.push('<span class="badge">Preseason</span>');
+  else out.push(game.isHome
+    ? '<span class="badge home">Home</span>'
+    : '<span class="badge away">Away</span>');
+  if (game.isDistrict) out.push('<span class="badge district">District</span>');
+
+  const note = (game.notes || '');
+  if (/SENIOR NIGHT/.test(note))  out.push('<span class="badge special">Senior Night</span>');
+  if (/RIVALRY/.test(note))       out.push('<span class="badge special">Rivalry</span>');
+  if (/HOMECOMING/.test(note))    out.push('<span class="badge special">Homecoming</span>');
+  if (/LAST HOME GAME/.test(note))out.push('<span class="badge special">Last home game</span>');
+  return out.join('');
+}
+
+function venueCard(venue, heading) {
+  if (!venue) return '';
+  return `
+    <div class="card">
+      <div class="eyebrow">${esc(heading || 'Venue')}</div>
+      <div class="venue-h">${esc(venue.name)}</div>
+      <div class="venue-sub">${esc(venue.address)}</div>
+      <div class="rule">
+        <div class="lbl">Bags</div>
+        <div class="txt">${esc(venue.bagPolicy)}</div>
+      </div>
+      <div class="rule">
+        <div class="lbl">Not allowed</div>
+        <div class="txt">${esc(venue.prohibited)}</div>
+      </div>
+      <div class="rule">
+        <div class="lbl">Parking</div>
+        <div class="txt">${esc(venue.parking)}</div>
+      </div>
+      ${venue.driveNote ? `<div class="rule warn"><div class="lbl">Heads up</div><div class="txt">${esc(venue.driveNote)}</div></div>` : ''}
+      ${venue.tickets ? `<div class="rule"><div class="lbl">Tickets</div><div class="txt"><a class="link" href="${esc(venue.tickets)}" target="_blank" rel="noopener">${esc(venue.ticketNote || 'Buy tickets')}</a></div></div>`
+                      : (venue.ticketNote ? `<div class="rule"><div class="lbl">Tickets</div><div class="txt">${esc(venue.ticketNote)}</div></div>` : '')}
+    </div>`;
+}
+
+// ---------------------------------------------------------------- views
+
+function renderToday() {
+  const iso = todayISO();
+  const entry = CAL_BY_DATE[iso];
+  const game = gameOn(iso);
+  const upcoming = nextGame(iso);
+  const grade = currentGrade();
+
+  let html = `<div class="today-date">${esc(longDate(iso))}</div>`;
+
+  // --- what's on today
+  html += '<div class="card">';
+  if (entry && entry.items.length) {
+    html += entry.items.map((item) => {
+      const isGame = /WEEK \d|SCRIMMAGE|JAMBOREE|CHAMPIONSHIP/i.test(item);
+      return `<div class="today-item${isGame ? ' is-game' : ''}"><span class="dot"></span><span>${esc(item)}</span></div>`;
+    }).join('');
+  } else {
+    html += '<div class="rest-day">Nothing on the football calendar today.</div>';
+  }
+  html += '</div>';
+
+  // --- countdown
+  if (upcoming) {
+    const days = daysBetween(iso, upcoming.date);
+    const venue = venueOf(upcoming);
+    const when = days === 0 ? 'TODAY' : days === 1 ? 'TOMORROW' : `${days}<small>days</small>`;
+    const kickoff = prettyTime(upcoming.kickoff) || upcoming.kickoffNote || 'Time TBA';
+
+    html += `
+      <div class="card countdown">
+        <div class="eyebrow">${upcoming.week ? `Week ${upcoming.week}` : 'Next up'}</div>
+        <div class="n">${when}</div>
+        <div class="opponent">${upcoming.isHome === false && upcoming.type === 'regular' ? 'at ' : upcoming.type === 'regular' ? 'vs ' : ''}${esc(upcoming.opponent)}</div>
+        <div class="meta">${esc(shortDate(upcoming.date))} · ${esc(kickoff)}${venue ? ' · ' + esc(venue.name) : ''}</div>
+        <div class="badges">${badgesFor(upcoming).replace(/class="badge/g, 'class="badge onlight')}</div>
+        ${upcoming.notes ? `<div class="tagline">${esc(upcoming.notes)}</div>` : ''}
+      </div>`;
+  } else {
+    html += '<div class="card"><div class="rest-day">The 2026 regular season is complete. Go Jays!</div></div>';
+  }
+
+  // --- your grade this week
+  if (grade && upcoming) {
+    const out = daysBetween(iso, upcoming.date);
+    const tasks = tasksFor(grade, upcoming);
+    if (tasks.length) {
+      html += `<h2 class="section">${esc(grade.name)} class — ${out <= 7 ? 'this game week' : 'next game week'}</h2>`;
+      html += '<div class="card">';
+      if (grade.name === upcoming.mealGrade) {
+        html += `<div class="task-flag"><strong>Your grade has the pre-game meal</strong> for ${esc(upcoming.opponent)} on ${esc(shortDate(upcoming.date))}.</div>`;
+      }
+      html += tasks.map((t) => `
+        <div class="task${t.yours ? ' yours' : ''}">
+          <div class="icon">${t.icon}</div>
+          <div class="body">
+            <div class="title">${esc(t.title)}</div>
+            <div class="when">${esc(t.when)}</div>
+          </div>
+        </div>`).join('');
+      html += '</div>';
+    }
+  } else if (!grade) {
+    html += `
+      <div class="card">
+        <div class="eyebrow">Set this once</div>
+        <div style="font-size:15px;margin-bottom:11px">Pick your son's grade and this screen will show what your class owes each game week.</div>
+        <div class="picker">
+          ${SEASON.grades.map((g) => `<button data-grade="${esc(g.name)}">${esc(g.name)}</button>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  // --- game-day venue detail
+  if (game) {
+    html += '<h2 class="section">Game day</h2>';
+    html += venueCard(venueOf(game), 'Where you are going');
+  }
+
+  html += `<div class="footnote">Coaches communicate directly with the players.<br>Ask your son first — then your grade mom.</div>`;
+
+  el('view-today').innerHTML = html;
+}
+
+function renderSchedule() {
+  const iso = todayISO();
+  const upcoming = nextGame(iso);
+
+  let html = '<h2 class="section">2026 Season</h2><div class="card flush">';
+  html += SEASON.games.map((g) => {
+    const venue = venueOf(g);
+    const past = g.date < iso;
+    const isNext = upcoming && g.id === upcoming.id;
+    const kickoff = prettyTime(g.kickoff) || g.kickoffNote || 'TBA';
+    const prefix = g.type === 'regular' ? (g.isHome ? 'vs ' : 'at ') : '';
+    return `
+      <button class="game${past ? ' past' : ''}${isNext ? ' next' : ''}" data-venue="${esc(g.venueId)}">
+        <div class="row1">
+          <span class="wk">${g.week ? 'Week ' + g.week : g.type === 'preseason' ? 'Preseason' : ''}</span>
+          <span class="date">${esc(shortDate(g.date))}</span>
+        </div>
+        <div class="opp">${prefix}${esc(g.opponent)}</div>
+        <div class="where">${esc(kickoff)}${venue ? ' · ' + esc(venue.name) : ''}</div>
+        <div class="badges">${badgesFor(g)}${g.mealGrade ? `<span class="badge">${esc(g.mealGrade)} meal</span>` : ''}</div>
+      </button>`;
+  }).join('');
+  html += '</div>';
+
+  html += `<div class="footnote">Jesuit hosts four of the ten. Brother Martin and St. Augustine are played at Tad Gormley, but we are the visiting team.<br>Tap a game for that venue's bag policy and parking.</div>`;
+
+  el('view-schedule').innerHTML = html;
+}
+
+function renderCalendar() {
+  const iso = todayISO();
+
+  // group the days into months first, then render — no string surgery
+  const months = [];
+  CALENDAR.days.forEach((day) => {
+    const d = dateOf(day.date);
+    const key = `${d.getFullYear()}-${d.getMonth()}`;
+    let group = months[months.length - 1];
+    if (!group || group.key !== key) {
+      group = { key, label: `${MONTH_LONG[d.getMonth()]} ${d.getFullYear()}`, days: [] };
+      months.push(group);
+    }
+    group.days.push({ day, d });
+  });
+
+  const body = months.map((group) => {
+    const rows = group.days.map(({ day, d }) => {
+      const classes = [
+        'cal-day',
+        day.date === iso ? 'today' : '',
+        GAME_DATES.has(day.date) ? 'is-game' : '',
+        (d.getDay() === 0 || d.getDay() === 6) ? 'weekend' : '',
+      ].filter(Boolean).join(' ');
+
+      return `
+        <div class="${classes}" id="cal-${day.date}">
+          <div class="num">
+            <div class="d">${d.getDate()}</div>
+            <div class="w">${WEEKDAY_ABBR[d.getDay()]}</div>
+          </div>
+          <div class="items">${day.items.map((i) => `<div>${esc(i)}</div>`).join('')}</div>
+        </div>`;
+    }).join('');
+
+    return `<div class="cal-month">${esc(group.label)}</div><div class="card flush">${rows}</div>`;
+  }).join('');
+
+  el('view-calendar').innerHTML =
+    `<div class="footnote" style="margin-top:0">Every practice, workout, and event from the coach's 2026/27 calendar.<br>"Done for 6:30" means finished in time for a 6:30 pickup.</div>` +
+    body;
+}
+
+function renderGrade() {
+  const grade = currentGrade();
+
+  let html = '<h2 class="section">Which grade is your son in?</h2>';
+  html += `<div class="picker">
+    ${SEASON.grades.map((g) => `<button data-grade="${esc(g.name)}" class="${grade && g.name === grade.name ? 'on' : ''}">${esc(g.name)}</button>`).join('')}
+  </div>`;
+
+  if (!grade) {
+    html += '<div class="empty">Pick a grade to see what your class takes on, the dues, and your tailgate assignment.</div>';
+    el('view-grade').innerHTML = html;
+    return;
+  }
+
+  html += `
+    <div class="card">
+      <div class="eyebrow">${esc(grade.classYear)}</div>
+      <div class="row"><span class="k">Your grade mom</span><span class="v">${esc(grade.gradeMom)}</span></div>
+      <div class="row"><span class="k">Grade dues</span><span class="v">${grade.dues ? '$' + grade.dues : 'Baseline only'}</span></div>
+      ${grade.duesHandle ? `<div class="row"><span class="k">Venmo</span><span class="v">${esc(grade.duesHandle)}</span></div>` : ''}
+      <div class="row"><span class="k">Tailgate food</span><span class="v">${esc(grade.tailgateFood)}</span></div>
+    </div>`;
+
+  html += `<h2 class="section">What your grade takes on</h2>
+    <div class="card"><ul class="bullets">
+      ${grade.responsibilities.map((r) => `<li>${esc(r)}</li>`).join('')}
+    </ul></div>`;
+
+  // every game this grade has the meal
+  const meals = SEASON.games.filter((g) => g.mealGrade === grade.name);
+  if (meals.length) {
+    html += `<h2 class="section">Your pre-game meals this season</h2><div class="card">`;
+    html += meals.map((g) => `
+      <div class="row">
+        <span class="k">${esc(shortDate(g.date))}</span>
+        <span class="v">${g.isHome ? 'vs ' : 'at '}${esc(g.opponent)}</span>
+      </div>`).join('');
+    html += '</div>';
+  }
+
+  const mom = SEASON.gradeMoms.find((m) => m.grade === grade.name);
+  if (mom) {
+    html += `<h2 class="section">Your first call</h2>
+      <div class="card">
+        <div class="venue-h">${esc(mom.name)}</div>
+        <div class="venue-sub">${esc(grade.name)} grade mom</div>
+        <div class="rule"><div class="lbl">Email</div><div class="txt"><a class="link" href="mailto:${esc(mom.email)}">${esc(mom.email)}</a></div></div>
+        <div class="rule"><div class="lbl">Phone</div><div class="txt"><a class="link" href="tel:${esc(mom.phone.replace(/-/g, ''))}">${esc(mom.phone)}</a></div></div>
+      </div>`;
+  }
+
+  html += `<div class="footnote">$30 of every grade's dues goes to the Senior Football Mom for locker-room treat bags.</div>`;
+
+  el('view-grade').innerHTML = html;
+}
+
+function renderInfo() {
+  let html = '';
+
+  html += '<h2 class="section">Venues and bag rules</h2>';
+  html += `<div class="card"><div class="rule warn"><div class="lbl">Bottom line</div><div class="txt">Every venue is clear-bag only. Bring a clear bag or a small clutch (max 4.5x6.5 in.) and expect bag checks and metal-detector wanding.</div></div></div>`;
+  SEASON.venues.forEach((v) => { html += venueCard(v, v.name); });
+
+  html += '<h2 class="section">Traditions</h2><div class="card">';
+  html += SEASON.traditions.map((t) => `
+    <div class="task">
+      <div class="body">
+        <div class="title">${esc(t.title)}</div>
+        <div class="when">${esc(t.detail)}</div>
+      </div>
+    </div>`).join('');
+  html += '</div>';
+
+  html += '<h2 class="section">Grade moms</h2><div class="card">';
+  html += SEASON.gradeMoms.map((m) => `
+    <div class="row">
+      <span class="k">${esc(m.grade)}</span>
+      <span class="v"><a class="link" href="mailto:${esc(m.email)}">${esc(m.name)}</a></span>
+    </div>`).join('');
+  html += '</div>';
+
+  html += '<h2 class="section">Who to contact</h2><div class="card">';
+  html += SEASON.contacts.map((c) => `
+    <div class="task">
+      <div class="body">
+        <div class="title">${esc(c.name)}</div>
+        <div class="when">${esc(c.role)}${c.detail ? ' — ' + esc(c.detail) : ''}${c.phone ? '<br>' + esc(c.phone) : ''}</div>
+      </div>
+    </div>`).join('');
+  html += '</div>';
+
+  html += '<h2 class="section">Culture</h2>';
+  html += `<div class="card"><div class="badges">${SEASON.culture.map((c) => `<span class="badge">${esc(c)}</span>`).join('')}</div></div>`;
+
+  html += '<h2 class="section">Vacation dates</h2><div class="card">';
+  html += SEASON.vacations.map((v) => `
+    <div class="row">
+      <span class="k">${esc(v.name)}</span>
+      <span class="v">${esc(shortDate(v.start))} – ${esc(shortDate(v.end))}</span>
+    </div>`).join('');
+  html += '</div>';
+
+  html += `<div class="footnote">Built from the coach's 2026/27 calendar and the parent welcome letter.<br>Player names and family contact details are deliberately not in this app.</div>`;
+
+  el('view-info').innerHTML = html;
+}
+
+// ---------------------------------------------------------------- wiring
+
+function renderAll() {
+  renderToday();
+  renderSchedule();
+  renderCalendar();
+  renderGrade();
+  renderInfo();
+}
+
+function show(view) {
+  document.querySelectorAll('.view').forEach((v) => v.classList.remove('active'));
+  el('view-' + view).classList.add('active');
+  document.querySelectorAll('nav.tabs button').forEach((b) => {
+    b.classList.toggle('on', b.dataset.view === view);
+  });
+  window.scrollTo(0, 0);
+
+  if (view === 'calendar') {
+    const target = el('cal-' + todayISO());
+    if (target) target.scrollIntoView({ block: 'center' });
+  }
+}
+
+document.querySelector('nav.tabs').addEventListener('click', (event) => {
+  const button = event.target.closest('button[data-view]');
+  if (button) show(button.dataset.view);
+});
+
+// grade pickers live in two views and are re-rendered, so delegate from body
+document.body.addEventListener('click', (event) => {
+  const pick = event.target.closest('button[data-grade]');
+  if (pick) { setGrade(pick.dataset.grade); return; }
+
+  const gameRow = event.target.closest('button.game[data-venue]');
+  if (gameRow) {
+    show('info');
+    return;
+  }
+});
+
+renderAll();
+
+// Re-render if the app is left open past midnight, so "Today" stays honest.
+let renderedOn = todayISO();
+setInterval(() => {
+  if (todayISO() !== renderedOn) { renderedOn = todayISO(); renderAll(); }
+}, 60000);
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && todayISO() !== renderedOn) { renderedOn = todayISO(); renderAll(); }
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}

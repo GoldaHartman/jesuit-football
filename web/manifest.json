@@ -1,0 +1,17 @@
+{
+  "name": "Jesuit Football 2026",
+  "short_name": "Jesuit FB",
+  "description": "Day-by-day schedule, practice times, and what your grade owes — Jesuit High School New Orleans football.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a2450",
+  "theme_color": "#0a2450",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,432 @@
+/* Jesuit Blue Jays — football parent app
+   Mobile-first. Navy and white, with a gold accent for "this is yours". */
+
+:root {
+  --navy:        #0a2450;
+  --navy-deep:   #061733;
+  --navy-soft:   #14386f;
+  --jay:         #2f6fd0;
+  --jay-light:   #e8f0fc;
+  --gold:        #c8a24a;
+  --gold-soft:   #fdf6e6;
+
+  --bg:          #f4f6fa;
+  --surface:     #ffffff;
+  --line:        #dde3ed;
+  --text:        #16202f;
+  --muted:       #5d6b80;
+
+  --home:        #1c7a4a;
+  --home-soft:   #e6f5ec;
+  --away:        #8a5a12;
+  --away-soft:   #fdf2e0;
+
+  --radius: 14px;
+  --pad: 16px;
+  --shadow: 0 1px 2px rgba(10, 36, 80, .06), 0 4px 16px rgba(10, 36, 80, .06);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --jay-light: #16233c;
+    --gold-soft: #2a2213;
+    --bg:        #0d1420;
+    --surface:   #151e2e;
+    --line:      #26324a;
+    --text:      #e8edf6;
+    --muted:     #9aa8bf;
+    --home-soft: #122c1f;
+    --away-soft: #2c2314;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.3);
+  }
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+/* ---------- header ---------- */
+
+header.app {
+  background: var(--navy);
+  color: #fff;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) var(--pad) 14px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+header.app .wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+header.app h1 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: .2px;
+}
+
+header.app .season {
+  font-size: 12px;
+  color: #9fbdec;
+  font-weight: 600;
+  letter-spacing: .6px;
+}
+
+header.app .motto {
+  font-size: 11.5px;
+  color: #8fa9d4;
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* ---------- layout ---------- */
+
+main {
+  padding: var(--pad);
+  padding-bottom: calc(78px + var(--safe-bottom));
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.view { display: none; }
+.view.active { display: block; animation: fade .18s ease; }
+
+@keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--pad);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+
+.card.flush { padding: 0; overflow: hidden; }
+
+h2.section {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  font-weight: 700;
+  margin: 22px 0 10px;
+}
+h2.section:first-child { margin-top: 4px; }
+
+.eyebrow {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: .9px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.muted { color: var(--muted); }
+.small { font-size: 13.5px; }
+
+/* ---------- today ---------- */
+
+.today-date {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--jay);
+  margin-bottom: 10px;
+}
+
+.today-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15.5px;
+}
+.today-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.today-item:first-child { padding-top: 0; }
+.today-item .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--jay); margin-top: 8px; flex: 0 0 auto;
+}
+.today-item.is-game .dot { background: var(--gold); }
+.today-item.is-game { font-weight: 650; }
+
+.rest-day { color: var(--muted); font-size: 15px; }
+
+/* ---------- countdown ---------- */
+
+.countdown {
+  background: linear-gradient(150deg, var(--navy) 0%, var(--navy-soft) 100%);
+  color: #fff;
+  border: 0;
+}
+.countdown .eyebrow { color: #9fbdec; }
+
+.countdown .n {
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1.5px;
+}
+.countdown .n small {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-left: 7px;
+  color: #9fbdec;
+}
+.countdown .opponent {
+  font-size: 21px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+.countdown .meta {
+  font-size: 14px;
+  color: #b9cdeb;
+  margin-top: 4px;
+}
+.countdown .tagline {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(255,255,255,.16);
+  font-size: 13.5px;
+  color: #dbe6f7;
+}
+
+/* ---------- badges ---------- */
+
+.badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+
+.badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  padding: 3.5px 9px;
+  border-radius: 100px;
+  background: var(--jay-light);
+  color: var(--jay);
+  white-space: nowrap;
+}
+.badge.home     { background: var(--home-soft); color: var(--home); }
+.badge.away     { background: var(--away-soft); color: var(--away); }
+.badge.district { background: var(--jay-light); color: var(--jay); }
+.badge.special  { background: var(--gold-soft); color: var(--gold); }
+.badge.onlight  { background: rgba(255,255,255,.16); color: #fff; }
+
+/* ---------- your grade / tasks ---------- */
+
+.task {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+}
+.task:last-child { border-bottom: 0; padding-bottom: 0; }
+.task:first-child { padding-top: 0; }
+
+.task .icon { font-size: 17px; line-height: 1.3; flex: 0 0 auto; width: 21px; text-align: center; }
+.task .body { flex: 1; min-width: 0; }
+.task .title { font-weight: 650; font-size: 15.5px; }
+.task .when { font-size: 13px; color: var(--muted); margin-top: 1px; }
+.task.yours .title { color: var(--navy); }
+
+@media (prefers-color-scheme: dark) {
+  .task.yours .title { color: #8fb6f2; }
+}
+
+.task-flag {
+  background: var(--gold-soft);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* ---------- game rows ---------- */
+
+.game {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 14px var(--pad);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.game:last-child { border-bottom: 0; }
+.game.past { opacity: .5; }
+.game.next { background: var(--jay-light); }
+
+.game .row1 { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.game .wk { font-size: 11.5px; font-weight: 700; letter-spacing: .7px; color: var(--muted); text-transform: uppercase; }
+.game .date { font-size: 13px; color: var(--muted); font-weight: 600; }
+.game .opp { font-size: 17.5px; font-weight: 700; margin-top: 3px; }
+.game .where { font-size: 13.5px; color: var(--muted); margin-top: 2px; }
+
+/* ---------- lists ---------- */
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+}
+.row:last-child { border-bottom: 0; padding-bottom: 0; }
+.row:first-child { padding-top: 0; }
+.row .k { color: var(--muted); flex: 0 0 auto; }
+.row .v { text-align: right; font-weight: 600; }
+
+ul.bullets { margin: 0; padding-left: 19px; }
+ul.bullets li { margin-bottom: 8px; font-size: 15px; }
+ul.bullets li:last-child { margin-bottom: 0; }
+
+/* ---------- grade picker ---------- */
+
+.picker { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+
+.picker button {
+  flex: 1 1 auto;
+  min-width: 78px;
+  padding: 9px 10px;
+  border-radius: 100px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 13.5px;
+  font-weight: 650;
+  font-family: inherit;
+  cursor: pointer;
+}
+.picker button.on {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+
+/* ---------- calendar ---------- */
+
+.cal-month {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 18px var(--pad) 7px;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 5;
+}
+
+.cal-day {
+  display: flex;
+  gap: 12px;
+  padding: 11px var(--pad);
+  border-bottom: 1px solid var(--line);
+}
+.cal-day:last-child { border-bottom: 0; }
+.cal-day.today { background: var(--jay-light); }
+.cal-day.is-game { background: var(--gold-soft); }
+.cal-day.weekend .num { color: var(--muted); }
+
+.cal-day .num {
+  flex: 0 0 40px;
+  text-align: center;
+}
+.cal-day .num .d { font-size: 18px; font-weight: 700; line-height: 1.1; }
+.cal-day .num .w { font-size: 10.5px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); }
+.cal-day.today .num .d { color: var(--jay); }
+
+.cal-day .items { flex: 1; min-width: 0; font-size: 14.5px; }
+.cal-day .items div { margin-bottom: 3px; }
+.cal-day .items div:last-child { margin-bottom: 0; }
+
+/* ---------- venue ---------- */
+
+.venue-h { font-size: 17px; font-weight: 700; }
+.venue-sub { font-size: 13.5px; color: var(--muted); margin-top: 2px; }
+
+.rule { margin-top: 12px; }
+.rule .lbl {
+  font-size: 11px; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 3px;
+}
+.rule .txt { font-size: 14.5px; }
+.rule.warn .txt { color: var(--away); font-weight: 600; }
+
+a.link { color: var(--jay); font-weight: 600; text-decoration: none; }
+a.link:active { opacity: .6; }
+
+/* ---------- bottom nav ---------- */
+
+nav.tabs {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  display: flex;
+  padding-bottom: var(--safe-bottom);
+  z-index: 40;
+}
+
+nav.tabs button {
+  flex: 1;
+  border: 0;
+  background: none;
+  padding: 8px 2px 7px;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 10.5px;
+  font-weight: 650;
+  letter-spacing: .2px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+nav.tabs button .ico { font-size: 19px; line-height: 1; }
+nav.tabs button.on { color: var(--jay); }
+
+/* ---------- misc ---------- */
+
+.footnote {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin: 22px 0 6px;
+  line-height: 1.5;
+}
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 34px 20px;
+  font-size: 15px;
+}

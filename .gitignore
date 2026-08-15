@@ -1,0 +1,12 @@
+# Original school documents — the app publishes the schedule, not the PDFs.
+source/
+*.pdf
+*.docx
+*.xlsx
+
+# The roster is deliberately kept out of this repo and out of the app.
+roster*
+
+.DS_Store
+__pycache__/
+venv/
