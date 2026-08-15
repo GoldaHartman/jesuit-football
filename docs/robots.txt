@@ -1,0 +1,6 @@
+# This is a parent app for one high school football program, and it carries
+# photos of minors. Anyone with the link is welcome; search engines are not.
+# Being findable in Google has no upside here and an obvious downside.
+
+User-agent: *
+Disallow: /
