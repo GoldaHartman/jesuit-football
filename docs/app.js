@@ -1001,6 +1001,7 @@ function openDay(iso) {
   sheet.querySelector('.sheet-body').innerHTML = html;
   sheet.hidden = false;
   document.body.style.overflow = 'hidden';
+  pushOverlay('day');
 }
 
 function closeSheet() {
@@ -1299,6 +1300,7 @@ function openLightbox(index) {
   box.querySelector('img').src = photoSrc(shot.file);
   box.hidden = false;
   document.body.style.overflow = 'hidden';
+  pushOverlay('photo');
 }
 
 function closeLightbox() {
@@ -1587,7 +1589,46 @@ function renderAll() {
   renderInfo();
 }
 
+/*
+ * Back-button handling.
+ *
+ * Without this, every view swap left the history untouched — so on a
+ * home-screen app, a swipe-back or Android's back button quit the whole thing
+ * instead of stepping back a screen. On Android that's the primary way people
+ * navigate, so the packaged app would have felt broken.
+ */
+let suppressHistory = false;
+
+function pushView(view) {
+  if (suppressHistory) return;
+  const state = { view, game: view === 'game' ? openGame : null };
+  if (history.state && history.state.view === view && !history.state.overlay) {
+    history.replaceState(state, '');
+  } else {
+    history.pushState(state, '');
+  }
+}
+
+/** Overlays get their own history entry so back closes them first. */
+function pushOverlay(kind) {
+  history.pushState({ ...(history.state || {}), overlay: kind }, '');
+}
+
+window.addEventListener('popstate', (event) => {
+  // an open overlay is always what "back" should dismiss first
+  if (!el('lightbox').hidden) { closeLightbox(); return; }
+  if (!el('daysheet').hidden) { closeSheet(); return; }
+
+  const state = event.state || { view: 'today' };
+  if (state.game) { openGame = state.game; renderGameView(); }
+
+  suppressHistory = true;
+  show(state.view);
+  suppressHistory = false;
+});
+
 function show(view, opts) {
+  pushView(view);
   document.querySelectorAll('.view').forEach((v) => v.classList.remove('active'));
   el('view-' + view).classList.add('active');
   // a single game has no tab of its own — it belongs under Games
@@ -1631,15 +1672,16 @@ document.body.addEventListener('click', (event) => {
     box.querySelector('img').src = WEEK.image;
     box.hidden = false;
     document.body.style.overflow = 'hidden';
+    pushOverlay('photo');
     return;
   }
 
   const photo = event.target.closest('button[data-photo]');
   if (photo) { openLightbox(Number(photo.dataset.photo)); return; }
 
-  if (event.target.closest('.lightbox')) { closeLightbox(); return; }
+  if (event.target.closest('.lightbox')) { history.back(); return; }
 
-  if (event.target.closest('.sheet-close')) { closeSheet(); return; }
+  if (event.target.closest('.sheet-close')) { history.back(); return; }
   const sheet = event.target.closest('#daysheet');
   if (sheet && !event.target.closest('.sheet-panel')) { closeSheet(); return; }
 
@@ -1670,8 +1712,7 @@ document.body.addEventListener('click', (event) => {
 
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return;
-  if (!el('lightbox').hidden) closeLightbox();
-  else if (!el('daysheet').hidden) closeSheet();
+  if (!el('lightbox').hidden || !el('daysheet').hidden) history.back();
 });
 
 /*
@@ -1797,6 +1838,7 @@ syncHeaderHeight();
 window.addEventListener('resize', syncHeaderHeight);
 window.addEventListener('orientationchange', syncHeaderHeight);
 
+history.replaceState({ view: 'today' }, '');
 renderAll();
 refreshFromLive();
 if (!hasAccess()) openGate();

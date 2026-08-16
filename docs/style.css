@@ -446,6 +446,8 @@ ul.bullets li:last-child { margin-bottom: 0; }
 .picker button {
   flex: 1 1 auto;
   min-width: 78px;
+  /* 44px is Apple's minimum comfortable tap target; these were 36 */
+  min-height: 44px;
   padding: 9px 10px;
   border-radius: 100px;
   border: 1.5px solid var(--line);
