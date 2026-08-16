@@ -9,7 +9,7 @@
 <meta name="robots" content="noindex, nofollow, noimageindex">
 
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css?v=59b5d1bb659b">
+<link rel="stylesheet" href="style.css?v=05546396c9b8">
 <link rel="apple-touch-icon" href="icon-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -17,6 +17,21 @@
 <meta name="theme-color" content="#0a2450">
 </head>
 <body>
+
+<div id="gate" class="gate" hidden>
+  <div class="gate-inner">
+    <div class="gate-mark">🏈</div>
+    <h1 id="gate-title">Blue Jay Football</h1>
+    <p id="gate-prompt">Enter the code from your grade mom.</p>
+    <form id="gate-form" autocomplete="off">
+      <input id="gate-code" type="text" inputmode="text" autocapitalize="characters"
+             spellcheck="false" placeholder="JAYS-••••••-26" aria-label="Access code">
+      <button type="submit">Go Jays</button>
+    </form>
+    <p id="gate-error" class="gate-error" hidden>That code isn't right. Check with your grade mom.</p>
+    <p id="gate-hint" class="gate-hint"></p>
+  </div>
+</div>
 
 <header class="app">
   <div class="wordmark">
@@ -58,7 +73,7 @@
   </div>
 </div>
 
-<script src="data.js?v=59b5d1bb659b"></script>
-<script src="app.js?v=59b5d1bb659b"></script>
+<script src="data.js?v=05546396c9b8"></script>
+<script src="app.js?v=05546396c9b8"></script>
 </body>
 </html>

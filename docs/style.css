@@ -56,6 +56,84 @@ html, body {
   overscroll-behavior-y: none;
 }
 
+/* ---------- access gate ---------- */
+
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: linear-gradient(165deg, var(--navy) 0%, var(--navy-deep) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 24px calc(28px + var(--safe-bottom));
+}
+.gate[hidden] { display: none; }
+
+.gate-inner { width: 100%; max-width: 380px; text-align: center; }
+
+.gate-mark { font-size: 46px; margin-bottom: 14px; }
+
+.gate h1 {
+  color: #fff;
+  font-size: 25px;
+  font-weight: 800;
+  margin: 0 0 8px;
+  letter-spacing: -.3px;
+}
+
+.gate p {
+  color: #b9cdeb;
+  font-size: 15px;
+  margin: 0 0 22px;
+  line-height: 1.5;
+}
+
+.gate form { display: flex; flex-direction: column; gap: 11px; }
+
+.gate input {
+  width: 100%;
+  padding: 15px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(255, 255, 255, .22);
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: .5px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.gate input::placeholder { color: rgba(255, 255, 255, .38); letter-spacing: 1px; }
+.gate input:focus { outline: none; border-color: #7fa9e8; background: rgba(255, 255, 255, .13); }
+
+.gate button {
+  padding: 15px 16px;
+  border-radius: 12px;
+  border: 0;
+  background: #fff;
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 16.5px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.gate button:active { opacity: .8; }
+
+.gate-error {
+  color: #ffb3a7 !important;
+  font-size: 14px !important;
+  margin: 14px 0 0 !important;
+}
+.gate-error[hidden] { display: none; }
+
+.gate-hint {
+  color: #8fa9d4 !important;
+  font-size: 13px !important;
+  margin: 20px 0 0 !important;
+}
+
 /* ---------- header ---------- */
 
 header.app {

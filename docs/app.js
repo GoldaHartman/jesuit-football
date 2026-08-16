@@ -1660,6 +1660,69 @@ async function refreshFromLive() {
   }
 }
 
+// ---------------------------------------------------------------- access gate
+
+/*
+ * A code from your grade mom, asked once per phone.
+ *
+ * This is a doorman, not a lock. The code lives in the page source, so anyone
+ * determined can read it — and the underlying files stay fetchable by direct
+ * URL regardless. It exists to keep the app inside the football family, which
+ * is what it was asked to do. Real protection would have to sit in front of
+ * the host, not inside the page.
+ */
+const SAVED_ACCESS = 'jesuitfb.access';
+const ACCESS = SEASON.access || { enabled: false, codes: [] };
+
+const tidyCode = (raw) => String(raw || '').trim().toUpperCase().replace(/\s+/g, '');
+
+function matchCode(raw) {
+  const entered = tidyCode(raw);
+  if (!entered) return null;
+  return (ACCESS.codes || []).find((c) => tidyCode(c.code) === entered) || null;
+}
+
+function hasAccess() {
+  if (!ACCESS.enabled) return true;
+  return Boolean(matchCode(localStorage.getItem(SAVED_ACCESS)));
+}
+
+function openGate() {
+  const gate = el('gate');
+  if (!gate) return;
+
+  el('gate-title').textContent = ACCESS.title || 'Blue Jay Football';
+  el('gate-prompt').textContent = ACCESS.prompt || 'Enter the code from your grade mom.';
+  el('gate-hint').textContent = ACCESS.hint || '';
+  gate.hidden = false;
+  document.body.style.overflow = 'hidden';
+
+  const form = el('gate-form');
+  const input = el('gate-code');
+  const error = el('gate-error');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const hit = matchCode(input.value);
+    if (!hit) {
+      error.hidden = false;
+      input.select();
+      return;
+    }
+    localStorage.setItem(SAVED_ACCESS, tidyCode(hit.code));
+
+    // the code says which grade mom handed it out, so save them a step
+    if (hit.grade && !currentGrade()) localStorage.setItem(SAVED_GRADE, hit.grade);
+
+    gate.hidden = true;
+    document.body.style.overflow = '';
+    renderAll();
+  });
+
+  input.addEventListener('input', () => { error.hidden = true; });
+  setTimeout(() => input.focus(), 120);
+}
+
 /* The month bar sticks below the app header, whose height depends on the
    device's safe-area inset. Measure it rather than hard-coding. */
 function syncHeaderHeight() {
@@ -1675,6 +1738,7 @@ window.addEventListener('orientationchange', syncHeaderHeight);
 
 renderAll();
 refreshFromLive();
+if (!hasAccess()) openGate();
 
 // Re-render if the app is left open past midnight, so "Today" stays honest.
 let renderedOn = todayISO();
