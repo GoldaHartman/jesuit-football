@@ -1694,6 +1694,7 @@ function openGate() {
   el('gate-title').textContent = ACCESS.title || 'Blue Jay Football';
   el('gate-prompt').textContent = ACCESS.prompt || 'Enter the code from your grade mom.';
   el('gate-hint').textContent = ACCESS.hint || '';
+  if (ACCESS.placeholder) el('gate-code').placeholder = ACCESS.placeholder;
   gate.hidden = false;
   document.body.style.overflow = 'hidden';
 

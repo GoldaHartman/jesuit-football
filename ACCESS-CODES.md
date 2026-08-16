@@ -1,27 +1,23 @@
-# Access codes — for the grade moms only
+# The password
 
-Give your grade's code to your families. Anyone opening the app is asked
-for it once per phone, and never again on that phone.
+**`1847Rush`** — the year Jesuit was founded.
 
-| Grade | Code | Who hands it out |
-| --- | --- | --- |
-| Senior | `JAYS-SENIOR-26` | Golda Hartman |
-| Junior | `JAYS-JUNIOR-26` | Nicole Abadie |
-| Sophomore | `JAYS-SOPH-26` | Mandi Mohr |
-| Freshman | `JAYS-FRESH-26` | Gabby Thompson |
-| Pre-Freshman | `JAYS-8TH-26` | Laura Wooderson |
-| Anyone | `GEAUX-JAYS-26` | General — coaches, family, anyone else |
+Anyone opening the app is asked for it once per phone, and never again on that
+phone. Give it to your families however you like: GroupMe, text, the welcome
+letter.
 
-The code also sets the family's grade in the app, so they skip that step.
+Not case-sensitive, and stray spaces are ignored — people will be typing it
+from a text message in a parking lot.
 
-## If a code gets passed around
+## Changing it
 
-Change just that one — edit `access.codes` in `data/season.json`, then
-double-click **Publish the app.command**. The other grades are unaffected.
+Edit `access.codes` in `data/season.json`, then double-click
+**Publish the app.command**. Everyone already in stays in; only new phones
+need the new one.
 
 ## What this is and isn't
 
 It keeps the app inside the football family. It is **not** a security lock:
-the code is readable in the page source, and the underlying files stay
-reachable by direct URL. That's the right trade for what it's for — but
-don't treat it as protection for anything genuinely sensitive.
+the password is readable in the page source, and the underlying files stay
+reachable by direct URL. That's the right trade for what it's for — but don't
+treat it as protection for anything genuinely sensitive.

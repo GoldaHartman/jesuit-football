@@ -103,7 +103,6 @@ html, body {
   font-weight: 650;
   letter-spacing: .5px;
   text-align: center;
-  text-transform: uppercase;
 }
 .gate input::placeholder { color: rgba(255, 255, 255, .38); letter-spacing: 1px; }
 .gate input:focus { outline: none; border-color: #7fa9e8; background: rgba(255, 255, 255, .13); }

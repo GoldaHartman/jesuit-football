@@ -684,40 +684,16 @@
   "access": {
     "enabled": true,
     "title": "Blue Jay Football",
-    "prompt": "Enter the code from your grade mom.",
+    "prompt": "Enter the password from your grade mom.",
     "hint": "Not sure who that is? Text Golda at 417-827-8644.",
     "note": "This just keeps the app inside the football family. It is not a security lock \u2014 anyone can view a web page's source.",
     "codes": [
       {
-        "code": "JAYS-SENIOR-26",
-        "grade": "Senior",
-        "mom": "Golda Hartman"
-      },
-      {
-        "code": "JAYS-JUNIOR-26",
-        "grade": "Junior",
-        "mom": "Nicole Abadie"
-      },
-      {
-        "code": "JAYS-SOPH-26",
-        "grade": "Sophomore",
-        "mom": "Mandi Mohr"
-      },
-      {
-        "code": "JAYS-FRESH-26",
-        "grade": "Freshman",
-        "mom": "Gabby Thompson"
-      },
-      {
-        "code": "JAYS-8TH-26",
-        "grade": "Pre-Freshman",
-        "mom": "Laura Wooderson"
-      },
-      {
-        "code": "GEAUX-JAYS-26",
+        "code": "1847Rush",
         "grade": null,
-        "mom": "General \u2014 coaches, family, anyone else"
+        "mom": "Everyone \u2014 the year Jesuit was founded"
       }
-    ]
+    ],
+    "placeholder": "Password"
   }
 }
