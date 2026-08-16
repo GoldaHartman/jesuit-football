@@ -3869,36 +3869,23 @@
     }
   },
   "news": {
-    "source": "jesuitnola.org",
-    "feed": "https://www.jesuitnola.org/feed/",
+    "sources": [
+      "jesuitnola.org (Football)",
+      "crescentcitysports.com"
+    ],
     "fetched": "2026-08-16",
     "items": [
       {
-        "title": "Hearts Made New",
-        "link": "https://www.jesuitnola.org/2026/08/14/hearts-made-new/",
-        "date": "2026-08-14",
-        "summary": "Blue Jays gathered in the Chapel of the North American Martyrs for the first Mass of the year on the feast of St. Maximilian Kolbe, celebrated by president Fr. John Brown, S.J., with Fr. William Farge, S.J., and Fr. Penn \u2026",
+        "title": "Brother Martin set to ride Royal a long distance",
+        "link": "https://crescentcitysports.com/brother-martin-set-to-ride-easton-royal-a-long-distance/",
+        "date": "2026-08-15",
+        "summary": "Brother Martin under Bonis posts winning seasons annually with advances in the playoffs. That figures to continue in 2026. Brother Martin set to ride Royal a long distance",
         "categories": [
-          "Homepage",
-          "News",
-          "Spirituality"
+          "Preps",
+          "Louisiana High School Football",
+          "Louisiana High School Football Team Preview"
         ],
-        "football": false,
-        "sports": false
-      },
-      {
-        "title": "Philelectic Society Fall Auditions August 21 & 22",
-        "link": "https://www.jesuitnola.org/2026/08/14/phils-fall-performance-auditions-august-21-22/",
-        "date": "2026-08-14",
-        "summary": "www.jesuitnola.org/co-curriculars/philelectic-society/",
-        "categories": [
-          "Co-Curriculars",
-          "Homepage",
-          "News",
-          "Philelectic Society"
-        ],
-        "football": false,
-        "sports": false
+        "source": "Crescent City Sports"
       },
       {
         "title": "Student Body President Calvin Magee Narrates A Century in Mid-City",
@@ -3908,64 +3895,36 @@
         "categories": [
           "Alumni",
           "Campus Centennial",
-          "History",
-          "Homepage"
+          "History"
         ],
-        "football": false,
-        "sports": false
-      },
-      {
-        "title": "Opening the Doors for a New Generation",
-        "link": "https://www.jesuitnola.org/2026/08/12/opening-the-doors-for-a-new-generation/",
-        "date": "2026-08-13",
-        "summary": "Jesuit's newest Blue Jays were Invested in the Chapel of the North American Martyrs, cheered through the historic wooden doors by their big brothers, and welcomed into their houses.",
-        "categories": [
-          "Academics",
-          "Class of 2031",
-          "Co-Curriculars",
-          "Homepage"
-        ],
-        "football": false,
-        "sports": false
-      },
-      {
-        "title": "Announcements for Friday, August 14, 2026",
-        "link": "https://www.jesuitnola.org/2026/08/12/announcements-for-thursday-august-13-2026/",
-        "date": "2026-08-13",
-        "summary": "Today is Friday, August 14, 2026 Day 1",
-        "categories": [
-          "Announcements"
-        ],
-        "football": false,
-        "sports": false
+        "source": "Jesuit",
+        "extra": true
       },
       {
         "title": "Back in Blue",
         "link": "https://www.jesuitnola.org/2026/08/11/back-in-blue/",
         "date": "2026-08-12",
-        "summary": "The halls were once again filled with laughter, handshakes, and familiar faces as new and veteran Blue Jays returned to campus for Registration Day, signaling that another school year is just around the corner. Students arrived in coats and ties \u2026",
+        "summary": "The halls were once again filled with laughter, handshakes, and familiar faces as new and veteran Blue Jays returned to campus for Registration Day, signaling that another school year is just around the corner. Students arrived in coats\u2026",
         "categories": [
           "Academics",
           "Class of 2027",
-          "Class of 2028",
-          "Class of 2029"
+          "Class of 2028"
         ],
-        "football": false,
-        "sports": false
+        "source": "Jesuit",
+        "extra": true
       },
       {
         "title": "Rising Seniors Serve with Joy at Camp Benny",
         "link": "https://www.jesuitnola.org/2026/08/10/building-joy-through-inclusion-at-camp-benny/",
         "date": "2026-08-10",
-        "summary": "The 100-hour Senior Service Project is an opportunity to encounter Christ through relationships with others in need. As part of Jesuit\u2019s mission of forming men for others, each senior serves a single community service partner for 100 hours before reflecting \u2026",
+        "summary": "The 100-hour Senior Service Project is an opportunity to encounter Christ through relationships with others in need. As part of Jesuit\u2019s mission of forming men for others, each senior serves a single community service partner for 100\u2026",
         "categories": [
           "Class of 2027",
           "Community Service",
-          "Homepage",
-          "Junior Service Project"
+          "Homepage"
         ],
-        "football": false,
-        "sports": false
+        "source": "Jesuit",
+        "extra": true
       },
       {
         "title": "Deion \u201cDebo\u201d Jones \u201912 Signs with the New Orleans Saints",
@@ -3975,67 +3934,167 @@
         "categories": [
           "Alumni",
           "Alumni Making News",
-          "Athletics",
-          "Homepage"
+          "Athletics"
         ],
-        "football": false,
-        "sports": true
-      },
-      {
-        "title": "The Heart of Carrollton & Banks",
-        "link": "https://www.jesuitnola.org/2026/08/07/the-heart-of-carrollton-banks/",
-        "date": "2026-08-07",
-        "summary": "There is a special energy that returns to Carrollton & Banks as familiar faces reconnect, new colleagues are welcomed, and classrooms and hallways begin to come alive again. This week, faculty and staff returned to campus with gratitude for the \u2026",
-        "categories": [
-          "Academics",
-          "Faculty",
-          "Homepage",
-          "News"
-        ],
-        "football": false,
-        "sports": false
+        "source": "Jesuit",
+        "extra": true
       },
       {
         "title": "Serving on the Frontiers of Faith",
         "link": "https://www.jesuitnola.org/2026/08/06/serving-on-the-frontiers-of-faith/",
         "date": "2026-08-06",
-        "summary": "A group of seniors recently embarked on a mission trip to the Rosebud Lakota Reservation in south-central South Dakota. It became much more than a week of service; it was an opportunity to build relationships, encounter a culture different from \u2026",
+        "summary": "A group of seniors recently embarked on a mission trip to the Rosebud Lakota Reservation in south-central South Dakota. It became much more than a week of service; it was an opportunity to build relationships, encounter a culture\u2026",
         "categories": [
           "Class of 2027",
           "Homepage",
-          "News",
-          "Spirituality"
+          "News"
         ],
-        "football": false,
-        "sports": false
+        "source": "Jesuit",
+        "extra": true
       },
       {
-        "title": "Johnny Giavotella \u201905 to Help Lead Next Generation of Jesuit Athletics",
-        "link": "https://www.jesuitnola.org/2026/08/04/johnny-giavotella-05-to-help-lead-next-generation-of-jesuit-athletics/",
-        "date": "2026-08-04",
-        "summary": "Former Major Leaguer joins athletic department in first major initiative under Athletic Director Scott Bairnsfather Jesuit has appointed former Major League Baseball player Johnny Giavotella \u201905 as head of sports development, effective immediately. The\u2026",
+        "title": "Senior Will Berry Named Allstate Sugar Bowl Scholar Athlete Scholarship Recipient",
+        "link": "https://www.jesuitnola.org/2026/05/09/senior-will-berry-named-allstate-sugar-bowl-scholar-athlete-scholarship-recipient/",
+        "date": "2026-05-09",
+        "summary": "Senior Will Berry has been named an Allstate Sugar Bowl Scholar Athlete Scholarship recipient by the Allstate Sugar Bowl Chapter of the National Football Foundation and College Hall of Fame, earning a $10,000 scholarship in recognition\u2026",
+        "categories": [
+          "Athletics",
+          "Class of 2026",
+          "Football"
+        ],
+        "source": "Jesuit"
+      },
+      {
+        "title": "Senior Zachary Friloux Accepts Direct Appointment to the U.S. Naval Academy",
+        "link": "https://www.jesuitnola.org/2026/05/08/senior-zachary-friloux-accepts-direct-appointment-to-the-u-s-naval-academy/",
+        "date": "2026-05-08",
+        "summary": "Senior Zachary Friloux has accepted a direct appointment to the United States Naval Academy, which provides approximately $350-450,000 over the four-year program for tuition, room and board, and complete health care coverage. Upon\u2026",
+        "categories": [
+          "Academic Accomplishments",
+          "Baseball",
+          "Class of 2026"
+        ],
+        "source": "Jesuit"
+      },
+      {
+        "title": "Anthony Scelfo \u201905 Named Offensive Coordinator at Middle Tennessee",
+        "link": "https://www.jesuitnola.org/2026/01/05/anthony-scelfo-05-named-offensive-coordinator-at-middle-tennessee/",
+        "date": "2026-01-05",
+        "summary": "Anthony Scelfo \u201905 was recently named offensive coordinator and quarterbacks coach at Middle Tennessee State University. A New Orleans native and standout student-athlete, Scelfo\u2019s journey from Blue Jay quarterback to Division I\u2026",
         "categories": [
           "Alumni",
           "Alumni Making News",
-          "Athletics",
-          "Class of 2005"
+          "Athletics"
         ],
-        "football": false,
-        "sports": true
+        "source": "Jesuit"
       },
       {
-        "title": "Recent Graduate Michael Hickham Garners Top SAT Score",
-        "link": "https://www.jesuitnola.org/2026/07/23/recent-graduate-michael-hickham-garners-top-sat-score/",
-        "date": "2026-07-23",
-        "summary": "Michael Hickham \u201926 achieved an exceptional score of 1570 on the SAT\u00ae, placing him among the nation\u2019s highest-scoring college-bound students. An alumnus of St. George\u2019s Episcopal School, Hickham is the son of Michael and Patricia Hickham. According to the\u2026",
+        "title": "Football Secures 46\u20137 Playoff Win, Advances to Face Karr",
+        "link": "https://www.jesuitnola.org/2025/11/15/jesuit-secures-46-7-playoff-win-advances-to-face-top-seeded-karr/",
+        "date": "2025-11-15",
+        "summary": "Jesuit secures a 46\u20137 Division I Select first-round playoff victory over McDonogh No. 35 at Pan American Stadium, after establishing control from the opening snap. On the first offensive snap, senior running back Gavin Palmisano broke\u2026",
+        "categories": [
+          "Athletics",
+          "Class of 2026",
+          "Class of 2027"
+        ],
+        "source": "Jesuit"
+      },
+      {
+        "title": "Football Defeats Warren Easton to Solidify Playoff Spot",
+        "link": "https://www.jesuitnola.org/2025/11/07/football-defeats-warren-easton-to-solidify-playoff-spot/",
+        "date": "2025-11-07",
+        "summary": "It was a special night at Tad Gormley Stadium as Jesuit honored its seniors before kickoff, with players presenting flowers to their parents in a pregame ceremony. The Blue Jays showed grit and determination to put the last four games \u2026",
+        "categories": [
+          "Athletics",
+          "Football",
+          "Homepage"
+        ],
+        "source": "Jesuit"
+      },
+      {
+        "title": "Jesuit Celebrates 2025 Homecoming Court",
+        "link": "https://www.jesuitnola.org/2025/10/21/jesuit-celebrates-2025-homecoming-court/",
+        "date": "2025-10-21",
+        "summary": "Jesuit proudly introduced the 2025 Homecoming Court during halftime of Friday night\u2019s matchup against Karr on October 17 at The Shrine. The court was greeted by the Jayettes, the MCJROTC, and the Blue Jay Band, each adding their unique\u2026",
+        "categories": [
+          "Athletics",
+          "Baseball",
+          "Basketball"
+        ],
+        "source": "Jesuit"
+      },
+      {
+        "title": "Blue Jays Reclaim Victory in 107th Jesuit\u2013Holy Cross Rivalry Game",
+        "link": "https://www.jesuitnola.org/2025/10/10/blue-jays-reclaim-victory-in-107th-jesuit-holy-cross-rivalry-game/",
+        "date": "2025-10-10",
+        "summary": "For over a century, Jesuit and Holy Cross have battled on the gridiron in one of New Orleans\u2019 oldest and most storied football rivalries. More than just a game, the annual matchup unites two Catholic school communities in a spirited \u2026",
+        "categories": [
+          "Athletics",
+          "Class of 1993",
+          "Class of 1997"
+        ],
+        "source": "Jesuit"
+      },
+      {
+        "title": "William Berry Earns 36 on the ACT\u00ae",
+        "link": "https://www.jesuitnola.org/2025/09/23/william-berry-earns-36-on-the-act/",
+        "date": "2025-09-23",
+        "summary": "Senior Will Berry earned a superscore of 36 on the ACT\u00ae, a national standardized measure of college readiness. Berry is an alumnus of Christian Brothers School and is the son of Ana and Byron Berry, Jr \u201984. The ACT\u00ae consists \u2026",
         "categories": [
           "36 ACT",
-          "Academics",
-          "Class of 2026",
-          "College Planning"
+          "Academic Accomplishments",
+          "Academics"
         ],
-        "football": false,
-        "sports": false
+        "source": "Jesuit"
+      },
+      {
+        "title": "Football Opens 3-0, Ready to Face Rigorous District Gauntlet",
+        "link": "https://www.jesuitnola.org/2025/09/19/football-opens-3-0-ready-to-face-rigorous-district-gauntlet/",
+        "date": "2025-09-19",
+        "summary": "The football team is back in action, opening the season with a promising 3-0 start. The team demonstrates confidence and commitment, improving with experience each week. Despite graduating veteran players, the defense has pulled\u2026",
+        "categories": [
+          "Athletics",
+          "Class of 2026",
+          "Class of 2027"
+        ],
+        "source": "Jesuit"
+      },
+      {
+        "title": "2025 Rivalry Game Honorees",
+        "link": "https://www.jesuitnola.org/2025/09/16/2025-rivalry-game-honorees/",
+        "date": "2025-09-16",
+        "summary": "The annual Great American Rivalry Series football match-up between Jesuit and Holy Cross is soon to be underway. To honor those certain players and alumni who have made the game the venerable tradition that it is for over 100 years, \u2026",
+        "categories": [
+          "Alumni",
+          "Athletics",
+          "Class of 1993"
+        ],
+        "source": "Jesuit"
+      },
+      {
+        "title": "Eleven Blue Jay Student-Athletes Sign Commitments",
+        "link": "https://www.jesuitnola.org/2025/05/13/eleven-blue-jay-student-athletes-sign-commitments/",
+        "date": "2025-05-13",
+        "summary": "Eleven Blue Jay student-athletes announced their commitments to continue their academic and athletic journeys at the collegiate level. The event began with remarks from Athletic Director Dave Moreau. After a brief prayer led by Fr. Roy\u2026",
+        "categories": [
+          "Alumni",
+          "Athletics",
+          "Beach Volleyball"
+        ],
+        "source": "Jesuit"
+      },
+      {
+        "title": "Thomas Morel \u201965, 2024 Legend of the Game",
+        "link": "https://www.jesuitnola.org/2024/10/02/tommy-morel-65-2024-legend-of-the-game/",
+        "date": "2024-10-02",
+        "summary": "Jesuit is proud to announce Thomas \u201cTommy\u201d Morel \u201965 as the 2024 Legend of the Game for the highly anticipated Jesuit-Holy Cross Rivalry Game. A standout football player and business leader, Morel will be honored for his lifelong\u2026",
+        "categories": [
+          "Alumni",
+          "Alumni Making News",
+          "Athletics"
+        ],
+        "source": "Jesuit"
       }
     ]
   },

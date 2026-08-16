@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 """
-Pull Jesuit's news feed into data/news.json.
+Pull football news into data/news.json. Football only — parents said so.
 
-jesuitnola.org is WordPress and publishes RSS at /feed/, but sends no CORS
-header — so a phone can't fetch it directly. It has to be pulled here and
-baked into the app.
+Two sources, each filtered differently:
 
-Football stories are tagged so the News tab can lead with them; the rest of
-the school's news follows, because parents want that too.
+  jesuitnola.org/category/football/feed/
+      The school's own Football archive. Real game recaps. Kept only when
+      "Football" is actually one of the post's categories — the archive also
+      carries loosely-related athletics posts.
+
+  crescentcitysports.com/feed/
+      Local sports coverage. Mostly Saints and LSU, so kept only when the item
+      is filed under high school football AND mentions Jesuit or a 9-5A rival.
+
+Neither site sends a CORS header, so a phone can't read them directly. They
+have to be pulled here and baked into the app.
 
 Usage:
   fetch_news.py              pull and write data/news.json
@@ -27,25 +34,38 @@ from xml.etree import ElementTree
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
+KEEP = 20
 
-FEED = "https://www.jesuitnola.org/feed/"
-KEEP = 25
+JESUIT_FOOTBALL = "https://www.jesuitnola.org/category/football/feed/"
+JESUIT_ALL = "https://www.jesuitnola.org/feed/"
+CRESCENT_CITY = "https://crescentcitysports.com/feed/"
 
-# NOT "Blue Jays" — that's the whole school's nickname and turns up in
-# spirituality and academics stories. It tagged four straight non-football
-# articles as football before this was tightened.
-FOOTBALL = re.compile(
-    r"\b(football|gridiron|kickoff|touchdown|quarterback|"
-    r"tad gormley|john ryan stadium|coach manale|9-5a)\b", re.I)
+# Not football, but parents want them anyway. "Homepage" is useless as a
+# filter — the school puts it on almost everything — so go by what the story
+# is actually about. Class of 2027 is here because it's our seniors.
+WORTH_SEEING = {
+    "athletics",
+    "alumni making news",
+    "campus centennial",
+    "class of 2027",
+}
 
-# WordPress categories are a far better signal than prose
-FOOTBALL_CATEGORY = re.compile(r"^football$", re.I)
-SPORTS_CATEGORY = re.compile(r"^(athletics|sports)$", re.I)
+# routine noise, never interesting
+SKIP_CATEGORY = {"announcements"}
+
+EXTRA_LIMIT = 5
+
+# Deliberately not "Blue Jays" — that's the whole school's nickname and shows
+# up in spirituality and academics posts. It mis-tagged four in a row once.
+DISTRICT = re.compile(
+    r"\b(jesuit|brother martin|chalmette|edna karr|holy cross|john curtis|"
+    r"rummel|st\.? augustine|st\.? aug)\b", re.I)
+
+PREP_FOOTBALL_CATEGORY = re.compile(r"high school football|preps", re.I)
 
 
 def strip_html(text):
-    text = re.sub(r"<[^>]+>", " ", text or "")
-    return re.sub(r"\s+", " ", html.unescape(text)).strip()
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", text or ""))).strip()
 
 
 def fetch(url):
@@ -54,49 +74,74 @@ def fetch(url):
         return response.read()
 
 
-def parse(xml_bytes):
-    root = ElementTree.fromstring(xml_bytes)
-    items = []
-
+def read_items(url):
+    root = ElementTree.fromstring(fetch(url))
     for node in root.findall(".//item"):
         title = strip_html(node.findtext("title"))
         link = (node.findtext("link") or "").strip()
         if not title or not link:
             continue
-
-        raw_date = node.findtext("pubDate") or ""
         try:
-            published = parsedate_to_datetime(raw_date).astimezone(timezone.utc)
+            published = parsedate_to_datetime(node.findtext("pubDate") or "").astimezone(timezone.utc)
         except (TypeError, ValueError):
             continue
 
         summary = strip_html(node.findtext("description"))
-        if len(summary) > 260:
-            summary = summary[:257].rsplit(" ", 1)[0] + "…"
+        if len(summary) > 240:
+            summary = summary[:237].rsplit(" ", 1)[0] + "…"
 
-        categories = [strip_html(c.text) for c in node.findall("category")]
-
-        # the headline and the categories are trustworthy; the body is not,
-        # because half the school's prose mentions the Blue Jays
-        is_football = (
-            bool(FOOTBALL.search(title))
-            or any(FOOTBALL_CATEGORY.match(c) for c in categories)
-            or bool(FOOTBALL.search(summary))
-        )
-        is_sports = any(SPORTS_CATEGORY.match(c) for c in categories)
-
-        items.append({
+        yield {
             "title": title,
             "link": link,
             "date": published.date().isoformat(),
             "summary": summary,
-            "categories": categories[:4],
-            "football": is_football,
-            "sports": is_sports and not is_football,
-        })
+            "categories": [strip_html(c.text) for c in node.findall("category")],
+        }
 
-    items.sort(key=lambda i: i["date"], reverse=True)
-    return items[:KEEP]
+
+def from_jesuit():
+    """Keep only posts genuinely filed under Football."""
+    kept = []
+    for item in read_items(JESUIT_FOOTBALL):
+        if not any(c.strip().lower() == "football" for c in item["categories"]):
+            continue
+        item["source"] = "Jesuit"
+        item["categories"] = item["categories"][:3]
+        kept.append(item)
+    return kept
+
+
+def from_crescent_city():
+    """Local coverage, but only prep football that touches our district."""
+    kept = []
+    for item in read_items(CRESCENT_CITY):
+        cats = " ".join(item["categories"])
+        if not PREP_FOOTBALL_CATEGORY.search(cats):
+            continue
+        if not DISTRICT.search(item["title"] + " " + item["summary"]):
+            continue
+        item["source"] = "Crescent City Sports"
+        item["categories"] = item["categories"][:3]
+        kept.append(item)
+    return kept
+
+
+def from_jesuit_general():
+    """The handful of non-football school stories parents actually like."""
+    kept = []
+    for item in read_items(JESUIT_ALL):
+        cats = {c.strip().lower() for c in item["categories"]}
+        if cats & SKIP_CATEGORY:
+            continue
+        if "football" in cats:
+            continue                      # already covered by the football feed
+        if not (cats & WORTH_SEEING):
+            continue
+        item["source"] = "Jesuit"
+        item["extra"] = True
+        item["categories"] = item["categories"][:3]
+        kept.append(item)
+    return kept[:EXTRA_LIMIT]
 
 
 def main():
@@ -104,37 +149,53 @@ def main():
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
-    try:
-        items = parse(fetch(FEED))
-    except Exception as exc:
-        # a news outage must never break the build — keep whatever we had
-        print(f"Could not fetch news: {exc}", file=sys.stderr)
+    items, failures = [], []
+    for name, getter in (("Jesuit football", from_jesuit),
+                         ("Crescent City Sports", from_crescent_city),
+                         ("Worth seeing", from_jesuit_general)):
+        try:
+            found = getter()
+            items.extend(found)
+            print(f"  {name}: {len(found)} kept")
+        except Exception as exc:
+            # one source being down must never empty the tab
+            failures.append(name)
+            print(f"  {name}: FAILED ({exc})", file=sys.stderr)
+
+    # dedupe by link, newest first
+    seen, unique = set(), []
+    for item in sorted(items, key=lambda i: i["date"], reverse=True):
+        if item["link"] in seen:
+            continue
+        seen.add(item["link"])
+        unique.append(item)
+    unique = unique[:KEEP]
+
+    if failures and not unique:
         existing = DATA / "news.json"
         if existing.exists():
-            print("Keeping the previously fetched news.")
+            print("\nEvery source failed — keeping the news already on file.")
             return 0
-        print("No previous news either — the News tab will say so.", file=sys.stderr)
-        items = []
 
-    football = [i for i in items if i["football"]]
-    sports = [i for i in items if i["sports"]]
+    football = [i for i in unique if not i.get("extra")]
+    extra = [i for i in unique if i.get("extra")]
 
-    print(f"{len(items)} stories — {len(football)} football, {len(sports)} other sports")
-    for item in items[:12]:
-        tag = "FOOTBALL" if item["football"] else ("sports  " if item["sports"] else "        ")
-        print(f"  {tag} {item['date']}  {item['title'][:66]}")
+    print(f"\n{len(football)} football + {len(extra)} worth seeing")
+    for item in football[:10]:
+        print(f"  FOOTBALL  {item['date']}  {item['title'][:58]}")
+    for item in extra:
+        print(f"  also      {item['date']}  {item['title'][:58]}")
 
     if args.dry_run:
         print("\n--dry-run: nothing written.")
         return 0
 
     (DATA / "news.json").write_text(json.dumps({
-        "source": "jesuitnola.org",
-        "feed": FEED,
+        "sources": ["jesuitnola.org (Football)", "crescentcitysports.com"],
         "fetched": datetime.now(timezone.utc).date().isoformat(),
-        "items": items,
+        "items": unique,
     }, indent=2))
-    print(f"\nWrote data/news.json")
+    print("\nWrote data/news.json")
     return 0
 
 

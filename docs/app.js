@@ -1390,32 +1390,30 @@ function renderNews() {
   html += standingsCard();
 
   const items = (NEWS && NEWS.items) || [];
-  const football = items.filter((i) => i.football);
-  const rest = items.filter((i) => !i.football);
 
   const story = (i) => `
     <a class="card" style="display:block;text-decoration:none;color:inherit"
        href="${esc(i.link)}" target="_blank" rel="noopener">
-      <div class="eyebrow">${esc(shortDate(i.date))}${i.football ? ' · Football' : (i.sports ? ' · Athletics' : '')}</div>
+      <div class="eyebrow">${esc(shortDate(i.date))}${i.source ? ' · ' + esc(i.source) : ''}</div>
       <div class="venue-h" style="font-size:16px">${esc(i.title)}</div>
       ${i.summary ? `<div class="small muted" style="margin-top:5px">${esc(i.summary)}</div>` : ''}
     </a>`;
 
-  if (football.length) {
-    html += '<h2 class="section">Football news</h2>';
-    html += football.map(story).join('');
+  const football = items.filter((i) => !i.extra);
+  const extra = items.filter((i) => i.extra);
+
+  html += '<h2 class="section">Football news</h2>';
+  html += football.length
+    ? football.map(story).join('')
+    : '<div class="empty">Nothing new yet. Check back after the next game.</div>';
+
+  // not football, but the kind of thing parents actually want to see
+  if (extra.length) {
+    html += '<h2 class="section">Also worth seeing</h2>';
+    html += extra.map(story).join('');
   }
 
-  if (rest.length) {
-    html += `<h2 class="section">From Jesuit</h2>`;
-    html += rest.slice(0, 10).map(story).join('');
-  }
-
-  if (!items.length) {
-    html += '<div class="empty">No news loaded yet.</div>';
-  }
-
-  html += `<div class="footnote">Headlines from jesuitnola.org${NEWS && NEWS.fetched ? `, last checked ${esc(shortDate(NEWS.fetched))}` : ''}.<br>Tap a story to read it on the school's site.</div>`;
+  html += `<div class="footnote">From jesuitnola.org and Crescent City Sports${NEWS && NEWS.fetched ? `, last checked ${esc(shortDate(NEWS.fetched))}` : ''}.<br>Tap a story to read it.</div>`;
 
   el('view-news').innerHTML = html;
 }
