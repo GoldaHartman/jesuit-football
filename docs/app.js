@@ -68,6 +68,13 @@ function esc(text) {
 
 const el = (id) => document.getElementById(id);
 
+/* True in the one-file build (tools/build_standalone.py injects the flag).
+   No server means no service worker and no calendar subscriptions. */
+const STANDALONE = typeof IS_STANDALONE !== 'undefined' && IS_STANDALONE;
+
+/** Photos are file paths when hosted, data: URIs in the one-file build. */
+const photoSrc = (path) => (String(path).startsWith('data:') ? path : `photos/${path}`);
+
 /* Which build this page is running, read off our own script tag — the build
    stamps it with a content hash. Shown in Info so a parent stuck on an old
    copy can tell you which one they actually have.
@@ -825,6 +832,11 @@ const FEED_FOR_TEAM = {
  * subscribed calendar picks it up on its own. A downloaded file never changes.
  */
 function subscribeCard() {
+  if (STANDALONE) {
+    return `<h2 class="section">Add to your calendar</h2>
+      <div class="card"><div class="small muted">Calendar sync needs the live web link — it can't work
+      from a file saved on your phone. Ask Golda for the link and it'll be on the Calendar tab there.</div></div>`;
+  }
   const team = currentTeam();
   const feed = FEED_FOR_TEAM[team] || FEED_FOR_TEAM.Varsity;
 
@@ -1216,7 +1228,7 @@ function renderPhotos() {
     html += `<div class="photo-grid">
       ${shots.map((p, i) => `
         <button data-photo="${i}">
-          <img src="photos/${esc(p.thumb)}" alt="" loading="lazy">
+          <img src="${esc(photoSrc(p.thumb))}" alt="" loading="lazy">
         </button>`).join('')}
     </div>`;
   }
@@ -1231,7 +1243,7 @@ function openLightbox(index) {
   const shot = shots[index];
   if (!shot) return;
   const box = el('lightbox');
-  box.querySelector('img').src = `photos/${shot.file}`;
+  box.querySelector('img').src = photoSrc(shot.file);
   box.hidden = false;
   document.body.style.overflow = 'hidden';
 }
@@ -1493,7 +1505,7 @@ document.addEventListener('visibilitychange', () => {
  * The service worker fetches network-first, so when it picks up a new build it
  * takes over; that fires controllerchange, and we reload once to pick it up.
  */
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && !STANDALONE) {
   const hadController = Boolean(navigator.serviceWorker.controller);
   let reloading = false;
 

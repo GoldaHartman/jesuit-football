@@ -248,6 +248,27 @@ Shown on each varsity game's screen and in Info.
 Away games are usually streamed by the **home** school, not Jesuit, so the app
 says so rather than implying Jesuit's NFHS page covers everything.
 
+## Sending it as one file
+
+```bash
+python3 tools/build_standalone.py
+```
+
+Produces `Jesuit-Football.html` — the entire app in a single file you can text
+or email. Opens on any phone, anywhere, no wifi and no hosting.
+
+Photos use the 500px thumbnails, not the 1600px originals: the full set pushes
+the file past 13 MB, which stops being textable. Thumbnails land it near 3 MB
+and still look right on a phone.
+
+Two things a single file can't do, and the app says so rather than showing a
+dead button: calendar subscriptions (Google and Apple need a real URL to poll)
+and offline caching (no service worker without a server).
+
+**It is a snapshot.** A copy sitting in someone's inbox never updates. If a
+kickoff changes you rebuild and resend — which is the argument for hosting it
+properly once it goes out to every family.
+
 ## Auditing the data
 
 ```bash

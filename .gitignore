@@ -20,3 +20,6 @@ venv/
 
 # API keys — never committed
 .env
+
+# Single-file share build — regenerate with tools/build_standalone.py
+Jesuit-Football.html
