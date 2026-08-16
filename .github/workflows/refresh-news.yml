@@ -1,0 +1,43 @@
+name: Refresh news
+
+# Jesuit's site sends no CORS header, so phones can't read its feed directly.
+# This pulls it server-side each morning, rebuilds, and republishes — the app
+# stays current with nobody doing anything.
+on:
+  schedule:
+    - cron: "0 11 * * *"   # 6am Central (7am during daylight saving)
+  workflow_dispatch:        # and a "Run workflow" button, for impatience
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch the school's news
+        run: python3 tools/fetch_news.py
+
+      - name: Rebuild the app
+        run: python3 tools/build_web_data.py
+
+      - name: Check the data still agrees with itself
+        run: python3 tools/audit.py || true   # advisory: never block a news refresh
+
+      - name: Publish if anything changed
+        run: |
+          git config user.name  "Jesuit Football bot"
+          git config user.email "actions@github.com"
+          if git diff --quiet; then
+            echo "No new stories. Nothing to publish."
+            exit 0
+          fi
+          git add data/news.json docs/
+          git commit -m "News refresh $(date -u '+%Y-%m-%d')"
+          git push

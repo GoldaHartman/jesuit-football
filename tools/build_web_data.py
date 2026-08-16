@@ -115,6 +115,12 @@ def load_this_week():
     return json.loads(path.read_text())
 
 
+def load_optional(name, fallback):
+    """News, standings and spotlight are all optional — the app copes without."""
+    path = DATA / name
+    return json.loads(path.read_text()) if path.exists() else fallback
+
+
 def load_photos():
     """Written by prepare_photos.py; absent until photos have been processed."""
     manifest = ROOT / "docs" / "photos" / "photos.json"
@@ -130,6 +136,9 @@ def main():
     photos = load_photos()
     this_week = load_this_week()
     school = load_school()
+    news = load_optional("news.json", {"items": []})
+    standings = load_optional("standings.json", {"teams": []})
+    spotlight = load_optional("spotlight.json", {"entries": []})
 
     # the album link lives in season.json so it can be edited without
     # re-running the photo pipeline
@@ -147,6 +156,9 @@ def main():
         "photos": photos,
         "thisWeek": this_week,
         "school": school,
+        "news": news,
+        "standings": standings,
+        "spotlight": spotlight,
     }, indent=2))
 
     OUT.write_text(
@@ -156,7 +168,10 @@ def main():
         f"const CALENDAR = {json.dumps(calendar, indent=2)};\n\n"
         f"const PHOTOS = {json.dumps(photos, indent=2)};\n\n"
         f"const THIS_WEEK = {json.dumps(this_week, indent=2)};\n\n"
-        f"const SCHOOL = {json.dumps(school, indent=2)};\n"
+        f"const SCHOOL = {json.dumps(school, indent=2)};\n\n"
+        f"const NEWS = {json.dumps(news, indent=2)};\n\n"
+        f"const STANDINGS = {json.dumps(standings, indent=2)};\n\n"
+        f"const SPOTLIGHT = {json.dumps(spotlight, indent=2)};\n"
     )
 
     days = len(calendar["days"])
@@ -180,6 +195,9 @@ def main():
     print("  this week: " + (f"{len(this_week['days'])} days from the coach, posted {this_week['postedOn']}"
                             if this_week else "none yet — run tools/sunday_update.py"))
     print(f"  school calendar: {len(school['days'])} dated days")
+    print(f"  news: {len(news['items'])} stories"
+          + (f" (fetched {news.get('fetched')})" if news.get("fetched") else " — run tools/fetch_news.py"))
+    print(f"  spotlight: {len(spotlight['entries'])} entries")
     print("  calendar feeds: " + ", ".join(f"{n.replace('jesuit-', '').replace('.ics', '')} {c}"
                                            for n, c in feeds.items()))
 

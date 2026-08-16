@@ -3852,5 +3852,243 @@
         }
       ]
     }
+  },
+  "news": {
+    "source": "jesuitnola.org",
+    "feed": "https://www.jesuitnola.org/feed/",
+    "fetched": "2026-08-16",
+    "items": [
+      {
+        "title": "Hearts Made New",
+        "link": "https://www.jesuitnola.org/2026/08/14/hearts-made-new/",
+        "date": "2026-08-14",
+        "summary": "Blue Jays gathered in the Chapel of the North American Martyrs for the first Mass of the year on the feast of St. Maximilian Kolbe, celebrated by president Fr. John Brown, S.J., with Fr. William Farge, S.J., and Fr. Penn \u2026",
+        "categories": [
+          "Homepage",
+          "News",
+          "Spirituality"
+        ],
+        "football": false,
+        "sports": false
+      },
+      {
+        "title": "Philelectic Society Fall Auditions August 21 & 22",
+        "link": "https://www.jesuitnola.org/2026/08/14/phils-fall-performance-auditions-august-21-22/",
+        "date": "2026-08-14",
+        "summary": "www.jesuitnola.org/co-curriculars/philelectic-society/",
+        "categories": [
+          "Co-Curriculars",
+          "Homepage",
+          "News",
+          "Philelectic Society"
+        ],
+        "football": false,
+        "sports": false
+      },
+      {
+        "title": "Student Body President Calvin Magee Narrates A Century in Mid-City",
+        "link": "https://www.jesuitnola.org/2026/08/13/student-body-president-calvin-magee-narrates-a-century-in-mid-city/",
+        "date": "2026-08-13",
+        "summary": "",
+        "categories": [
+          "Alumni",
+          "Campus Centennial",
+          "History",
+          "Homepage"
+        ],
+        "football": false,
+        "sports": false
+      },
+      {
+        "title": "Opening the Doors for a New Generation",
+        "link": "https://www.jesuitnola.org/2026/08/12/opening-the-doors-for-a-new-generation/",
+        "date": "2026-08-13",
+        "summary": "Jesuit's newest Blue Jays were Invested in the Chapel of the North American Martyrs, cheered through the historic wooden doors by their big brothers, and welcomed into their houses.",
+        "categories": [
+          "Academics",
+          "Class of 2031",
+          "Co-Curriculars",
+          "Homepage"
+        ],
+        "football": false,
+        "sports": false
+      },
+      {
+        "title": "Announcements for Friday, August 14, 2026",
+        "link": "https://www.jesuitnola.org/2026/08/12/announcements-for-thursday-august-13-2026/",
+        "date": "2026-08-13",
+        "summary": "Today is Friday, August 14, 2026 Day 1",
+        "categories": [
+          "Announcements"
+        ],
+        "football": false,
+        "sports": false
+      },
+      {
+        "title": "Back in Blue",
+        "link": "https://www.jesuitnola.org/2026/08/11/back-in-blue/",
+        "date": "2026-08-12",
+        "summary": "The halls were once again filled with laughter, handshakes, and familiar faces as new and veteran Blue Jays returned to campus for Registration Day, signaling that another school year is just around the corner. Students arrived in coats and ties \u2026",
+        "categories": [
+          "Academics",
+          "Class of 2027",
+          "Class of 2028",
+          "Class of 2029"
+        ],
+        "football": false,
+        "sports": false
+      },
+      {
+        "title": "Rising Seniors Serve with Joy at Camp Benny",
+        "link": "https://www.jesuitnola.org/2026/08/10/building-joy-through-inclusion-at-camp-benny/",
+        "date": "2026-08-10",
+        "summary": "The 100-hour Senior Service Project is an opportunity to encounter Christ through relationships with others in need. As part of Jesuit\u2019s mission of forming men for others, each senior serves a single community service partner for 100 hours before reflecting \u2026",
+        "categories": [
+          "Class of 2027",
+          "Community Service",
+          "Homepage",
+          "Junior Service Project"
+        ],
+        "football": false,
+        "sports": false
+      },
+      {
+        "title": "Deion \u201cDebo\u201d Jones \u201912 Signs with the New Orleans Saints",
+        "link": "https://www.jesuitnola.org/2026/08/07/linebacker-deion-debo-jones-12-signs-with-the-new-orleans-saints/",
+        "date": "2026-08-08",
+        "summary": "Former Blue Jay standout, LSU captain, and Pro Bowl linebacker Deion \u201cDebo\u201d Jones \u201912 is returning home to New Orleans, agreeing to a one-year deal with the Saints. Deion \u201cDebo\u201d Jones \u201912, who starred at linebacker for the Blue Jays \u2026",
+        "categories": [
+          "Alumni",
+          "Alumni Making News",
+          "Athletics",
+          "Homepage"
+        ],
+        "football": false,
+        "sports": true
+      },
+      {
+        "title": "The Heart of Carrollton & Banks",
+        "link": "https://www.jesuitnola.org/2026/08/07/the-heart-of-carrollton-banks/",
+        "date": "2026-08-07",
+        "summary": "There is a special energy that returns to Carrollton & Banks as familiar faces reconnect, new colleagues are welcomed, and classrooms and hallways begin to come alive again. This week, faculty and staff returned to campus with gratitude for the \u2026",
+        "categories": [
+          "Academics",
+          "Faculty",
+          "Homepage",
+          "News"
+        ],
+        "football": false,
+        "sports": false
+      },
+      {
+        "title": "Serving on the Frontiers of Faith",
+        "link": "https://www.jesuitnola.org/2026/08/06/serving-on-the-frontiers-of-faith/",
+        "date": "2026-08-06",
+        "summary": "A group of seniors recently embarked on a mission trip to the Rosebud Lakota Reservation in south-central South Dakota. It became much more than a week of service; it was an opportunity to build relationships, encounter a culture different from \u2026",
+        "categories": [
+          "Class of 2027",
+          "Homepage",
+          "News",
+          "Spirituality"
+        ],
+        "football": false,
+        "sports": false
+      },
+      {
+        "title": "Johnny Giavotella \u201905 to Help Lead Next Generation of Jesuit Athletics",
+        "link": "https://www.jesuitnola.org/2026/08/04/johnny-giavotella-05-to-help-lead-next-generation-of-jesuit-athletics/",
+        "date": "2026-08-04",
+        "summary": "Former Major Leaguer joins athletic department in first major initiative under Athletic Director Scott Bairnsfather Jesuit has appointed former Major League Baseball player Johnny Giavotella \u201905 as head of sports development, effective immediately. The\u2026",
+        "categories": [
+          "Alumni",
+          "Alumni Making News",
+          "Athletics",
+          "Class of 2005"
+        ],
+        "football": false,
+        "sports": true
+      },
+      {
+        "title": "Recent Graduate Michael Hickham Garners Top SAT Score",
+        "link": "https://www.jesuitnola.org/2026/07/23/recent-graduate-michael-hickham-garners-top-sat-score/",
+        "date": "2026-07-23",
+        "summary": "Michael Hickham \u201926 achieved an exceptional score of 1570 on the SAT\u00ae, placing him among the nation\u2019s highest-scoring college-bound students. An alumnus of St. George\u2019s Episcopal School, Hickham is the son of Michael and Patricia Hickham. According to the\u2026",
+        "categories": [
+          "36 ACT",
+          "Academics",
+          "Class of 2026",
+          "College Planning"
+        ],
+        "football": false,
+        "sports": false
+      }
+    ]
+  },
+  "standings": {
+    "district": "9-5A",
+    "note": "Records are entered by hand \u2014 nobody publishes a machine-readable 9-5A table.",
+    "updated": "2026-08-16",
+    "teams": [
+      {
+        "name": "Jesuit",
+        "w": 0,
+        "l": 0,
+        "districtW": 0,
+        "districtL": 0
+      },
+      {
+        "name": "Brother Martin",
+        "w": 0,
+        "l": 0,
+        "districtW": 0,
+        "districtL": 0
+      },
+      {
+        "name": "Chalmette",
+        "w": 0,
+        "l": 0,
+        "districtW": 0,
+        "districtL": 0
+      },
+      {
+        "name": "Edna Karr",
+        "w": 0,
+        "l": 0,
+        "districtW": 0,
+        "districtL": 0
+      },
+      {
+        "name": "Holy Cross",
+        "w": 0,
+        "l": 0,
+        "districtW": 0,
+        "districtL": 0
+      },
+      {
+        "name": "John Curtis",
+        "w": 0,
+        "l": 0,
+        "districtW": 0,
+        "districtL": 0
+      },
+      {
+        "name": "Rummel",
+        "w": 0,
+        "l": 0,
+        "districtW": 0,
+        "districtL": 0
+      },
+      {
+        "name": "St. Augustine",
+        "w": 0,
+        "l": 0,
+        "districtW": 0,
+        "districtL": 0
+      }
+    ]
+  },
+  "spotlight": {
+    "note": "Player/family of the week. Newest first; the app shows the top one.",
+    "entries": []
   }
 }

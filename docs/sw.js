@@ -5,7 +5,7 @@
    contents — don't edit it by hand. Changing it both names a new cache and
    changes every asset URL, so phones cannot serve a stale schedule. */
 
-const BUILD = '88c821c614f8';
+const BUILD = '59b5d1bb659b';
 
 const CACHE = `jesuit-fb-${BUILD}`;
 

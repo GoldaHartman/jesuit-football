@@ -1302,6 +1302,153 @@ function renderOrdering() {
   return html;
 }
 
+// ---------------------------------------------------------------- news
+
+/** Jesuit's record, derived from recorded scores so it can't drift. */
+function jesuitRecord() {
+  const varsity = gamesForTeam('Varsity').filter((g) => g.type === 'regular');
+  let w = 0, l = 0, dw = 0, dl = 0;
+  varsity.forEach((g) => {
+    const r = resultFor(g);
+    if (!r) return;
+    const won = r.outcome === 'W';
+    w += won ? 1 : 0; l += won ? 0 : 1;
+    if (g.raw.isDistrict) { dw += won ? 1 : 0; dl += won ? 0 : 1; }
+  });
+  return { w, l, dw, dl };
+}
+
+/** A scouting card for whoever is next. */
+function opponentCard(iso) {
+  const next = nextGame(iso);
+  if (!next) return '';
+
+  const venue = venueOf(next);
+  const table = (STANDINGS && STANDINGS.teams) || [];
+  const them = table.find((t) => next.opponent.toLowerCase().includes(t.name.toLowerCase())
+                              || t.name.toLowerCase().includes(next.opponent.toLowerCase()));
+  const out = daysBetween(iso, next.date);
+  const played = them && (them.w + them.l) > 0;
+
+  return `
+    <h2 class="section">Next up${out >= 0 ? ` · ${out === 0 ? 'today' : out === 1 ? 'tomorrow' : `in ${out} days`}` : ''}</h2>
+    <div class="card">
+      <div class="eyebrow">${next.week ? `Week ${next.week}` : 'Preseason'}${next.isDistrict ? ' · District' : ''}</div>
+      <div class="venue-h">${next.type === 'preseason' ? '' : (next.isHome ? 'vs ' : 'at ')}${esc(next.opponent)}</div>
+      <div class="venue-sub">${esc(shortDate(next.date))} · ${esc(prettyTime(next.kickoff) || next.kickoffNote || 'Time TBA')}${venue ? ' · ' + esc(venue.name) : ''}</div>
+      ${played
+        ? `<div class="rule"><div class="lbl">Their record</div><div class="txt">${them.w}-${them.l} overall · ${them.districtW}-${them.districtL} in district</div></div>`
+        : `<div class="rule"><div class="lbl">Their record</div><div class="txt muted">Not recorded yet</div></div>`}
+      ${next.notes ? `<div class="rule"><div class="lbl">Note</div><div class="txt">${esc(next.notes)}</div></div>` : ''}
+    </div>`;
+}
+
+function standingsCard() {
+  const table = (STANDINGS && STANDINGS.teams) || [];
+  if (!table.length) return '';
+
+  const us = jesuitRecord();
+  const rows = table.map((t) => t.name === 'Jesuit'
+    ? { name: t.name, w: us.w, l: us.l, dw: us.dw, dl: us.dl, us: true }
+    : { name: t.name, w: t.w, l: t.l, dw: t.districtW, dl: t.districtL, us: false });
+
+  const anyPlayed = rows.some((r) => r.w + r.l > 0);
+  rows.sort((a, b) => (b.dw - a.dw) || (a.dl - b.dl) || (b.w - a.w) || a.name.localeCompare(b.name));
+
+  let html = `<h2 class="section">District ${esc(STANDINGS.district || '9-5A')}</h2><div class="card">`;
+  if (!anyPlayed) {
+    html += '<div class="small muted" style="margin-bottom:11px">Nobody has played a district game yet — this fills in as the season goes.</div>';
+  }
+  html += rows.map((r) => `
+    <div class="row">
+      <span class="k" style="${r.us ? 'color:var(--jay);font-weight:700' : ''}">${esc(r.name)}</span>
+      <span class="v">${r.dw}-${r.dl}<span class="muted" style="font-weight:500"> · ${r.w}-${r.l} overall</span></span>
+    </div>`).join('');
+  html += '</div>';
+  return html;
+}
+
+function spotlightCard() {
+  const entries = (SPOTLIGHT && SPOTLIGHT.entries) || [];
+  if (!entries.length) return '';
+  const top = entries[0];
+  return `
+    <h2 class="section">Blue Jay of the week</h2>
+    <div class="card">
+      <div class="task-flag" style="margin-bottom:11px"><strong>${esc(top.title)}</strong></div>
+      <div class="small">${esc(top.body)}</div>
+      <div class="footnote" style="text-align:left;margin:9px 0 0">${esc(shortDate(top.date))}</div>
+    </div>`;
+}
+
+function renderNews() {
+  const iso = todayISO();
+  let html = '';
+
+  html += spotlightCard();
+  html += opponentCard(iso);
+  html += standingsCard();
+
+  const items = (NEWS && NEWS.items) || [];
+  const football = items.filter((i) => i.football);
+  const rest = items.filter((i) => !i.football);
+
+  const story = (i) => `
+    <a class="card" style="display:block;text-decoration:none;color:inherit"
+       href="${esc(i.link)}" target="_blank" rel="noopener">
+      <div class="eyebrow">${esc(shortDate(i.date))}${i.football ? ' · Football' : (i.sports ? ' · Athletics' : '')}</div>
+      <div class="venue-h" style="font-size:16px">${esc(i.title)}</div>
+      ${i.summary ? `<div class="small muted" style="margin-top:5px">${esc(i.summary)}</div>` : ''}
+    </a>`;
+
+  if (football.length) {
+    html += '<h2 class="section">Football news</h2>';
+    html += football.map(story).join('');
+  }
+
+  if (rest.length) {
+    html += `<h2 class="section">From Jesuit</h2>`;
+    html += rest.slice(0, 10).map(story).join('');
+  }
+
+  if (!items.length) {
+    html += '<div class="empty">No news loaded yet.</div>';
+  }
+
+  html += `<div class="footnote">Headlines from jesuitnola.org${NEWS && NEWS.fetched ? `, last checked ${esc(shortDate(NEWS.fetched))}` : ''}.<br>Tap a story to read it on the school's site.</div>`;
+
+  el('view-news').innerHTML = html;
+}
+
+// ---------------------------------------------------------------- more
+
+function renderMore() {
+  const grade = currentGrade();
+  const links = [
+    ['grade', '✅', 'My Grade', grade ? `${gradeShort(grade.name)} — dues, meals, your grade mom` : 'Dues, meals, and what your class takes on'],
+    ['photos', '📸', 'Photos', 'Season photos and the shared album'],
+    ['info', 'ℹ️', 'Info', 'Venues, bag rules, ordering, traditions, contacts'],
+  ];
+
+  let html = '<h2 class="section">More</h2><div class="card flush">';
+  html += links.map(([view, icon, title, sub]) => `
+    <button class="game" data-goto="${view}">
+      <div class="opp" style="font-size:16.5px">${icon} ${esc(title)}<span class="chev">›</span></div>
+      <div class="where">${esc(sub)}</div>
+    </button>`).join('');
+  html += '</div>';
+
+  if (SEASON.streaming) {
+    html += '<h2 class="section">Watch live</h2>';
+    html += SEASON.streaming.links.map((link) => `
+      <a class="big-action secondary" href="${esc(link.url)}" target="_blank" rel="noopener">${esc(link.label)}</a>
+      <div class="footnote" style="margin:-4px 0 12px">${esc(link.detail)}</div>`).join('');
+    html += `<div class="card"><div class="small muted">${esc(SEASON.streaming.note)}</div></div>`;
+  }
+
+  el('view-more').innerHTML = html;
+}
+
 function renderInfo() {
   let html = renderOrdering();
 
@@ -1381,6 +1528,8 @@ function renderAll() {
   renderToday();
   renderSchedule();
   renderGameView();
+  renderNews();
+  renderMore();
   renderCalendar();
   renderGrade();
   renderPhotos();
@@ -1391,7 +1540,8 @@ function show(view, opts) {
   document.querySelectorAll('.view').forEach((v) => v.classList.remove('active'));
   el('view-' + view).classList.add('active');
   // a single game has no tab of its own — it belongs under Games
-  const tabFor = view === 'game' ? 'schedule' : view;
+  const UNDER = { game: 'schedule', grade: 'more', photos: 'more', info: 'more' };
+  const tabFor = UNDER[view] || view;
   document.querySelectorAll('nav.tabs button').forEach((b) => {
     b.classList.toggle('on', b.dataset.view === tabFor);
   });

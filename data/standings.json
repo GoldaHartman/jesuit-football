@@ -1,0 +1,63 @@
+{
+  "district": "9-5A",
+  "note": "Records are entered by hand \u2014 nobody publishes a machine-readable 9-5A table.",
+  "updated": "2026-08-16",
+  "teams": [
+    {
+      "name": "Jesuit",
+      "w": 0,
+      "l": 0,
+      "districtW": 0,
+      "districtL": 0
+    },
+    {
+      "name": "Brother Martin",
+      "w": 0,
+      "l": 0,
+      "districtW": 0,
+      "districtL": 0
+    },
+    {
+      "name": "Chalmette",
+      "w": 0,
+      "l": 0,
+      "districtW": 0,
+      "districtL": 0
+    },
+    {
+      "name": "Edna Karr",
+      "w": 0,
+      "l": 0,
+      "districtW": 0,
+      "districtL": 0
+    },
+    {
+      "name": "Holy Cross",
+      "w": 0,
+      "l": 0,
+      "districtW": 0,
+      "districtL": 0
+    },
+    {
+      "name": "John Curtis",
+      "w": 0,
+      "l": 0,
+      "districtW": 0,
+      "districtL": 0
+    },
+    {
+      "name": "Rummel",
+      "w": 0,
+      "l": 0,
+      "districtW": 0,
+      "districtL": 0
+    },
+    {
+      "name": "St. Augustine",
+      "w": 0,
+      "l": 0,
+      "districtW": 0,
+      "districtL": 0
+    }
+  ]
+}
