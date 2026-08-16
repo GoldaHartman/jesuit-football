@@ -221,6 +221,27 @@ Two things the generator is careful about:
 Output is deterministic, so rebuilding with no data change produces
 byte-identical files. Validated against the `icalendar` parser.
 
+## Tailgates and travel
+
+Defaults live in `tailgate` in `data/season.json` — home location, away
+location, when it starts, and the setup/breakdown rules from the welcome
+letter. Any game can override them with its own `tailgate: {location, time,
+note}`.
+
+A game can also carry `travel`, for a chartered bus:
+
+```json
+"travel": {
+  "type": "Charter bus",
+  "status": "soon",          // "soon" shows "link coming soon"; "open" shows the button
+  "headline": "Parent bus to Lafayette",
+  "detail": "...",
+  "url": null                 // paste the booking link here, set status to "open"
+}
+```
+
+Week 2 (St. Thomas More, Lafayette) has one waiting on its link.
+
 ## Final scores
 
 ```bash

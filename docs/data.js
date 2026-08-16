@@ -63,7 +63,10 @@ const SEASON = {
       "isDistrict": false,
       "type": "regular",
       "mealGrade": "Junior",
-      "notes": "SENIOR NIGHT. Thursday game \u2014 tailgate timing shifts. Freshman class brings presentation roses with a bow from Villere's, plus the announcer script."
+      "notes": "SENIOR NIGHT. Thursday game \u2014 tailgate timing shifts. Freshman class brings presentation roses with a bow from Villere's, plus the announcer script.",
+      "tailgate": {
+        "note": "Thursday game and Senior Night \u2014 tailgate runs earlier than usual."
+      }
     },
     {
       "id": "week-2",
@@ -77,7 +80,18 @@ const SEASON = {
       "isDistrict": false,
       "type": "regular",
       "mealGrade": null,
-      "notes": "Away in Lafayette, about a 2.5 hour drive. Parent and family bus coordinated by the senior class."
+      "notes": "Away in Lafayette, about a 2.5 hour drive. Parent and family bus coordinated by the senior class.",
+      "tailgate": {
+        "location": "Lafayette \u2014 with the bus group. Details from your grade mom.",
+        "note": "Away in Lafayette, about a 2.5 hour drive."
+      },
+      "travel": {
+        "type": "Charter bus",
+        "status": "soon",
+        "headline": "Parent bus to Lafayette",
+        "detail": "The senior class is chartering a bus for the St. Thomas More game. Booking link coming soon.",
+        "url": null
+      }
     },
     {
       "id": "week-3",
@@ -119,7 +133,10 @@ const SEASON = {
       "isDistrict": true,
       "type": "regular",
       "mealGrade": "Senior",
-      "notes": "RIVALRY GAME."
+      "notes": "RIVALRY GAME.",
+      "tailgate": {
+        "note": "Rivalry night, 7:15 kickoff. Expect the biggest crowd of the season; get to City Park early."
+      }
     },
     {
       "id": "week-6",
@@ -147,7 +164,10 @@ const SEASON = {
       "isDistrict": true,
       "type": "regular",
       "mealGrade": "Senior",
-      "notes": "SATURDAY game \u2014 tailgate timing shifts. Played at Tad Gormley, but Jesuit is the visiting team."
+      "notes": "SATURDAY game \u2014 tailgate timing shifts. Played at Tad Gormley, but Jesuit is the visiting team.",
+      "tailgate": {
+        "note": "Saturday game \u2014 tailgate timing shifts."
+      }
     },
     {
       "id": "week-8",
@@ -161,7 +181,11 @@ const SEASON = {
       "isDistrict": true,
       "type": "regular",
       "mealGrade": "Freshman",
-      "notes": "HOMECOMING and court presentation. Home game, but played at SLU in Hammond \u2014 about a 1 hour drive."
+      "notes": "HOMECOMING and court presentation. Home game, but played at SLU in Hammond \u2014 about a 1 hour drive.",
+      "tailgate": {
+        "location": "SLU campus lots, Hammond",
+        "note": "Homecoming, and about an hour from home. Travel time changes the timing."
+      }
     },
     {
       "id": "week-9",
@@ -175,7 +199,10 @@ const SEASON = {
       "isDistrict": true,
       "type": "regular",
       "mealGrade": "Sophomore",
-      "notes": "LAST HOME GAME. Junior class hosts the Senior Parent Appreciation Tailgate at Tad Gormley."
+      "notes": "LAST HOME GAME. Junior class hosts the Senior Parent Appreciation Tailgate at Tad Gormley.",
+      "tailgate": {
+        "note": "Last home game. The Junior class hosts the Senior Parent Appreciation Tailgate."
+      }
     },
     {
       "id": "week-10",
@@ -189,7 +216,10 @@ const SEASON = {
       "isDistrict": true,
       "type": "regular",
       "mealGrade": "Senior",
-      "notes": "Thursday game \u2014 tailgate timing shifts. Buy GoFan tickets ahead."
+      "notes": "Thursday game \u2014 tailgate timing shifts. Buy GoFan tickets ahead.",
+      "tailgate": {
+        "note": "Thursday game \u2014 tailgate timing shifts."
+      }
     }
   ],
   "venues": [
@@ -697,6 +727,14 @@ const SEASON = {
       }
     ],
     "placeholder": "Password"
+  },
+  "tailgate": {
+    "homeLocation": "Outside Tad Gormley Stadium, City Park",
+    "awayLocation": "Your grade mom announces the away spot",
+    "defaultStart": "About two hours before kickoff",
+    "everyone": "All families welcome \u2014 grandparents, friends, aunts, uncles, cousins. Bring your favourite shareable dish.",
+    "setup": "The senior class handles paper products and setup.",
+    "breakdown": "For breakdown, parents of players who are not starters lend a hand, so senior parents and parents of starters can get into the stadium by game time."
   },
   "teamGames": [
     {

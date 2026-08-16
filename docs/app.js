@@ -677,7 +677,60 @@ function gameDetail(g) {
   }
 
   html += '</div>';
+
+  html += tailgateCard(g);
+  html += travelCard(g);
+
   return html;
+}
+
+/** Where to be before kickoff, and what your class brings. */
+function tailgateCard(g) {
+  const base = SEASON.tailgate;
+  if (!base || g.type === 'team') return '';   // no tailgate for sub-varsity
+
+  const own = (g.raw && g.raw.tailgate) || {};
+  const where = own.location || (g.isHome ? base.homeLocation : base.awayLocation);
+  const grade = currentGrade();
+
+  let html = '<h2 class="section">Tailgate</h2><div class="card">';
+  html += `<div class="rule"><div class="lbl">Where</div><div class="txt">${esc(where)}</div></div>`;
+  html += `<div class="rule"><div class="lbl">When</div><div class="txt">${esc(own.time || base.defaultStart)}</div></div>`;
+
+  if (grade && grade.tailgateFood) {
+    html += `<div class="rule"><div class="lbl">Your class brings</div><div class="txt"><strong>${esc(grade.tailgateFood)}</strong> — ${esc(gradeShort(grade.name))}</div></div>`;
+  } else {
+    html += `<div class="rule"><div class="lbl">What to bring</div><div class="txt">Set your grade on Today and this shows your class's dish.</div></div>`;
+  }
+
+  if (own.note) {
+    html += `<div class="rule warn"><div class="lbl">This week</div><div class="txt">${esc(own.note)}</div></div>`;
+  }
+
+  html += `<div class="footnote" style="text-align:left;margin:12px 0 0">${esc(base.everyone)}<br><br>${esc(base.setup)} ${esc(base.breakdown)}</div>`;
+  html += '</div>';
+  return html;
+}
+
+/** A chartered bus, when there is one. */
+function travelCard(g) {
+  const travel = g.raw && g.raw.travel;
+  if (!travel) return '';
+
+  const open = travel.status === 'open' && travel.url;
+
+  return `
+    <h2 class="section">${esc(travel.type || 'Travel')}</h2>
+    <div class="card">
+      <div class="task-flag">
+        <strong>${esc(travel.headline || 'Team bus')}</strong>
+        ${open ? '' : ' <span class="why">· link coming soon</span>'}
+      </div>
+      <div class="small muted">${esc(travel.detail || '')}</div>
+      ${open
+        ? `<a class="big-action" style="margin-top:12px" href="${esc(travel.url)}" target="_blank" rel="noopener">Reserve a seat</a>`
+        : `<div class="small muted" style="margin-top:10px">Watch the GroupMe — the booking link will appear here too.</div>`}
+    </div>`;
 }
 
 function renderSchedule() {
@@ -1634,9 +1687,18 @@ document.addEventListener('keydown', (event) => {
  */
 const LIVE_DATA_URL = 'https://goldahartman.github.io/jesuit-football/data.json';
 
+/** True only inside the App Store / Play Store wrapper. */
+function isPackagedApp() {
+  return Boolean(window.Capacitor)
+    || location.protocol === 'capacitor:'
+    || location.protocol === 'file:';
+}
+
 async function refreshFromLive() {
-  // the hosted site already serves current data — this is for the packaged apps
-  if (location.protocol === 'https:' && location.host === 'goldahartman.github.io') return;
+  // ONLY the packaged apps. The hosted site already serves current data, and
+  // on a dev server this would fetch the *published* data and overwrite what
+  // you just built — which silently hid new fields during local testing.
+  if (!isPackagedApp()) return;
 
   try {
     const fresh = await fetch(LIVE_DATA_URL, { cache: 'no-store' }).then((r) => {
