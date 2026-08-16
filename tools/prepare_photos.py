@@ -80,6 +80,10 @@ def main():
     parser.add_argument("inputs", nargs="+")
     parser.add_argument("--caption", default="")
     parser.add_argument("--album", default="", help="Shared album URL for the full set")
+    parser.add_argument("--limit", type=int, default=8,
+                        help="Max photos kept in the app itself (default 8). "
+                             "Everything else belongs in the shared album — a season "
+                             "of photos in the repo would be 100 MB+.")
     args = parser.parse_args()
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -87,11 +91,23 @@ def main():
 
     entries = []
     skipped_video = []
+    trimmed = 0
 
     with tempfile.TemporaryDirectory() as tmp:
         workdir = pathlib.Path(tmp)
 
-        for path in collect(args.inputs):
+        chosen = collect(args.inputs)
+        images = [p for p in chosen if p.suffix.lower() in HEIC_SUFFIXES | JPEG_SUFFIXES]
+
+        # Keep an even spread rather than the first N, so the highlights aren't
+        # all from the same ten minutes of one evening.
+        if args.limit and len(images) > args.limit:
+            step = len(images) / args.limit
+            keep = {images[int(i * step)] for i in range(args.limit)}
+            trimmed = len(images) - len(keep)
+            chosen = [p for p in chosen if p not in images or p in keep]
+
+        for path in chosen:
             suffix = path.suffix.lower()
 
             if suffix in VIDEO_SUFFIXES:
@@ -131,7 +147,9 @@ def main():
     (OUT_DIR / "photos.json").write_text(json.dumps(manifest, indent=2))
 
     total = sum((OUT_DIR / e["file"]).stat().st_size for e in entries)
-    print(f"\n{len(entries)} photos -> docs/photos/  ({total // 1024 // 1024} MB total)")
+    print(f"\n{len(entries)} photos -> docs/photos/  ({total // 1024} KB total)")
+    if trimmed:
+        print(f"{trimmed} left out to keep the app light — put the full set in the shared album.")
     if skipped_video:
         print(f"skipped {len(skipped_video)} video file(s) — put those in the shared album: "
               + ", ".join(skipped_video))

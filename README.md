@@ -134,6 +134,27 @@ controls, handles video, and needs no backend.
 To finish wiring it up: create the album, turn on **Collaborate**, then paste
 the share link into `photoAlbum.url` in `data/season.json` and rebuild.
 
+### How many photos live in the app
+
+**Eight, and it stays that way.** `prepare_photos.py --limit` defaults to 8 and
+keeps an even spread across whatever you hand it, so the highlights aren't all
+from the same ten minutes.
+
+This matters less for load speed than you'd think — photos are lazy-loaded and
+contribute **nothing** to first paint, which is 204 KB. It matters for the
+repo: 28 photos was 11 MB, and a whole season would be 100 MB+, which bloats
+every clone and eventually runs at GitHub Pages' limits.
+
+Everything else goes in the shared album. Raise `--limit` if you want, but
+that's the trade you're making.
+
+### Google Photos, not Drive
+
+Drive gives parents a file list they tap and download one at a time — clumsy on
+a phone. A Google Photos album swipes properly, handles video, and parents can
+add straight from their camera roll. Keep the Drive folder for the letter and
+the calendar; photos belong in an album.
+
 ### Adding photos to the in-app gallery
 
 ```bash

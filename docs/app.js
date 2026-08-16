@@ -1278,13 +1278,15 @@ function renderPhotos() {
 
   if (shots.length) {
     const caption = shots[0].caption;
-    html += `<h2 class="section">${esc(caption || 'From the season')} · ${shots.length} photos</h2>`;
+    html += `<h2 class="section">A few from ${esc(caption || 'the season')}</h2>`;
     html += `<div class="photo-grid">
       ${shots.map((p, i) => `
         <button data-photo="${i}">
           <img src="${esc(photoSrc(p.thumb))}" alt="" loading="lazy">
         </button>`).join('')}
     </div>`;
+    html += `<div class="footnote" style="margin-top:10px">Just a handful here so the app stays quick.
+      ${album ? 'Everything from the season is in the album.' : 'The rest live in the shared album.'}</div>`;
   }
 
   html += `<div class="footnote">Camera, timestamp, and location data are stripped from every photo in this app.</div>`;
