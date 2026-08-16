@@ -305,7 +305,7 @@ function tasksFor(grade, game) {
     tasks.push({
       icon: '🧺', yours: true,
       title: 'Tailgate setup and paper products',
-      when: 'Game day — chaired by Tessa Vorhaben, with Jene Ponder',
+      when: 'Game day — chaired by Tessa Vorhaben and Jene Ponder',
     });
     if (!game.isHome && venueOf(game) && venueOf(game).driveNote) {
       tasks.push({
