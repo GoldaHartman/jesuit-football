@@ -3788,7 +3788,8 @@
   },
   "news": {
     "sources": [
-      "jesuitnola.org (Football)",
+      "jesuitnola.org",
+      "nola.com",
       "crescentcitysports.com"
     ],
     "fetched": "2026-08-16",
@@ -3803,7 +3804,35 @@
           "Louisiana High School Football",
           "Louisiana High School Football Team Preview"
         ],
-        "source": "Crescent City Sports"
+        "source": "Crescent City Sports",
+        "aboutJesuit": false
+      },
+      {
+        "title": "Inside Colton Nussmeier\u2019s 1st few days as Rummel\u2019s new QB. \u2018There\u2019s already that connection.\u2019",
+        "link": "https://www.nola.com/sports/high_schools/rummel-colton-nussmeier-transfer-2026/article_aa8cfeaa-2a55-447b-ab08-f8e69d2e28c4.html",
+        "date": "2026-08-14",
+        "summary": "Rummel quarterback Colton Nussmeier stood before his new teammates for the first time Tuesday and did what came naturally.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
+      },
+      {
+        "title": "Holy Cross has a new QB and he\u2019s developed a quick bond with his top WR. \u2018He\u2019s a step up.\u2019",
+        "link": "https://www.nola.com/sports/high_schools/holy-cross-senior-wide-receiver-forms-close-bond-with-new-qb/article_9e51f27b-30f1-45a5-aba4-1a8fd1a37630.html",
+        "date": "2026-08-13",
+        "summary": "When Cooper Odle transferred from University High of Baton Rouge to Holy Cross in February, Tigers wide receiver Talon Meyers knew he had to get close with his newly arrived quarterback.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
+      },
+      {
+        "title": "Country Day leans on returning running back as new QB takes over. \u2018Our best football player.\u2019",
+        "link": "https://www.nola.com/sports/high_schools/country-day-justin-drago-preview-2026/article_c2b21ebe-a158-4d93-870a-812b14ae188a.html",
+        "date": "2026-08-13",
+        "summary": "With a sophomore QB who transferred in from Jesuit taking the reins, Country Day is counting on its star running back to shoulder some of the load.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
       },
       {
         "title": "Student Body President Calvin Magee Narrates A Century in Mid-City",
@@ -3819,6 +3848,15 @@
         "extra": true
       },
       {
+        "title": "St. Martin\u2019s four-year starting linebacker wishes he could have played in his dad\u2019s era",
+        "link": "https://www.nola.com/sports/high_schools/st-martin-s-four-year-starting-linebacker-wishes-he-could-have-played-in-his-dad/article_56f8c9af-40fd-4d4c-b3b8-9c2c3ed3ebac.html",
+        "date": "2026-08-12",
+        "summary": "St. Martin\u2019s middle linebacker Gabe Savarese has seen enough video of his father playing football for John Curtis Christian in the 1990s to wish he could travel back in time.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
+      },
+      {
         "title": "Back in Blue",
         "link": "https://www.jesuitnola.org/2026/08/11/back-in-blue/",
         "date": "2026-08-12",
@@ -3830,6 +3868,28 @@
         ],
         "source": "Jesuit",
         "extra": true
+      },
+      {
+        "title": "Chalmette is preparing to take on the Catholic League with a seasoned senior quarterback",
+        "link": "https://www.nola.com/sports/high_schools/chalmette-returns-to-the-catholic-league-with-a-senior-qb/article_581bf51e-f0a0-4f41-9590-a7988b39af60.html",
+        "date": "2026-08-11",
+        "summary": "Chalmette senior quarterback Breez Wilson has delivered when put to the test in big moments over the last two seasons.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
+      },
+      {
+        "title": "Karr looks to three-peat with young squad",
+        "link": "https://crescentcitysports.com/karr-looks-to-three-peat-with-young-squad/",
+        "date": "2026-08-10",
+        "summary": "Despite being an elite program, the 2026 Cougars will be challenged. Karr looks to three-peat with young squad",
+        "categories": [
+          "Preps",
+          "Louisiana High School Football",
+          "Louisiana High School Football Team Preview"
+        ],
+        "source": "Crescent City Sports",
+        "aboutJesuit": false
       },
       {
         "title": "Rising Seniors Serve with Joy at Camp Benny",
@@ -3845,6 +3905,15 @@
         "extra": true
       },
       {
+        "title": "From nearly quitting to all-district, Jesuit\u2019s top lineman shows perseverance",
+        "link": "https://www.nola.com/sports/high_schools/jesuit-football-2026-griffin-vorhaben/article_55f7dc26-020c-4ca3-a82f-2708377e42f5.html",
+        "date": "2026-08-09",
+        "summary": "Jesuit left tackle Griffin Vorhaben desperately tried to keep a Brother Martin defensive end away from the quarterback, reaching to his right and grabbing two fistfuls of jersey before drawing a holding penalty.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": true
+      },
+      {
         "title": "Deion \u201cDebo\u201d Jones \u201912 Signs with the New Orleans Saints",
         "link": "https://www.jesuitnola.org/2026/08/07/linebacker-deion-debo-jones-12-signs-with-the-new-orleans-saints/",
         "date": "2026-08-08",
@@ -3856,6 +3925,50 @@
         ],
         "source": "Jesuit",
         "extra": true
+      },
+      {
+        "title": "Rummel adds transfer QB with an SEC commitment, and whose father, brother have Saints, LSU ties",
+        "link": "https://www.nola.com/sports/high_schools/georgia-commit-qb-colton-nussmeier-transfers-to-rummel/article_d66f5ba7-b506-4f92-a45d-bc8685cfa041.html",
+        "date": "2026-08-07",
+        "summary": "Four-star quarterback Colton Nussmeier has transferred to Rummel to play his final high school season.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
+      },
+      {
+        "title": "Four-star QB Colton Nussmeier to transfer to Archbishop Rummel for final season",
+        "link": "https://crescentcitysports.com/four-star-qb-colton-nussmeier-to-transfer-to-archbishop-rummel-for-final-season/",
+        "date": "2026-08-07",
+        "summary": "Colton Nussmeier, a four-star prospect in the Class of 2027 who is committed to the University of Georgia, is transferring to Archbishop Rummel for his senior year and will be eligible to play for the Raiders. Four-star QB Colton\u2026",
+        "categories": [
+          "Preps",
+          "Louisiana High School Football",
+          "Louisiana Recruiting News"
+        ],
+        "source": "Crescent City Sports",
+        "aboutJesuit": false
+      },
+      {
+        "title": "Marc Martin returns to Rummel as Cross Country, Track and Field Head Coach",
+        "link": "https://crescentcitysports.com/marc-martin-returns-to-rummel-as-cross-country-track-and-field-head-coach/",
+        "date": "2026-08-07",
+        "summary": "A familiar name with vast coaching experience is returning to his alma mater. Marc Martin returns to Rummel as Cross Country, Track and Field Head Coach",
+        "categories": [
+          "Preps",
+          "Louisiana High School Football",
+          "Louisiana High School Track & Field"
+        ],
+        "source": "Crescent City Sports",
+        "aboutJesuit": false
+      },
+      {
+        "title": "The John Curtis secondary is poised to shine with three college-bound seniors",
+        "link": "https://www.nola.com/sports/high_schools/john-curtis-football-secondary-2026/article_21afcaf0-39b0-4690-b275-d8828ca2ded8.html",
+        "date": "2026-08-06",
+        "summary": "John Curtis freshman Prentice Mackyeon sat in the front row as assistant coaches Tommy Fabacher and Jay Pittman spoke. Seated beside him were teammates Craig Connor and Jewellz Tapp.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
       },
       {
         "title": "Serving on the Frontiers of Faith",
@@ -3871,6 +3984,60 @@
         "extra": true
       },
       {
+        "title": "Rummel football\u2019s 1,000-yard rushing duo fuels each other\u2019s success ahead of 2026 season",
+        "link": "https://www.nola.com/sports/high_schools/rummel-season-preview-2026-jaden-terrance-coryan-hawkins/article_f30174d8-08ad-4f66-bbca-bb2bad4883c6.html",
+        "date": "2026-08-04",
+        "summary": "Coryan Hawkins returned to the sideline late in Rummel\u2019s road playoff win against Tioga when coach Nick Monica delivered the good news: The hard-charging running back finally had cracked the 1,000-yard rushing mark.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
+      },
+      {
+        "title": "Holy Cross star shortstop goes to Detroit Tigers in fourth round of MLB Draft",
+        "link": "https://www.nola.com/sports/high_schools/dominic-pellegrin-mlb-draft-2026/article_bb1e360b-dd2b-4e14-b99b-a92f085c510c.html",
+        "date": "2026-07-12",
+        "summary": "The Detroit Tigers selected Holy Cross shortstop Dominic Pellegrin with the 125th overall pick in the fourth round of the MLB Draft on Saturday.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
+      },
+      {
+        "title": "Prep football doubleheader at Superdome to include Edna Karr, St. Augustine",
+        "link": "https://www.nola.com/sports/high_schools/edna-karr-st-augustine-prep-football-doubleheader-superdome/article_36a4ca36-38d8-4741-8597-27de2fb4ec3d.html",
+        "date": "2026-07-09",
+        "summary": "Edna Karr and St. Augustine will both return to the Caesars Superdome this season \u2014 in a regular-season doubleheader to be played on a Saturday.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
+      },
+      {
+        "title": "State runner-up Brother Martin wins another summer league championship. \u2018Puts us on the right track.\u2019",
+        "link": "https://www.nola.com/sports/high_schools/brother-martin-summer-baseball-league-championship-2026/article_99e61443-8465-47ea-afc4-1a263341ccb9.html",
+        "date": "2026-07-01",
+        "summary": "Brady McCluskey drilled a single to center field \u2014 just as he had done so many times during the high school season.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
+      },
+      {
+        "title": "Brother Martin, Hannan-based teams advance to New Orleans summer league final",
+        "link": "https://www.nola.com/news/communities/st_tammany/brother-martin-hannan-based-teams-advance-to-new-orleans-summer-league-final/article_a58bf8c3-aabb-448a-aa3a-51a5eed86203.html",
+        "date": "2026-06-30",
+        "summary": "The championship game is set for the Crescent City Sports Prep Summer League, and it was a pair of quality pitching performances that powered both teams to semifinal wins at John Ryan Stadium on June 29.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
+      },
+      {
+        "title": "Former St. Augustine coach explains how he can lift the John Ehret baseball program",
+        "link": "https://www.nola.com/sports/high_schools/former-st-aug-coach-takes-over-john-ehret-baseball-program/article_2d6bdc3c-b440-4d5b-9ba7-c28287862df4.html",
+        "date": "2026-06-24",
+        "summary": "Barret Rey once heard Nick Saban talk about how cornerbacks and safeties can make the best centerfielders. That\u2019s an idea Rey will have in mind as the new baseball coach at John Ehret, which announced his hiring over the weekend.",
+        "categories": [],
+        "source": "nola.com",
+        "aboutJesuit": false
+      },
+      {
         "title": "Senior Will Berry Named Allstate Sugar Bowl Scholar Athlete Scholarship Recipient",
         "link": "https://www.jesuitnola.org/2026/05/09/senior-will-berry-named-allstate-sugar-bowl-scholar-athlete-scholarship-recipient/",
         "date": "2026-05-09",
@@ -3880,43 +4047,8 @@
           "Class of 2026",
           "Football"
         ],
-        "source": "Jesuit"
-      },
-      {
-        "title": "Senior Zachary Friloux Accepts Direct Appointment to the U.S. Naval Academy",
-        "link": "https://www.jesuitnola.org/2026/05/08/senior-zachary-friloux-accepts-direct-appointment-to-the-u-s-naval-academy/",
-        "date": "2026-05-08",
-        "summary": "Senior Zachary Friloux has accepted a direct appointment to the United States Naval Academy, which provides approximately $350-450,000 over the four-year program for tuition, room and board, and complete health care coverage. Upon\u2026",
-        "categories": [
-          "Academic Accomplishments",
-          "Baseball",
-          "Class of 2026"
-        ],
-        "source": "Jesuit"
-      },
-      {
-        "title": "Anthony Scelfo \u201905 Named Offensive Coordinator at Middle Tennessee",
-        "link": "https://www.jesuitnola.org/2026/01/05/anthony-scelfo-05-named-offensive-coordinator-at-middle-tennessee/",
-        "date": "2026-01-05",
-        "summary": "Anthony Scelfo \u201905 was recently named offensive coordinator and quarterbacks coach at Middle Tennessee State University. A New Orleans native and standout student-athlete, Scelfo\u2019s journey from Blue Jay quarterback to Division I\u2026",
-        "categories": [
-          "Alumni",
-          "Alumni Making News",
-          "Athletics"
-        ],
-        "source": "Jesuit"
-      },
-      {
-        "title": "Football Secures 46\u20137 Playoff Win, Advances to Face Karr",
-        "link": "https://www.jesuitnola.org/2025/11/15/jesuit-secures-46-7-playoff-win-advances-to-face-top-seeded-karr/",
-        "date": "2025-11-15",
-        "summary": "Jesuit secures a 46\u20137 Division I Select first-round playoff victory over McDonogh No. 35 at Pan American Stadium, after establishing control from the opening snap. On the first offensive snap, senior running back Gavin Palmisano broke\u2026",
-        "categories": [
-          "Athletics",
-          "Class of 2026",
-          "Class of 2027"
-        ],
-        "source": "Jesuit"
+        "source": "Jesuit",
+        "aboutJesuit": true
       },
       {
         "title": "Football Defeats Warren Easton to Solidify Playoff Spot",
@@ -3928,91 +4060,8 @@
           "Football",
           "Homepage"
         ],
-        "source": "Jesuit"
-      },
-      {
-        "title": "Jesuit Celebrates 2025 Homecoming Court",
-        "link": "https://www.jesuitnola.org/2025/10/21/jesuit-celebrates-2025-homecoming-court/",
-        "date": "2025-10-21",
-        "summary": "Jesuit proudly introduced the 2025 Homecoming Court during halftime of Friday night\u2019s matchup against Karr on October 17 at The Shrine. The court was greeted by the Jayettes, the MCJROTC, and the Blue Jay Band, each adding their unique\u2026",
-        "categories": [
-          "Athletics",
-          "Baseball",
-          "Basketball"
-        ],
-        "source": "Jesuit"
-      },
-      {
-        "title": "Blue Jays Reclaim Victory in 107th Jesuit\u2013Holy Cross Rivalry Game",
-        "link": "https://www.jesuitnola.org/2025/10/10/blue-jays-reclaim-victory-in-107th-jesuit-holy-cross-rivalry-game/",
-        "date": "2025-10-10",
-        "summary": "For over a century, Jesuit and Holy Cross have battled on the gridiron in one of New Orleans\u2019 oldest and most storied football rivalries. More than just a game, the annual matchup unites two Catholic school communities in a spirited \u2026",
-        "categories": [
-          "Athletics",
-          "Class of 1993",
-          "Class of 1997"
-        ],
-        "source": "Jesuit"
-      },
-      {
-        "title": "William Berry Earns 36 on the ACT\u00ae",
-        "link": "https://www.jesuitnola.org/2025/09/23/william-berry-earns-36-on-the-act/",
-        "date": "2025-09-23",
-        "summary": "Senior Will Berry earned a superscore of 36 on the ACT\u00ae, a national standardized measure of college readiness. Berry is an alumnus of Christian Brothers School and is the son of Ana and Byron Berry, Jr \u201984. The ACT\u00ae consists \u2026",
-        "categories": [
-          "36 ACT",
-          "Academic Accomplishments",
-          "Academics"
-        ],
-        "source": "Jesuit"
-      },
-      {
-        "title": "Football Opens 3-0, Ready to Face Rigorous District Gauntlet",
-        "link": "https://www.jesuitnola.org/2025/09/19/football-opens-3-0-ready-to-face-rigorous-district-gauntlet/",
-        "date": "2025-09-19",
-        "summary": "The football team is back in action, opening the season with a promising 3-0 start. The team demonstrates confidence and commitment, improving with experience each week. Despite graduating veteran players, the defense has pulled\u2026",
-        "categories": [
-          "Athletics",
-          "Class of 2026",
-          "Class of 2027"
-        ],
-        "source": "Jesuit"
-      },
-      {
-        "title": "2025 Rivalry Game Honorees",
-        "link": "https://www.jesuitnola.org/2025/09/16/2025-rivalry-game-honorees/",
-        "date": "2025-09-16",
-        "summary": "The annual Great American Rivalry Series football match-up between Jesuit and Holy Cross is soon to be underway. To honor those certain players and alumni who have made the game the venerable tradition that it is for over 100 years, \u2026",
-        "categories": [
-          "Alumni",
-          "Athletics",
-          "Class of 1993"
-        ],
-        "source": "Jesuit"
-      },
-      {
-        "title": "Eleven Blue Jay Student-Athletes Sign Commitments",
-        "link": "https://www.jesuitnola.org/2025/05/13/eleven-blue-jay-student-athletes-sign-commitments/",
-        "date": "2025-05-13",
-        "summary": "Eleven Blue Jay student-athletes announced their commitments to continue their academic and athletic journeys at the collegiate level. The event began with remarks from Athletic Director Dave Moreau. After a brief prayer led by Fr. Roy\u2026",
-        "categories": [
-          "Alumni",
-          "Athletics",
-          "Beach Volleyball"
-        ],
-        "source": "Jesuit"
-      },
-      {
-        "title": "Thomas Morel \u201965, 2024 Legend of the Game",
-        "link": "https://www.jesuitnola.org/2024/10/02/tommy-morel-65-2024-legend-of-the-game/",
-        "date": "2024-10-02",
-        "summary": "Jesuit is proud to announce Thomas \u201cTommy\u201d Morel \u201965 as the 2024 Legend of the Game for the highly anticipated Jesuit-Holy Cross Rivalry Game. A standout football player and business leader, Morel will be honored for his lifelong\u2026",
-        "categories": [
-          "Alumni",
-          "Alumni Making News",
-          "Athletics"
-        ],
-        "source": "Jesuit"
+        "source": "Jesuit",
+        "aboutJesuit": true
       }
     ]
   },

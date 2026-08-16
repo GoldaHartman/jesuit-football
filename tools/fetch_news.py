@@ -1,20 +1,29 @@
 #!/usr/bin/env python3
 """
-Pull football news into data/news.json. Football only — parents said so.
+Pull football news into data/news.json — Jesuit and the rest of 9-5A.
 
-Two sources, each filtered differently:
+Four sources, each filtered differently:
 
   jesuitnola.org/category/football/feed/
-      The school's own Football archive. Real game recaps. Kept only when
-      "Football" is actually one of the post's categories — the archive also
-      carries loosely-related athletics posts.
+      The school's own Football archive. Game recaps, kept only when
+      "Football" is genuinely one of the post's categories.
 
-  crescentcitysports.com/feed/
-      Local sports coverage. Mostly Saints and LSU, so kept only when the item
-      is filed under high school football AND mentions Jesuit or a 9-5A rival.
+  nola.com prep sports
+      The Times-Picayune's high school desk, and by far the best coverage of
+      the district — Jesuit, Brother Martin, Karr, Holy Cross, Curtis, Rummel,
+      Chalmette, St. Aug. Needs a browser User-Agent; it answers 429 without
+      one, which is why it was missing entirely at first.
 
-Neither site sends a CORS header, so a phone can't read them directly. They
-have to be pulled here and baked into the app.
+  crescentcitysports.com/category/preps/feed/
+      Local prep coverage. The site's main feed is mostly Saints and LSU —
+      the preps category is the one worth reading.
+
+  jesuitnola.org/feed/
+      A few non-football school stories parents asked to keep: Athletics,
+      Campus Centennial, and Class of 2027.
+
+None of them send CORS headers, so a phone can't read them directly. They get
+pulled here and baked into the app.
 
 Usage:
   fetch_news.py              pull and write data/news.json
@@ -34,48 +43,38 @@ from xml.etree import ElementTree
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
-KEEP = 20
+KEEP = 30
+
+UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/131.0 Safari/537.36")
 
 JESUIT_FOOTBALL = "https://www.jesuitnola.org/category/football/feed/"
 JESUIT_ALL = "https://www.jesuitnola.org/feed/"
-CRESCENT_CITY = "https://crescentcitysports.com/feed/"
+NOLA_PREPS = "https://www.nola.com/search/?f=rss&t=article&c=sports/high_schools&l=50"
+CRESCENT_PREPS = "https://crescentcitysports.com/category/preps/feed/"
 
-# Not football, but parents want them anyway. "Homepage" is useless as a
-# filter — the school puts it on almost everything — so go by what the story
-# is actually about. Class of 2027 is here because it's our seniors.
-WORTH_SEEING = {
-    "athletics",
-    "alumni making news",
-    "campus centennial",
-    "class of 2027",
-}
-
-# routine noise, never interesting
-SKIP_CATEGORY = {"announcements"}
-
-EXTRA_LIMIT = 5
-
-# Deliberately not "Blue Jays" — that's the whole school's nickname and shows
-# up in spirituality and academics posts. It mis-tagged four in a row once.
+# District 9-5A. Deliberately not "Blue Jays" — that's the whole school's
+# nickname and it mis-tagged spirituality and academics posts as football.
 DISTRICT = re.compile(
-    r"\b(jesuit|brother martin|chalmette|edna karr|holy cross|john curtis|"
-    r"rummel|st\.? augustine|st\.? aug)\b", re.I)
+    r"\b(jesuit|brother martin|chalmette|edna karr|\bkarr\b|holy cross|"
+    r"john curtis|curtis christian|rummel|st\.? augustine|st\.? aug)\b", re.I)
 
-PREP_FOOTBALL_CATEGORY = re.compile(r"high school football|preps", re.I)
+# Not football, but parents want them. Categories are the honest signal;
+# "Homepage" is on nearly every post and tells you nothing.
+WORTH_SEEING = {"athletics", "alumni making news", "campus centennial", "class of 2027"}
+SKIP_CATEGORY = {"announcements"}
+EXTRA_LIMIT = 5
 
 
 def strip_html(text):
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", text or ""))).strip()
 
 
-def fetch(url):
-    request = urllib.request.Request(url, headers={"User-Agent": "jesuit-football-app/1.0"})
-    with urllib.request.urlopen(request, timeout=30) as response:
-        return response.read()
-
-
 def read_items(url):
-    root = ElementTree.fromstring(fetch(url))
+    request = urllib.request.Request(url, headers={"User-Agent": UA})
+    with urllib.request.urlopen(request, timeout=30) as response:
+        root = ElementTree.fromstring(response.read())
+
     for node in root.findall(".//item"):
         title = strip_html(node.findtext("title"))
         link = (node.findtext("link") or "").strip()
@@ -95,51 +94,48 @@ def read_items(url):
             "link": link,
             "date": published.date().isoformat(),
             "summary": summary,
-            "categories": [strip_html(c.text) for c in node.findall("category")],
+            "categories": [strip_html(c.text) for c in node.findall("category")][:3],
         }
 
 
-def from_jesuit():
-    """Keep only posts genuinely filed under Football."""
+def tag(items, source, jesuit_only=False):
+    """Keep district-relevant items and stamp where they came from."""
+    kept = []
+    for item in items:
+        haystack = f"{item['title']} {item['summary']} {' '.join(item['categories'])}"
+        if jesuit_only:
+            if not re.search(r"\bjesuit\b", haystack, re.I):
+                continue
+        elif not DISTRICT.search(haystack):
+            continue
+        item["source"] = source
+        # Jesuit must be in the HEADLINE to count as our news. A passing
+        # mention in the body catches things like "a QB who transferred in
+        # from Jesuit" — that's Country Day's story, not ours.
+        item["aboutJesuit"] = bool(re.search(r"\bjesuit\b", item["title"], re.I))
+        kept.append(item)
+    return kept
+
+
+def from_jesuit_football():
     kept = []
     for item in read_items(JESUIT_FOOTBALL):
         if not any(c.strip().lower() == "football" for c in item["categories"]):
             continue
         item["source"] = "Jesuit"
-        item["categories"] = item["categories"][:3]
-        kept.append(item)
-    return kept
-
-
-def from_crescent_city():
-    """Local coverage, but only prep football that touches our district."""
-    kept = []
-    for item in read_items(CRESCENT_CITY):
-        cats = " ".join(item["categories"])
-        if not PREP_FOOTBALL_CATEGORY.search(cats):
-            continue
-        if not DISTRICT.search(item["title"] + " " + item["summary"]):
-            continue
-        item["source"] = "Crescent City Sports"
-        item["categories"] = item["categories"][:3]
+        item["aboutJesuit"] = True
         kept.append(item)
     return kept
 
 
 def from_jesuit_general():
-    """The handful of non-football school stories parents actually like."""
     kept = []
     for item in read_items(JESUIT_ALL):
         cats = {c.strip().lower() for c in item["categories"]}
-        if cats & SKIP_CATEGORY:
-            continue
-        if "football" in cats:
-            continue                      # already covered by the football feed
-        if not (cats & WORTH_SEEING):
+        if cats & SKIP_CATEGORY or "football" in cats or not (cats & WORTH_SEEING):
             continue
         item["source"] = "Jesuit"
         item["extra"] = True
-        item["categories"] = item["categories"][:3]
         kept.append(item)
     return kept[:EXTRA_LIMIT]
 
@@ -149,20 +145,23 @@ def main():
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
-    items, failures = [], []
-    for name, getter in (("Jesuit football", from_jesuit),
-                         ("Crescent City Sports", from_crescent_city),
-                         ("Worth seeing", from_jesuit_general)):
+    sources = [
+        ("Jesuit football", from_jesuit_football),
+        ("nola.com preps", lambda: tag(read_items(NOLA_PREPS), "nola.com")),
+        ("Crescent City preps", lambda: tag(read_items(CRESCENT_PREPS), "Crescent City Sports")),
+        ("Worth seeing", from_jesuit_general),
+    ]
+
+    items, failed = [], []
+    for name, getter in sources:
         try:
-            found = getter()
+            found = list(getter())
             items.extend(found)
             print(f"  {name}: {len(found)} kept")
         except Exception as exc:
-            # one source being down must never empty the tab
-            failures.append(name)
+            failed.append(name)
             print(f"  {name}: FAILED ({exc})", file=sys.stderr)
 
-    # dedupe by link, newest first
     seen, unique = set(), []
     for item in sorted(items, key=lambda i: i["date"], reverse=True):
         if item["link"] in seen:
@@ -171,27 +170,25 @@ def main():
         unique.append(item)
     unique = unique[:KEEP]
 
-    if failures and not unique:
-        existing = DATA / "news.json"
-        if existing.exists():
-            print("\nEvery source failed — keeping the news already on file.")
-            return 0
+    if failed and not unique and (DATA / "news.json").exists():
+        print("\nEvery source failed — keeping the news already on file.")
+        return 0
 
-    football = [i for i in unique if not i.get("extra")]
+    jesuit = [i for i in unique if i.get("aboutJesuit")]
+    district = [i for i in unique if not i.get("aboutJesuit") and not i.get("extra")]
     extra = [i for i in unique if i.get("extra")]
 
-    print(f"\n{len(football)} football + {len(extra)} worth seeing")
-    for item in football[:10]:
-        print(f"  FOOTBALL  {item['date']}  {item['title'][:58]}")
-    for item in extra:
-        print(f"  also      {item['date']}  {item['title'][:58]}")
+    print(f"\n{len(jesuit)} Jesuit · {len(district)} district · {len(extra)} worth seeing")
+    for label, group in (("JESUIT  ", jesuit), ("district", district), ("also    ", extra)):
+        for item in group[:8]:
+            print(f"  {label} {item['date']}  {item['title'][:62]}")
 
     if args.dry_run:
         print("\n--dry-run: nothing written.")
         return 0
 
     (DATA / "news.json").write_text(json.dumps({
-        "sources": ["jesuitnola.org (Football)", "crescentcitysports.com"],
+        "sources": ["jesuitnola.org", "nola.com", "crescentcitysports.com"],
         "fetched": datetime.now(timezone.utc).date().isoformat(),
         "items": unique,
     }, indent=2))

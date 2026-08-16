@@ -1456,21 +1456,27 @@ function renderNews() {
       ${i.summary ? `<div class="small muted" style="margin-top:5px">${esc(i.summary)}</div>` : ''}
     </a>`;
 
-  const football = items.filter((i) => !i.extra);
+  const jesuit = items.filter((i) => i.aboutJesuit && !i.extra);
+  const district = items.filter((i) => !i.aboutJesuit && !i.extra);
   const extra = items.filter((i) => i.extra);
 
-  html += '<h2 class="section">Football news</h2>';
-  html += football.length
-    ? football.map(story).join('')
+  html += '<h2 class="section">Blue Jay football</h2>';
+  html += jesuit.length
+    ? jesuit.map(story).join('')
     : '<div class="empty">Nothing new yet. Check back after the next game.</div>';
 
-  // not football, but the kind of thing parents actually want to see
+  // the rest of 9-5A — you play these teams, so their news is your news
+  if (district.length) {
+    html += '<h2 class="section">Around the district</h2>';
+    html += district.map(story).join('');
+  }
+
   if (extra.length) {
     html += '<h2 class="section">Also worth seeing</h2>';
     html += extra.map(story).join('');
   }
 
-  html += `<div class="footnote">From jesuitnola.org and Crescent City Sports${NEWS && NEWS.fetched ? `, last checked ${esc(shortDate(NEWS.fetched))}` : ''}.<br>Tap a story to read it.</div>`;
+  html += `<div class="footnote">From jesuitnola.org, nola.com and Crescent City Sports${NEWS && NEWS.fetched ? `, last checked ${esc(shortDate(NEWS.fetched))}` : ''}.<br>Tap a story to read it.</div>`;
 
   el('view-news').innerHTML = html;
 }
