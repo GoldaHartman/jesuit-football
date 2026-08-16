@@ -473,8 +473,8 @@ function renderToday() {
     const when = days === 0 ? 'TODAY' : days === 1 ? 'TOMORROW' : `${days}<small>days</small>`;
     const prefix = upcoming.type === 'preseason' ? '' : (upcoming.isHome ? 'vs ' : 'at ');
     const badges = upcoming.type === 'team'
-      ? `<span class="badge onlight">${upcoming.isHome ? 'Home' : 'Away'}</span>${upcoming.isDistrict ? '<span class="badge onlight">District</span>' : ''}`
-      : badgesFor(upcoming.raw).replace(/class="badge/g, 'class="badge onlight');
+      ? `<span class="badge">${upcoming.isHome ? 'Home' : 'Away'}</span>${upcoming.isDistrict ? '<span class="badge">District</span>' : ''}`
+      : badgesFor(upcoming.raw);
 
     html += `
       <div class="card countdown">
@@ -601,7 +601,7 @@ function renderGameView() {
       <div class="eyebrow">${esc(TEAM_FULL[team])}${g.label !== TEAM_FULL[team] ? ' · ' + esc(g.label) : ''}</div>
       <div class="opponent" style="margin-top:2px">${prefix}${esc(g.opponent)}</div>
       <div class="meta">${esc(longDate(g.date))} · ${esc(g.time)}</div>
-      <div class="badges">${badges.replace(/class="badge/g, 'class="badge onlight')}</div>
+      <div class="badges">${badges}</div>
       ${finalLine}
     </div>`;
 

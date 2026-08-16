@@ -250,42 +250,48 @@ h2.section:first-child { margin-top: 4px; }
 
 /* ---------- countdown ---------- */
 
+/* A card, not a slab. This used to be a solid navy block and it swallowed the
+   whole Today screen — the practice times matter more than the countdown. */
 .countdown {
-  background: linear-gradient(150deg, var(--navy) 0%, var(--navy-soft) 100%);
-  color: #fff;
-  border: 0;
+  border-left: 4px solid var(--navy);
 }
-.countdown .eyebrow { color: #9fbdec; }
+.countdown .eyebrow { color: var(--jay); }
 
 .countdown .n {
-  font-size: 46px;
+  font-size: 30px;
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -1.5px;
+  letter-spacing: -1px;
+  color: var(--navy);
 }
 .countdown .n small {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0;
-  margin-left: 7px;
-  color: #9fbdec;
+  margin-left: 6px;
+  color: var(--muted);
 }
 .countdown .opponent {
-  font-size: 21px;
+  font-size: 19px;
   font-weight: 700;
-  margin-top: 10px;
+  margin-top: 7px;
 }
 .countdown .meta {
-  font-size: 14px;
-  color: #b9cdeb;
-  margin-top: 4px;
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-top: 3px;
 }
 .countdown .tagline {
-  margin-top: 12px;
-  padding-top: 11px;
-  border-top: 1px solid rgba(255,255,255,.16);
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
   font-size: 13.5px;
-  color: #dbe6f7;
+  color: var(--muted);
+}
+
+@media (prefers-color-scheme: dark) {
+  .countdown { border-left-color: var(--jay); }
+  .countdown .n { color: #8fb6f2; }
 }
 
 /* ---------- badges ---------- */
@@ -395,21 +401,21 @@ h2.section:first-child { margin-top: 4px; }
   gap: 10px;
   margin-top: 12px;
   padding-top: 11px;
-  border-top: 1px solid rgba(255, 255, 255, .16);
+  border-top: 1px solid var(--line);
 }
 .final .mark {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 1.1px;
   text-transform: uppercase;
-  color: #9fbdec;
+  color: var(--muted);
 }
 .final .digits {
-  font-size: 40px;
+  font-size: 34px;
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -1.5px;
-  color: #fff;
+  letter-spacing: -1.2px;
+  color: var(--text);
 }
 
 /* ---------- lists ---------- */
