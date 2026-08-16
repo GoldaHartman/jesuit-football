@@ -35,3 +35,6 @@ android/build/
 android/app/build/
 android/local.properties
 .DS_Store
+
+# Waiting on the workflow token scope — see README
+.github-pending/
