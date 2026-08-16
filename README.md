@@ -263,6 +263,24 @@ A game can also carry `travel`, for a chartered bus:
 
 Week 2 (St. Thomas More, Lafayette) has one waiting on its link.
 
+## Posting a note
+
+The GroupMe things that get scrolled past an hour later — Friday's ride
+arrangements, who's needed for the Media Guide.
+
+```bash
+python3 tools/notice.py list
+python3 tools/notice.py add "Friday scrimmage rides" "Freshmen not 1-2-3 ..." --on 2026-08-21 --from Coach
+python3 tools/notice.py add "Media Guide help wanted" "..." --until 2026-08-23
+python3 tools/notice.py remove 1
+```
+
+Notes appear under **Notes** on Today and retire themselves once the day
+they're about has passed, so nobody has to remember to take them down.
+
+Today only, deliberately — it's the screen people actually open, and a note
+buried on a fifth tab may as well not exist.
+
 ## Final scores
 
 ```bash

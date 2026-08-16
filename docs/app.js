@@ -389,6 +389,31 @@ function venueCard(venue, heading) {
 // ---------------------------------------------------------------- views
 
 /**
+ * Notes posted to the group — Friday's ride arrangements, who's needed for
+ * the Media Guide. They live on Today because that's the screen people open,
+ * and they retire themselves once the day they're about has passed.
+ */
+function noticesCard(iso) {
+  const all = (typeof NOTICES !== 'undefined' && NOTICES && NOTICES.notices) || [];
+  const live = all.filter((n) => !(n.until || n.on) || (n.until || n.on) >= iso);
+  if (!live.length) return '';
+
+  return `<h2 class="section">Notes</h2>` + live.map((n) => {
+    const when = n.on
+      ? (n.on === iso ? 'Today' : daysBetween(iso, n.on) === 1 ? 'Tomorrow' : shortDate(n.on))
+      : '';
+    return `
+      <div class="card">
+        <div class="task-flag">
+          <strong>${esc(n.title)}</strong>${when ? ` · ${esc(when)}` : ''}
+        </div>
+        <div class="small">${esc(n.body)}</div>
+        <div class="footnote" style="text-align:left;margin:9px 0 0">${n.from ? esc(n.from) + ' · ' : ''}posted ${esc(shortDate(n.posted))}</div>
+      </div>`;
+  }).join('');
+}
+
+/**
  * The coach's posted week. Shows the whole week with today marked, plus the
  * original photo — a model reading a picture can misread a 5 as a 6, so the
  * source stays one tap away rather than being quietly thrown out.
@@ -466,6 +491,7 @@ function renderToday() {
   html += '</div>';
 
   html += thisWeekCard(iso);
+  html += noticesCard(iso);
 
   // --- countdown for your team
   if (upcoming) {

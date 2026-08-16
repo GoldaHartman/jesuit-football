@@ -4140,3 +4140,24 @@ const SPOTLIGHT = {
   "note": "Player/family of the week. Newest first; the app shows the top one.",
   "entries": []
 };
+
+const NOTICES = {
+  "notices": [
+    {
+      "title": "Media Guide help wanted",
+      "body": "Media Guide participation goes through this week. Three moms are taking it over and none are seniors \u2014 if you'd like to spearhead it, let Golda know.",
+      "on": null,
+      "until": "2026-08-23",
+      "from": "Golda",
+      "posted": "2026-08-16"
+    },
+    {
+      "title": "Friday scrimmage at Mandeville \u2014 rides",
+      "body": "Freshmen who are not 1, 2 or 3 on the depth chart can leave after the freshman game, 6:00 from Mandeville. Freshmen playing through the evening stay with the team and bus back. Per Coach on JV/Varsity rides: don't drive onto the Northshore live \u2014 leaving from Mandeville once we're getting on the bus is fine.",
+      "on": "2026-08-21",
+      "until": "2026-08-21",
+      "from": "Coach",
+      "posted": "2026-08-16"
+    }
+  ]
+};

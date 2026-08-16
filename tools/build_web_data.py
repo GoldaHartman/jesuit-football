@@ -139,6 +139,7 @@ def main():
     news = load_optional("news.json", {"items": []})
     standings = load_optional("standings.json", {"teams": []})
     spotlight = load_optional("spotlight.json", {"entries": []})
+    notices = load_optional("notices.json", {"notices": []})
 
     # the album link lives in season.json so it can be edited without
     # re-running the photo pipeline
@@ -159,6 +160,7 @@ def main():
         "news": news,
         "standings": standings,
         "spotlight": spotlight,
+        "notices": notices,
     }, indent=2))
 
     OUT.write_text(
@@ -171,7 +173,8 @@ def main():
         f"const SCHOOL = {json.dumps(school, indent=2)};\n\n"
         f"const NEWS = {json.dumps(news, indent=2)};\n\n"
         f"const STANDINGS = {json.dumps(standings, indent=2)};\n\n"
-        f"const SPOTLIGHT = {json.dumps(spotlight, indent=2)};\n"
+        f"const SPOTLIGHT = {json.dumps(spotlight, indent=2)};\n\n"
+        f"const NOTICES = {json.dumps(notices, indent=2)};\n"
     )
 
     days = len(calendar["days"])
@@ -198,6 +201,7 @@ def main():
     print(f"  news: {len(news['items'])} stories"
           + (f" (fetched {news.get('fetched')})" if news.get("fetched") else " — run tools/fetch_news.py"))
     print(f"  spotlight: {len(spotlight['entries'])} entries")
+    print(f"  notices: {len(notices['notices'])} posted")
     print("  calendar feeds: " + ", ".join(f"{n.replace('jesuit-', '').replace('.ics', '')} {c}"
                                            for n, c in feeds.items()))
 
