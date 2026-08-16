@@ -137,6 +137,18 @@ def main():
         photos["album"] = season["photoAlbum"]["url"]
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
+
+    # A JSON twin of data.js. The store apps bundle their copy but fetch this
+    # on launch, so a corrected kickoff reaches phones without an App Store
+    # review — otherwise every schedule tweak is a week-long resubmission.
+    (OUT.parent / "data.json").write_text(json.dumps({
+        "season": season,
+        "calendar": calendar,
+        "photos": photos,
+        "thisWeek": this_week,
+        "school": school,
+    }, indent=2))
+
     OUT.write_text(
         "// GENERATED FILE — do not edit by hand.\n"
         "// Rebuild with: python3 tools/build_web_data.py\n"

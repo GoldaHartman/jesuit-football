@@ -1,0 +1,26 @@
+{
+  "appId": "org.jesuitnola.football",
+  "appName": "Jesuit Football",
+  "webDir": "docs",
+  "backgroundColor": "#0a2450",
+  "ios": {
+    "contentInset": "always",
+    "backgroundColor": "#0a2450",
+    "limitsNavigationsToAppBoundDomains": false
+  },
+  "android": {
+    "backgroundColor": "#0a2450",
+    "allowMixedContent": false
+  },
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 600,
+      "backgroundColor": "#0a2450",
+      "showSpinner": false
+    }
+  }
+}

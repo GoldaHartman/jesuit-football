@@ -1,0 +1,30 @@
+{
+  "name": "jesuitfootball",
+  "version": "1.0.0",
+  "description": "A day-by-day phone app for Jesuit High School New Orleans football parents, 2026 season. Open it in the morning and it answers the three questions parents actually ask: **what's happening today, when is the next game, and what are this week's notes for my class.**",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoldaHartman/jesuit-football.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/GoldaHartman/jesuit-football/issues"
+  },
+  "homepage": "https://github.com/GoldaHartman/jesuit-football#readme",
+  "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/cli": "^8.5.0",
+    "@capacitor/core": "^8.5.0",
+    "@capacitor/ios": "^8.5.0"
+  }
+}

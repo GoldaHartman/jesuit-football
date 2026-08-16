@@ -1473,6 +1473,43 @@ document.addEventListener('keydown', (event) => {
   else if (!el('daysheet').hidden) closeSheet();
 });
 
+/*
+ * Live data refresh.
+ *
+ * The App Store / Play Store builds ship the site bundled inside them, which
+ * would freeze the schedule until the next review — unworkable when a kickoff
+ * moves on a Wednesday. So on launch we quietly fetch data.json from the live
+ * site and swap it in if it's newer than what shipped.
+ *
+ * Mutating the data objects in place keeps every existing lookup table valid;
+ * rebuilding them would mean re-deriving state scattered through the module.
+ */
+const LIVE_DATA_URL = 'https://goldahartman.github.io/jesuit-football/data.json';
+
+async function refreshFromLive() {
+  // the hosted site already serves current data — this is for the packaged apps
+  if (location.protocol === 'https:' && location.host === 'goldahartman.github.io') return;
+
+  try {
+    const fresh = await fetch(LIVE_DATA_URL, { cache: 'no-store' }).then((r) => {
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    });
+
+    if (!fresh || !fresh.season || !Array.isArray(fresh.season.games)) return;
+
+    Object.assign(SEASON, fresh.season);
+    Object.assign(CALENDAR, fresh.calendar);
+    if (fresh.photos) Object.assign(PHOTOS, fresh.photos);
+
+    renderAll();
+    console.info('Schedule refreshed from the live site.');
+  } catch (err) {
+    // offline, or the site is down — the bundled copy is still perfectly good
+    console.info('Using the bundled schedule.', err && err.message);
+  }
+}
+
 /* The month bar sticks below the app header, whose height depends on the
    device's safe-area inset. Measure it rather than hard-coding. */
 function syncHeaderHeight() {
@@ -1487,6 +1524,7 @@ window.addEventListener('resize', syncHeaderHeight);
 window.addEventListener('orientationchange', syncHeaderHeight);
 
 renderAll();
+refreshFromLive();
 
 // Re-render if the app is left open past midnight, so "Today" stays honest.
 let renderedOn = todayISO();

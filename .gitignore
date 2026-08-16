@@ -23,3 +23,15 @@ venv/
 
 # Single-file share build — regenerate with tools/build_standalone.py
 Jesuit-Football.html
+
+# Capacitor / native builds
+node_modules/
+ios/App/Pods/
+ios/App/App/public/
+ios/App/build/
+android/app/src/main/assets/public/
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+.DS_Store
