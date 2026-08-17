@@ -282,16 +282,21 @@ failed build stops before publishing, so a broken app can't go live.
 
 ```bash
 tools/news_harness.sh                  # run it now
-tools/install_harness.sh               # schedule it, 7:00am daily
-tools/install_harness.sh --at 18       # or 6:00pm
+tools/install_harness.sh               # schedule it, 7:00am and 7:00pm
+tools/install_harness.sh --at 7,19     # same, spelled out
+tools/install_harness.sh --at 6        # once a day instead
 tools/install_harness.sh --status      # installed? when did it last run?
 tools/install_harness.sh --remove      # stop it
 ```
 
 Log: `~/Library/Logs/jesuit-football-news.log`
 
-**launchd, not cron** — if the Mac is asleep at 7am, launchd runs the job on
-wake. cron would skip the day silently.
+**Twice a day, 7:00am and 7:00pm.** The morning run picks up overnight
+coverage; the evening run catches previews and post-game reporting, which is
+when nola.com actually files.
+
+**launchd, not cron** — if the Mac is asleep at 7, launchd runs the job on
+wake. cron would skip the slot silently.
 
 ### The AI step
 

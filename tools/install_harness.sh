@@ -2,8 +2,9 @@
 #
 # Install (or remove) the daily news harness as a macOS launchd job.
 #
-#   tools/install_harness.sh            install, runs 7:00am daily
-#   tools/install_harness.sh --at 18    install, runs 6:00pm daily
+#   tools/install_harness.sh            install, runs 7:00am and 7:00pm
+#   tools/install_harness.sh --at 7,19  same thing, spelled out
+#   tools/install_harness.sh --at 6      once a day, 6:00am
 #   tools/install_harness.sh --remove   uninstall
 #   tools/install_harness.sh --status   is it installed? when did it last run?
 #
@@ -16,11 +17,11 @@ PROJECT="$(cd "$(dirname "$0")/.." && pwd)"
 LABEL="com.jesuitfootball.news"
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 LOG="$HOME/Library/Logs/jesuit-football-news.log"
-HOUR=7
+HOURS="7,19"   # morning, and after the evening games
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    --at) HOUR="$2"; shift 2 ;;
+    --at) HOURS="$2"; shift 2 ;;
     --remove)
       launchctl bootout "gui/$(id -u)/$LABEL" 2>/dev/null
       rm -f "$PLIST"
@@ -41,6 +42,20 @@ done
 chmod +x "$PROJECT/tools/news_harness.sh"
 mkdir -p "$(dirname "$PLIST")" "$(dirname "$LOG")"
 
+# launchd takes an array of times; build one entry per hour requested
+INTERVALS=""
+PRETTY=""
+IFS=',' read -ra HOUR_LIST <<< "$HOURS"
+for h in "${HOUR_LIST[@]}"; do
+  h="$(echo "$h" | tr -d ' ')"
+  if ! [[ "$h" =~ ^[0-9]+$ ]] || [ "$h" -gt 23 ]; then
+    echo "Bad hour '$h' — use 0-23, comma separated (e.g. --at 7,19)"
+    exit 1
+  fi
+  INTERVALS+="    <dict><key>Hour</key><integer>$h</integer><key>Minute</key><integer>0</integer></dict>"$'\n'
+  PRETTY+="$(printf '%02d:00 ' "$h")"
+done
+
 cat > "$PLIST" <<PLISTEOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -54,10 +69,8 @@ cat > "$PLIST" <<PLISTEOF
   </array>
   <key>WorkingDirectory</key><string>$PROJECT</string>
   <key>StartCalendarInterval</key>
-  <dict>
-    <key>Hour</key><integer>$HOUR</integer>
-    <key>Minute</key><integer>0</integer>
-  </dict>
+  <array>
+$INTERVALS  </array>
   <!-- if the Mac was asleep at the scheduled time, run on wake -->
   <key>RunAtLoad</key><false/>
   <key>StandardOutPath</key><string>$LOG</string>
@@ -68,7 +81,7 @@ PLISTEOF
 
 launchctl bootout "gui/$(id -u)/$LABEL" 2>/dev/null
 if launchctl bootstrap "gui/$(id -u)" "$PLIST" 2>/dev/null; then
-  echo "Installed. The harness runs every day at $HOUR:00."
+  echo "Installed. The harness runs every day at: $PRETTY"
 else
   echo "Could not load the job. The plist is written to:"
   echo "  $PLIST"
