@@ -263,6 +263,56 @@ A game can also carry `travel`, for a chartered bus:
 
 Week 2 (St. Thomas More, Lafayette) has one waiting on its link.
 
+## The news harness
+
+Five steps. Deterministic scaffold, one optional AI call in the middle — the
+same shape as the ACT harness.
+
+| | step | kind |
+| --- | --- | --- |
+| 1 | `fetch_news.py` — pull the four feeds | deterministic |
+| 2 | `news_digest.py` — one-paragraph "what matters" | **AI**, skipped with no key |
+| 3 | `build_web_data.py` — regenerate the app | deterministic |
+| 4 | `audit.py` — check the data agrees with itself | deterministic, advisory |
+| 5 | commit and push if anything changed | deterministic |
+
+Every step is idempotent — run it twice and the second run does nothing. A
+dead feed never empties the tab; the app keeps the news it already has. A
+failed build stops before publishing, so a broken app can't go live.
+
+```bash
+tools/news_harness.sh                  # run it now
+tools/install_harness.sh               # schedule it, 7:00am daily
+tools/install_harness.sh --at 18       # or 6:00pm
+tools/install_harness.sh --status      # installed? when did it last run?
+tools/install_harness.sh --remove      # stop it
+```
+
+Log: `~/Library/Logs/jesuit-football-news.log`
+
+**launchd, not cron** — if the Mac is asleep at 7am, launchd runs the job on
+wake. cron would skip the day silently.
+
+### The AI step
+
+`news_digest.py` writes the "This week around 9-5A" paragraph on the News tab.
+It gets **only** the headlines already fetched, and is told not to invent
+scores, times or records. Everything factual in this app comes from the
+schedule and the feeds — never from a model. Add `ANTHROPIC_API_KEY` to `.env`
+to turn it on; without it the harness skips the step and the app renders fine.
+
+### Running even when the laptop is shut
+
+launchd only runs while this Mac is on. For a refresh that happens regardless,
+`.github-pending/refresh-news.yml` does the same job on GitHub's servers. It
+needs one command first, because the current token can't create workflows:
+
+```bash
+gh auth refresh -h github.com -s workflow
+```
+
+Then move the file to `.github/workflows/` and push.
+
 ## Posting a note
 
 The GroupMe things that get scrolled past an hour later — Friday's ride

@@ -1486,6 +1486,15 @@ function renderNews() {
   const district = items.filter((i) => !i.aboutJesuit && !i.extra);
   const extra = items.filter((i) => i.extra);
 
+  // written by the harness's one AI call, over the headlines above
+  if (NEWS && NEWS.digest && NEWS.digest.text) {
+    html += '<h2 class="section">This week around 9-5A</h2>';
+    html += `<div class="card">
+      <div class="small">${esc(NEWS.digest.text)}</div>
+      <div class="footnote" style="text-align:left;margin:10px 0 0">Written from the headlines below${NEWS.digest.written ? ' on ' + esc(shortDate(NEWS.digest.written)) : ''}. Scores and times always come from the schedule, never from a summary.</div>
+    </div>`;
+  }
+
   html += '<h2 class="section">Blue Jay football</h2>';
   html += jesuit.length
     ? jesuit.map(story).join('')
