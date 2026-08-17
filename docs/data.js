@@ -3798,7 +3798,7 @@ const NEWS = {
     "nola.com",
     "crescentcitysports.com"
   ],
-  "fetched": "2026-08-16",
+  "fetched": "2026-08-17",
   "items": [
     {
       "title": "Brother Martin set to ride Royal a long distance",
@@ -4030,15 +4030,6 @@ const NEWS = {
       "link": "https://www.nola.com/news/communities/st_tammany/brother-martin-hannan-based-teams-advance-to-new-orleans-summer-league-final/article_a58bf8c3-aabb-448a-aa3a-51a5eed86203.html",
       "date": "2026-06-30",
       "summary": "The championship game is set for the Crescent City Sports Prep Summer League, and it was a pair of quality pitching performances that powered both teams to semifinal wins at John Ryan Stadium on June 29.",
-      "categories": [],
-      "source": "nola.com",
-      "aboutJesuit": false
-    },
-    {
-      "title": "Former St. Augustine coach explains how he can lift the John Ehret baseball program",
-      "link": "https://www.nola.com/sports/high_schools/former-st-aug-coach-takes-over-john-ehret-baseball-program/article_2d6bdc3c-b440-4d5b-9ba7-c28287862df4.html",
-      "date": "2026-06-24",
-      "summary": "Barret Rey once heard Nick Saban talk about how cornerbacks and safeties can make the best centerfielders. That\u2019s an idea Rey will have in mind as the new baseball coach at John Ehret, which announced his hiring over the weekend.",
       "categories": [],
       "source": "nola.com",
       "aboutJesuit": false
