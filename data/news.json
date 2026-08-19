@@ -4,13 +4,22 @@
     "nola.com",
     "crescentcitysports.com"
   ],
-  "fetched": "2026-08-17",
+  "fetched": "2026-08-19",
   "items": [
     {
-      "title": "Brother Martin set to ride Royal a long distance",
-      "link": "https://crescentcitysports.com/brother-martin-set-to-ride-easton-royal-a-long-distance/",
-      "date": "2026-08-15",
-      "summary": "Brother Martin under Bonis posts winning seasons annually with advances in the playoffs. That figures to continue in 2026. Brother Martin set to ride Royal a long distance",
+      "title": "Brother Martin\u2019s two QBs have each other\u2019s backs, no matter who\u2019s on the field",
+      "link": "https://www.nola.com/sports/high_schools/brother-martin-quarterbacks-hudson-fields-justin-morgan-2026/article_a600c828-b193-4a79-aa90-21609634ef17.html",
+      "date": "2026-08-19",
+      "summary": "Brother Martin quarterback Hudson Fields pulled Justin Morgan aside three years ago and told him something that Morgan hasn't forgotten.",
+      "categories": [],
+      "source": "nola.com",
+      "aboutJesuit": false
+    },
+    {
+      "title": "Chalmette prepares to take on challenge of difficult district",
+      "link": "https://crescentcitysports.com/chalmette-prepares-to-take-on-challenge-of-difficult-district/",
+      "date": "2026-08-18",
+      "summary": "Chalmette is in its third district in five years. It is a familiar league though. The Owls were placed in District 9-5A by the LHSAA, the toughest district in Louisiana. Chalmette prepares to take on challenge of difficult district",
       "categories": [
         "Preps",
         "Louisiana High School Football",
@@ -72,7 +81,7 @@
       "title": "Back in Blue",
       "link": "https://www.jesuitnola.org/2026/08/11/back-in-blue/",
       "date": "2026-08-12",
-      "summary": "The halls were once again filled with laughter, handshakes, and familiar faces as new and veteran Blue Jays returned to campus for Registration Day, signaling that another school year is just around the corner. Students arrived in coats\u2026",
+      "summary": "Blue Jays old and new returned to Carrollton & Banks for Registration Day, completing the essentials and reconnecting ahead of the first day of classes.",
       "categories": [
         "Academics",
         "Class of 2027",
@@ -91,23 +100,10 @@
       "aboutJesuit": false
     },
     {
-      "title": "Karr looks to three-peat with young squad",
-      "link": "https://crescentcitysports.com/karr-looks-to-three-peat-with-young-squad/",
-      "date": "2026-08-10",
-      "summary": "Despite being an elite program, the 2026 Cougars will be challenged. Karr looks to three-peat with young squad",
-      "categories": [
-        "Preps",
-        "Louisiana High School Football",
-        "Louisiana High School Football Team Preview"
-      ],
-      "source": "Crescent City Sports",
-      "aboutJesuit": false
-    },
-    {
       "title": "Rising Seniors Serve with Joy at Camp Benny",
       "link": "https://www.jesuitnola.org/2026/08/10/building-joy-through-inclusion-at-camp-benny/",
       "date": "2026-08-10",
-      "summary": "The 100-hour Senior Service Project is an opportunity to encounter Christ through relationships with others in need. As part of Jesuit\u2019s mission of forming men for others, each senior serves a single community service partner for 100\u2026",
+      "summary": "Rising seniors completed their 100-hour service requirement as counselors at Camp Benny, an inclusive summer camp for children on the autism spectrum.",
       "categories": [
         "Class of 2027",
         "Community Service",
@@ -148,32 +144,6 @@
       "aboutJesuit": false
     },
     {
-      "title": "Four-star QB Colton Nussmeier to transfer to Archbishop Rummel for final season",
-      "link": "https://crescentcitysports.com/four-star-qb-colton-nussmeier-to-transfer-to-archbishop-rummel-for-final-season/",
-      "date": "2026-08-07",
-      "summary": "Colton Nussmeier, a four-star prospect in the Class of 2027 who is committed to the University of Georgia, is transferring to Archbishop Rummel for his senior year and will be eligible to play for the Raiders. Four-star QB Colton\u2026",
-      "categories": [
-        "Preps",
-        "Louisiana High School Football",
-        "Louisiana Recruiting News"
-      ],
-      "source": "Crescent City Sports",
-      "aboutJesuit": false
-    },
-    {
-      "title": "Marc Martin returns to Rummel as Cross Country, Track and Field Head Coach",
-      "link": "https://crescentcitysports.com/marc-martin-returns-to-rummel-as-cross-country-track-and-field-head-coach/",
-      "date": "2026-08-07",
-      "summary": "A familiar name with vast coaching experience is returning to his alma mater. Marc Martin returns to Rummel as Cross Country, Track and Field Head Coach",
-      "categories": [
-        "Preps",
-        "Louisiana High School Football",
-        "Louisiana High School Track & Field"
-      ],
-      "source": "Crescent City Sports",
-      "aboutJesuit": false
-    },
-    {
       "title": "The John Curtis secondary is poised to shine with three college-bound seniors",
       "link": "https://www.nola.com/sports/high_schools/john-curtis-football-secondary-2026/article_21afcaf0-39b0-4690-b275-d8828ca2ded8.html",
       "date": "2026-08-06",
@@ -181,19 +151,6 @@
       "categories": [],
       "source": "nola.com",
       "aboutJesuit": false
-    },
-    {
-      "title": "Serving on the Frontiers of Faith",
-      "link": "https://www.jesuitnola.org/2026/08/06/serving-on-the-frontiers-of-faith/",
-      "date": "2026-08-06",
-      "summary": "A group of seniors recently embarked on a mission trip to the Rosebud Lakota Reservation in south-central South Dakota. It became much more than a week of service; it was an opportunity to build relationships, encounter a culture\u2026",
-      "categories": [
-        "Class of 2027",
-        "Homepage",
-        "News"
-      ],
-      "source": "Jesuit",
-      "extra": true
     },
     {
       "title": "Rummel football\u2019s 1,000-yard rushing duo fuels each other\u2019s success ahead of 2026 season",
@@ -209,33 +166,6 @@
       "link": "https://www.nola.com/sports/high_schools/dominic-pellegrin-mlb-draft-2026/article_bb1e360b-dd2b-4e14-b99b-a92f085c510c.html",
       "date": "2026-07-12",
       "summary": "The Detroit Tigers selected Holy Cross shortstop Dominic Pellegrin with the 125th overall pick in the fourth round of the MLB Draft on Saturday.",
-      "categories": [],
-      "source": "nola.com",
-      "aboutJesuit": false
-    },
-    {
-      "title": "Prep football doubleheader at Superdome to include Edna Karr, St. Augustine",
-      "link": "https://www.nola.com/sports/high_schools/edna-karr-st-augustine-prep-football-doubleheader-superdome/article_36a4ca36-38d8-4741-8597-27de2fb4ec3d.html",
-      "date": "2026-07-09",
-      "summary": "Edna Karr and St. Augustine will both return to the Caesars Superdome this season \u2014 in a regular-season doubleheader to be played on a Saturday.",
-      "categories": [],
-      "source": "nola.com",
-      "aboutJesuit": false
-    },
-    {
-      "title": "State runner-up Brother Martin wins another summer league championship. \u2018Puts us on the right track.\u2019",
-      "link": "https://www.nola.com/sports/high_schools/brother-martin-summer-baseball-league-championship-2026/article_99e61443-8465-47ea-afc4-1a263341ccb9.html",
-      "date": "2026-07-01",
-      "summary": "Brady McCluskey drilled a single to center field \u2014 just as he had done so many times during the high school season.",
-      "categories": [],
-      "source": "nola.com",
-      "aboutJesuit": false
-    },
-    {
-      "title": "Brother Martin, Hannan-based teams advance to New Orleans summer league final",
-      "link": "https://www.nola.com/news/communities/st_tammany/brother-martin-hannan-based-teams-advance-to-new-orleans-summer-league-final/article_a58bf8c3-aabb-448a-aa3a-51a5eed86203.html",
-      "date": "2026-06-30",
-      "summary": "The championship game is set for the Crescent City Sports Prep Summer League, and it was a pair of quality pitching performances that powered both teams to semifinal wins at John Ryan Stadium on June 29.",
       "categories": [],
       "source": "nola.com",
       "aboutJesuit": false
