@@ -246,10 +246,18 @@ function recordFor(games) {
 }
 
 function gamesForTeam(team) {
-  const list = team === 'Varsity'
-    ? SEASON.games
+  // Scrimmages and jamborees are played by 9th, JV and Varsity together. They
+  // carry a `teams` list; everything else in SEASON.games is Varsity only.
+  const shared = SEASON.games.filter((g) =>
+    Array.isArray(g.teams) ? g.teams.includes(team) : team === 'Varsity');
+
+  const own = team === 'Varsity'
+    ? []
     : (SEASON.teamGames || []).filter((g) => g.team === team);
-  return list.map(normalize);
+
+  return [...shared, ...own]
+    .map(normalize)
+    .sort((a, b) => a.date.localeCompare(b.date));
 }
 
 // ---------------------------------------------------------------- game-week tasks

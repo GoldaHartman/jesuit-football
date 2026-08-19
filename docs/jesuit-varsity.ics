@@ -20,6 +20,18 @@ DESCRIPTION:Fourth annual. Intrasquad scrimmage. Food provided for players\
  campus.
 END:VEVENT
 BEGIN:VEVENT
+UID:varsity-preseason-mandeville@jesuitfootball.local
+DTSTAMP:20260801T000000Z
+DTSTART;VALUE=DATE:20260821
+DTEND;VALUE=DATE:20260822
+SUMMARY:🏈 Mandeville Scrimmage
+LOCATION:Mandeville\, LA (St. Tammany)
+DESCRIPTION:9th\, JV and Varsity all play. Freshmen not 1\, 2 or 3 on the d
+ epth chart can leave at 6:00\; the rest bus back with the team.\nBags: CLE
+ AR bags only\, max 12x8x12 in.\; clear small purse max 4.5x6.5 in. One bag
+  per person.\nParking: On campus.
+END:VEVENT
+BEGIN:VEVENT
 UID:varsity-preseason-jamboree@jesuitfootball.local
 DTSTAMP:20260801T000000Z
 DTSTART:20260827T223000Z

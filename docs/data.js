@@ -35,7 +35,31 @@ const SEASON = {
       "isDistrict": false,
       "type": "preseason",
       "mealGrade": null,
-      "notes": "Fourth annual. Intrasquad scrimmage. Food provided for players; each grade brings a dish tailgate style."
+      "notes": "Fourth annual. Intrasquad scrimmage. Food provided for players; each grade brings a dish tailgate style.",
+      "teams": [
+        "9th",
+        "JV",
+        "Varsity"
+      ]
+    },
+    {
+      "id": "preseason-mandeville",
+      "week": null,
+      "date": "2026-08-21",
+      "opponent": "Mandeville Scrimmage",
+      "kickoff": null,
+      "kickoffNote": "Time TBA \u2014 confirm with your son",
+      "venueId": "mandeville",
+      "isHome": false,
+      "isDistrict": false,
+      "type": "preseason",
+      "mealGrade": null,
+      "teams": [
+        "9th",
+        "JV",
+        "Varsity"
+      ],
+      "notes": "9th, JV and Varsity all play. Freshmen not 1, 2 or 3 on the depth chart can leave at 6:00; the rest bus back with the team."
     },
     {
       "id": "preseason-jamboree",
@@ -49,7 +73,12 @@ const SEASON = {
       "isDistrict": false,
       "type": "preseason",
       "mealGrade": null,
-      "notes": "Preseason scrimmage \u2014 no pre-game meal."
+      "notes": "Preseason scrimmage \u2014 no pre-game meal.",
+      "teams": [
+        "9th",
+        "JV",
+        "Varsity"
+      ]
     },
     {
       "id": "week-1",
@@ -318,6 +347,18 @@ const SEASON = {
       "parking": "Algiers / West Bank.",
       "driveNote": null,
       "source": "Edna Karr clear-bag policy (official)"
+    },
+    {
+      "id": "mandeville",
+      "name": "Mandeville High School",
+      "address": "Mandeville, LA (St. Tammany)",
+      "tickets": null,
+      "ticketNote": "Preseason scrimmage \u2014 pay at the gate.",
+      "bagPolicy": "CLEAR bags only, max 12x8x12 in.; clear small purse max 4.5x6.5 in. One bag per person.",
+      "prohibited": "Non-clear bags, backpacks.",
+      "parking": "On campus.",
+      "driveNote": "About a 45 minute drive across the Causeway.",
+      "source": "St. Tammany Parish (STPSB) bag guidelines"
     }
   ],
   "grades": [
